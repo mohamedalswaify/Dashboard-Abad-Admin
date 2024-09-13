@@ -1,0 +1,59 @@
+﻿@model WebApplicationAbad.Areas.Setting.Data.PrivacyModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Create Privacy";
+}
+
+<h2>Create Privacy</h2>
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="TermsofService"></label>
+        <textarea id="alswafiy" asp-for="TermsofService" class="form-control"></textarea>
+        <span asp-validation-for="TermsofService" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PrivacyPolicy"></label>
+        <textarea id="alswafiy" asp-for="PrivacyPolicy" class="form-control"></textarea>
+        <span asp-validation-for="PrivacyPolicy" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IntellectualPropertyPolicy"></label>
+        <textarea id="alswafiy" asp-for="IntellectualPropertyPolicy" class="form-control"></textarea>
+        <span asp-validation-for="IntellectualPropertyPolicy" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MainServicesAgreement"></label>
+        <textarea id="alswafiy" asp-for="MainServicesAgreement" class="form-control"></textarea>
+        <span asp-validation-for="MainServicesAgreement" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PromotionsPolicy"></label>
+        <textarea id="alswafiy" asp-for="PromotionsPolicy" class="form-control"></textarea>
+        <span asp-validation-for="PromotionsPolicy" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<script src="https://cdn.tiny.cloud/1/kfrv2muqtarthjfdqul6ycx9qbh7pep6swo2yjkjtj7aursl/tinymce/7/tinymce.min.js"
+        referrerpolicy="origin"></script>
+
+<script>
+    tinymce.init({
+        selector: 'textarea#alswafiy',
+        width: "100%",
+        height: 500,
+        resize: false,
+        autosave_ask_before_unload: false,
+        plugins: [
+            'advlist', 'anchor', 'autolink', 'codesample', 'fullscreen', 'help',
+            'image', 'lists', 'link', 'media', 'preview',
+            'searchreplace', 'table', 'visualblocks', 'wordcount'
+        ],
+        toolbar: 'undo redo | bold italic | forecolor backcolor | codesample | alignleft aligncenter alignright alignjustify | bullist numlist | link image',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px } ul,ol{direction:rtl}'
+    });
+</script>

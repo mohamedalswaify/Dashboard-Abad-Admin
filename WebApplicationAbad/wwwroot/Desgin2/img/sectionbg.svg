@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="680" viewBox="0 0 1920 680">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_128" data-name="Rectangle 128" width="1920" height="680" transform="translate(-10005 4460)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.085" y1="-0.356" x2="0.698" y2="0.808" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#154476"/>
+      <stop offset="1" stop-color="#2269a3"/>
+    </linearGradient>
+  </defs>
+  <g id="Mask_Group_23" data-name="Mask Group 23" transform="translate(10005 -4460)" clip-path="url(#clip-path)">
+    <g id="Testimonials" transform="translate(-10005 1542)">
+      <g id="BG">
+        <g id="Shape_BG" data-name="Shape BG">
+          <rect id="Rectangle_12" data-name="Rectangle 12" width="1920" height="680" transform="translate(0 2918)" fill="url(#linear-gradient)"/>
+        </g>
+        <g id="Shape_Objects" data-name="Shape Objects">
+          <g id="_02" data-name="#02">
+            <circle id="Ellipse_545_copy_3" data-name="Ellipse 545 copy 3" cx="20.25" cy="20.25" r="20.25" transform="translate(422.5 3315.61)" fill="#1e71f5"/>
+            <circle id="Ellipse_28" data-name="Ellipse 28" cx="20.25" cy="20.25" r="20.25" transform="translate(405 3312.89)" fill="none" stroke="#4087f7" stroke-width="8"/>
+          </g>
+          <g id="_03" data-name="#03">
+            <path id="Ellipse_545_copy_3-2" data-name="Ellipse 545 copy 3" d="M1468.98,3446.03a14.985,14.985,0,1,1-10.614,4.382,14.985,14.985,0,0,1,10.614-4.382Z" fill="#1e71f5" fill-rule="evenodd"/>
+          </g>
+          <g id="_05" data-name="#05">
+            <circle id="Ellipse_545_copy_3-3" data-name="Ellipse 545 copy 3" cx="28.281" cy="28.281" r="28.281" transform="translate(379.438 2979.629)" fill="#1e71f5"/>
+          </g>
+          <g id="_08" data-name="#08">
+            <circle id="Ellipse_29" data-name="Ellipse 29" cx="8.06" cy="8.06" r="8.06" transform="translate(1467.91 3262.85)" fill="none" stroke="#4087f7" stroke-linecap="round" stroke-width="3" stroke-dasharray="0.001 6"/>
+          </g>
+          <g id="_09" data-name="#09">
+            <circle id="Ellipse_30" data-name="Ellipse 30" cx="16.734" cy="16.734" r="16.734" transform="translate(449.938 3197.176)" fill="none" stroke="#4087f7" stroke-linecap="round" stroke-width="5" stroke-dasharray="0.001 10"/>
+          </g>
+          <g id="Eclipse">
+            <circle id="Ellipse_793_copy_4" data-name="Ellipse 793 copy 4" cx="4.5" cy="4.5" r="4.5" transform="translate(1296 3154)" fill="#4087f7"/>
+          </g>
+          <g id="Polygon_01" data-name="Polygon #01">
+            <path id="Rectangle_808_copy" data-name="Rectangle 808 copy" d="M1867.61,3493.51l16.25,28.16-28.15,16.27-16.25-28.17Z" fill="#1e71f5" fill-rule="evenodd"/>
+          </g>
+        </g>
+      </g>
+      <g id="Testimonials_Text" data-name="Testimonials Text">
+        <g id="Group_2" data-name="Group 2" opacity="0.65">
+          <rect id="Shape" width="160" height="30" rx="15" transform="translate(299 3062)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Shape-2" data-name="Shape" width="160" height="30" rx="15" transform="translate(257 3115)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Shape-3" data-name="Shape" width="160" height="23" rx="11.5" transform="translate(301 3092)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Shape-4" data-name="Shape" width="160" height="30" rx="15" transform="translate(-66 3393)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Shape-5" data-name="Shape" width="160" height="30" rx="15" transform="translate(-24 3446)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Shape-6" data-name="Shape" width="60" height="30" rx="15" transform="translate(-46 3485)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Shape-7" data-name="Shape" width="160" height="23" rx="11.5" transform="translate(-68 3423)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Shape-8" data-name="Shape" width="200" height="30" rx="15" transform="translate(1433 2941)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Shape-9" data-name="Shape" width="60" height="30" rx="15" transform="translate(1451 2980)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Shape-10" data-name="Shape" width="160" height="23" rx="11.5" transform="translate(1429 2918)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Shape-11" data-name="Shape" width="160" height="30" rx="15" transform="translate(1233 3545)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Shape-12" data-name="Shape" width="55" height="30" rx="15" transform="translate(1172 3544)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Shape-13" data-name="Shape" width="160" height="23" rx="11.5" transform="translate(1260 3575)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Rectangle_15" data-name="Rectangle 15" width="6.688" height="6.66" transform="translate(88.656 2991)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Rectangle_932_copy" data-name="Rectangle 932 copy" width="6.656" height="6.68" transform="translate(95.344 2997.66)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Rectangle_932_copy_2" data-name="Rectangle 932 copy 2" width="6.656" height="6.68" transform="translate(82 2997.66)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Rectangle_932_copy_3" data-name="Rectangle 932 copy 3" width="6.688" height="6.66" transform="translate(88.656 3004.34)" fill="#3782f9" opacity="0.65"/>
+          <rect id="Rectangle_16" data-name="Rectangle 16" width="14" height="14" transform="translate(320 3339)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Rectangle_932_copy-2" data-name="Rectangle 932 copy" width="14" height="14" transform="translate(334 3353)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Rectangle_932_copy_4" data-name="Rectangle 932 copy 4" width="14" height="14" transform="translate(306 3353)" fill="#1b6ff4" opacity="0.65"/>
+          <rect id="Rectangle_932_copy_5" data-name="Rectangle 932 copy 5" width="14" height="14" transform="translate(320 3367)" fill="#1b6ff4" opacity="0.65"/>
+          <circle id="Ellipse_545_copy_3-4" data-name="Ellipse 545 copy 3" cx="37" cy="37" r="37" transform="translate(159 3121)" fill="#1e71f5" opacity="0.65"/>
+          <circle id="Ellipse_31" data-name="Ellipse 31" cx="37" cy="37" r="37" transform="translate(127 3116)" fill="none" stroke="#4087f7" stroke-width="12" opacity="0.65"/>
+          <path id="Path_6" data-name="Path 6" d="M1456.02,3444a14.985,14.985,0,1,1-10.617,4.375A14.985,14.985,0,0,1,1456.02,3444Z" fill="none" stroke="#4087f7" stroke-width="6" fill-rule="evenodd" opacity="0.65"/>
+          <circle id="Ellipse_32" data-name="Ellipse 32" cx="46.78" cy="46.78" r="46.78" transform="translate(1502 3065.05)" fill="none" stroke="#4087f7" stroke-width="12" opacity="0.65"/>
+          <circle id="Ellipse_33" data-name="Ellipse 33" cx="28.281" cy="28.281" r="28.281" transform="translate(355 2975.809)" fill="none" stroke="#4087f7" stroke-width="12" opacity="0.65"/>
+          <circle id="Ellipse_545_copy_3-5" data-name="Ellipse 545 copy 3" cx="11.172" cy="11.172" r="11.172" transform="translate(507.656 3513.588)" fill="#1e71f5" opacity="0.65"/>
+          <circle id="Ellipse_34" data-name="Ellipse 34" cx="11.172" cy="11.172" r="11.172" transform="translate(498 3512.068)" fill="none" stroke="#4087f7" stroke-width="4" opacity="0.65"/>
+          <circle id="Ellipse_545_copy_3-6" data-name="Ellipse 545 copy 3" cx="11.17" cy="11.17" r="11.17" transform="translate(1802.66 3153.59)" fill="#1e71f5" opacity="0.65"/>
+          <circle id="Ellipse_35" data-name="Ellipse 35" cx="11.17" cy="11.17" r="11.17" transform="translate(1793 3152.07)" fill="none" stroke="#4087f7" stroke-width="4" opacity="0.65"/>
+          <rect id="Shape-14" data-name="Shape" width="5" height="24" rx="2" transform="translate(1559 3259)" fill="#4087f7" opacity="0.65"/>
+          <rect id="Shape-15" data-name="Shape" width="24" height="5" rx="2" transform="translate(1549 3269)" fill="#4087f7" opacity="0.65"/>
+          <rect id="Shape-16" data-name="Shape" width="5" height="24" rx="2" transform="translate(298 3422)" fill="#4087f7" opacity="0.65"/>
+          <rect id="Shape-17" data-name="Shape" width="24" height="5" rx="2" transform="translate(288 3432)" fill="#4087f7" opacity="0.65"/>
+          <circle id="Ellipse_36" data-name="Ellipse 36" cx="6" cy="6" r="6" transform="translate(1640 3463)" fill="#4087f7" opacity="0.65"/>
+          <circle id="Ellipse_793_copy" data-name="Ellipse 793 copy" cx="8" cy="8" r="8" transform="translate(129 3315)" fill="#4087f7" opacity="0.65"/>
+          <circle id="Ellipse_793_copy_2" data-name="Ellipse 793 copy 2" cx="19" cy="19" r="19" transform="translate(1726 3295)" fill="none" stroke="#4087f7" stroke-width="6" opacity="0.65"/>
+          <circle id="Ellipse_793_copy_3" data-name="Ellipse 793 copy 3" cx="4.5" cy="4.5" r="4.5" transform="translate(304 3299)" fill="#4087f7" opacity="0.65"/>
+          <path id="Path_7" data-name="Path 7" d="M1847.29,3488.06l16.25,28.17-28.15,16.26-16.25-28.16Z" fill="none" stroke="#4087f7" stroke-width="6" fill-rule="evenodd" opacity="0.65"/>
+        </g>
+      </g>
+      <g id="Placeholder">
+        <circle id="Placeholder-2" data-name="Placeholder" cx="60" cy="60" r="60" transform="translate(975 3020)" fill="#e5e5e5"/>
+        <image id="Change_Image" data-name="Change Image" width="120" height="120" transform="translate(975 3020)" xlink:href="data:image/png;base64,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"/>
+      </g>
+      <g id="Icons1" transform="translate(1112.376 2995.036)">
+        <path id="quote-1" d="M71.591,12V38.7q-12.66.7-19.165,4.624T43.28,56.06q-2.635,8.813-2.638,25.214H71.591v63.691H8.113V84.414Q8.113,46.9,24.2,29.449T71.591,12Zm95.831,0V38.7q-12.66.7-19.165,4.451t-9.408,12.738q-2.9,8.982-2.9,25.387h31.474v63.691H103.594V84.414q0-37.516,16-54.965T167.422,12Z" fill="#1e6ac4"/>
+      </g>
+    </g>
+  </g>
+</svg>

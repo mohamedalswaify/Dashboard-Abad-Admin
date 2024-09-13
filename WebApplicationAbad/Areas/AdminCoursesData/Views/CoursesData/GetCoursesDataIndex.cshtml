@@ -1,0 +1,69 @@
+﻿@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@model IEnumerable<CoursesData>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Courses Data";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                <a class="btn btn-outline-primary" asp-action="GetCoursesDataCreate">اضافة دوره جديده  <i class="fa-solid fa-plus"></i> </a>
+            </div>
+            <h2 class="card-title">محتوي الدورات</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="Search.....">
+        </div>
+        <form asp-action="GetCoursesDataIndex" id="myTable" onsubmit="return AllBool()">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>و</th>
+                        <th>الاسم بالعربي</th>
+                        <th>تصنيف الدوره</th>
+                        <th>
+                          سعر الدوره
+                        </th>
+                        <th>
+                            الاخفاء
+                        </th>
+                        <th>
+                           الصوره
+                        </th>
+                       
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>  @item.Id</td>
+                            <td>  @Html.DisplayFor(modelItem => item.HeaderAr)</td>
+                           
+                            <td>  @Html.DisplayFor(modelItem => item.CoursesType.EnglishName)</td>
+                            <td>  @item.Price</td>
+                            <td>  @Html.DisplayFor(modelItem => item.IsHide)</td>
+                            <td>  <img width="100px" height="100px" src="~/Admin/CoursesDataImage/@item.Image" /></td>
+                            <td class="table-action">
+                                <a class="btn btn-success" asp-action="GetCoursesDataCreate" asp-route-id="@item.Id"><i class="align-middle" data-feather="edit-2"></i></a>
+                                <button type="submit" value="اضافه" class="btn btn-danger" asp-route-id="@item.Id"><i class="align-middle" data-feather="trash"></i></button>
+                                <a class="btn btn-primary" asp-action="GetCoursesDataDetils" asp-route-id="@item.Id">
+                                    <i class="align-middle" data-feather="trash"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

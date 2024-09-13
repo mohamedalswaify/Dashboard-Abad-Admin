@@ -1,0 +1,22 @@
+﻿@model WebApplicationAbad.Areas.CompanyData.Models.Partners
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Delete</h1>
+
+
+<h2>Are you sure you want to delete this partner?</h2>
+
+<div>
+    <h3>@Model.Name</h3>
+    <img src="@Model.Image" alt="@Model.Name" width="200" />
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

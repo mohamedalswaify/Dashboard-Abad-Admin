@@ -1,0 +1,50 @@
+﻿@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@model IEnumerable<Room>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Courses Type";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<p>@ViewBag.ex</p>
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                <a class="btn btn-outline-primary" asp-action="Create">اضافة غرفة<i class="fa-solid fa-plus"></i> </a>
+            </div>
+            <h2 class="card-title">غرف الدورات</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="بحث">
+        </div>
+        <form asp-action="Index" onsubmit="return AllBool()">
+            <table id="myTable" class="table mt-2 table-striped">
+                <thead>
+                    <tr>
+                        <th>اسم الغرفة</th>
+                        <th>اسم الغرفة بالانجلزي</th>
+                        <th>الحظر</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><a asp-action="Details" asp-route-Token="@item.Token" style="color:red; font-weight:bold">@item.RoomNameAR</a></td>
+                            <td>@item.RoomNameEN</td>
+                            <td><input type="checkbox" asp-for="@item.IsHide" value="@item.IsHide" disabled/></td>
+                            <td class="table-action">
+                                <a class="btn btn-success" asp-action="Create" asp-route-Token="@item.Token"><i class="align-middle" data-feather="edit-2"></i></a>
+                                <button type="submit" class="btn btn-danger" asp-route-Token="@item.Token"><i class="align-middle" data-feather="trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,136 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <Compile Remove="obj\**" />
+    <Compile Remove="wwwroot\js\**" />
+    <Content Remove="bin\**" />
+    <Content Remove="obj\**" />
+    <Content Remove="wwwroot\js\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
+    <None Remove="bin\**" />
+    <None Remove="obj\**" />
+    <None Remove="wwwroot\js\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Home\Index2.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+    <None Include="WebApplicationAbad.csproj" />
+    <None Include="WebApplicationAbad.csproj.user" />
+    <None Include="wwwroot\Abad\logo.png" />
+    <None Include="wwwroot\customer\content\assets\images\article1.svg" />
+    <None Include="wwwroot\customer\content\assets\images\banner.webp" />
+    <None Include="wwwroot\customer\content\assets\images\img4.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item1.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item11.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item2.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item22.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item3.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item33.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item4.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item44.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item5.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item55.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item6.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item66.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item7.svg" />
+    <None Include="wwwroot\customer\content\assets\images\item77.svg" />
+    <None Include="wwwroot\customer\content\assets\images\mada.svg" />
+    <None Include="wwwroot\customer\content\assets\images\mastercard.svg" />
+    <None Include="wwwroot\customer\content\assets\images\menu.svg" />
+    <None Include="wwwroot\customer\content\assets\images\nextsvg.svg" />
+    <None Include="wwwroot\customer\content\assets\images\tmarasvg.svg" />
+    <None Include="wwwroot\customer\content\assets\images\visa.svg" />
+    <None Include="wwwroot\customer\content\js\main\article.js" />
+    <None Include="wwwroot\customer\content\js\main\counter.js" />
+    <None Include="wwwroot\customer\content\js\main\num-check.js" />
+    <None Include="wwwroot\customer\content\js\main\swiper.js" />
+    <None Include="wwwroot\customer\content\js\vendors\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\customer\content\js\vendors\jquery-3.7.1.min.js" />
+    <None Include="wwwroot\customer\content\js\vendors\swiper-bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="SweetAlert" Version="1.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="ZoomNet" Version="0.74.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\AdminCoursesData\Data\" />
+    <Folder Include="Areas\AdminManageData\Views\Students\" />
+    <Folder Include="Areas\CompanyData\Data\" />
+    <Folder Include="Areas\Setting\Controllers\" />
+    <Folder Include="Areas\Setting\Models\" />
+    <Folder Include="Areas\Setting\Views\" />
+    <Folder Include="Areas\StudentCourses\Data\" />
+    <Folder Include="wwwroot\Admin\CompanyImage\" />
+    <Folder Include="wwwroot\CompanyRequest\" />
+  </ItemGroup>
+
+</Project>

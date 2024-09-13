@@ -1,0 +1,321 @@
+﻿@model WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesData
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject ApplicationDbContext context;
+@using System.Globalization;
+@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@using WebApplicationAbad.Data;
+@{
+    ViewData["Title"] = "GetDetailsCourses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool check;
+    var datas = context.CoursesTypes.Where(b => !b.IsDelete && !b.IsHide && b.Code == Model.CoursesTypeId);
+    SelectList list = new SelectList(datas, "Code", "EnglishName");
+    ViewBag.SelectType = list;
+    RequiredCourse CoursenRe = new RequiredCourse();
+    int randomNumber = 0;
+
+
+}
+<style>
+    .login-background .login .card-login {
+       box-shadow:none;
+    }
+    .login-background{
+        margin-top:0px !important
+    }
+
+    .form-check {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-check-label {
+        margin-right: 30px; 
+    }
+    .text-black{
+        box-shadow: 0px 0px 24px 0px rgba(9, 95, 144, 0.1);
+        border-radius: 30px
+    }
+</style>
+@{
+    var maxLength = 200;
+    string truncatedText = "";
+    if(Model !=null){
+     truncatedText = Model.DetailsAr.Length > maxLength
+        ? Model.DetailsAr.Substring(0, maxLength) + "..."
+        : Model.DetailsAr;
+    }
+}
+<div class="heading-courses">
+    <h2>@Model.HeaderAr</h2>
+    <p>@truncatedText</p>
+</div>
+
+    </header>
+
+<!-- title -->
+<div class="title-page">
+    <div>
+        <p style="color:black">
+            الصفحة الرئيسية > الدورات >
+            <span style="color:black">التدريب على @Model.HeaderAr </span>
+        </p>
+    </div>
+</div>
+
+<!-- all courses -->
+<div class="all-courses">
+    <div class="list-course">
+        <div class="video-course" style="padding-bottom: 50px;">
+            <img src="~/Admin/CoursesDataImage/@Model.Image" style="width:100%" />
+        </div>
+    </div>
+
+
+
+
+    @{
+        check =
+            string.IsNullOrEmpty(Model.TestAr)
+            && string.IsNullOrEmpty(Model.PriceM.ToString());
+    }
+    <div class="courses ">
+        <nav class="nav nav-tabs ">
+
+            <button type="button" class="col-4  col-lg nav-link active" style="border-left: none;" data-bs-target="#tab6"
+                    data-bs-toggle="tab">
+                    تسجيل طلب
+            </button>
+
+            @if (!string.IsNullOrEmpty(Model.DetailsAr))
+            {
+                <button type="button" class="col-4  col-lg nav-link " style="border-right: none;" data-bs-target="#tab1"
+                        data-bs-toggle="tab">
+                    عن الدورة
+                </button>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.GoalsAr))
+            {
+                <button type="button" class="col-4  col-lg nav-link " data-bs-target="#tab2" data-bs-toggle="tab">
+                    اهداف
+                    الدورة
+                </button>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.TargetAr))
+            {
+                <button type="button" class="col-4  col-lg nav-link " data-bs-target="#tab3" data-bs-toggle="tab">
+                    من يحتاج هذه
+                    الدورة
+                </button>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.SkillsAr))
+            {
+                <button type="button" class="col-4  col-lg nav-link " data-bs-target="#tab4" data-bs-toggle="tab">
+                    مهارات و
+                    كفاءات
+                </button>
+            }
+
+            @if (!check)
+            {
+                <button type="button" class="col-4  col-lg nav-link " data-bs-target="#tab5" data-bs-toggle="tab">
+                    تفاصيل
+                    الاختبارات
+                </button>
+            }
+
+
+        </nav>
+
+        <div class="tab-content">
+            <div class="tab-pane active show fade" id="tab6">
+                <div class="login-background container-fulid">
+
+                    <div class="login">
+                        <section>
+                            <div class="container h-100">
+                                <div class="row  h-100">
+                                    <div class="col col-xl-10">
+                                        <div class="card card-login">
+                                            <div class="row g-0">
+
+                                                <div class="col-md-6 col-lg-7 w-100 ">
+                                                    <div class="card-body p-4 p-lg-5 text-black">
+
+                                                        <form asp-action="AddCosrseRequired" method="post" onsubmit="return validateForm();">
+                                                           <div class="text-center" style="padding-bottom:20px">
+                                                                <h2 style="text-align:center">تسجيل طلب</h2>
+                                                           </div>
+                                                            <div class="form-outline mb-4">
+                                                                <input type="text" class="form-control form-control-lg" asp-for="@CoursenRe.UsserName" name="UsserName" placeholder="الاسم" style="font-size: 14px; padding:16px;" />
+                                                            </div>
+                                                            <div class="form-outline mb-4">
+                                                                <input type="Email" class="form-control form-control-lg" asp-for="@CoursenRe.UsserEmail" name="UsserEmail" placeholder="البريد الالكتروني" style="font-size: 14px; padding:16px;" />
+                                                            </div>
+                                                            <div class="form-outline mb-4">
+                                                                <input type="number" class="form-control form-control-lg" asp-for="@CoursenRe.UserPhone" name="UserPhone" placeholder="رقم الجوال" style="font-size: 14px; padding:16px" />
+                                                            </div>
+                                                            <div class="form-outline mb-4">
+                                                                <select class="form-select" asp-for="@CoursenRe.UserCity" name="UserCity">
+                                                                    <option>اختر المدينة</option>
+                                                                    <option value="الرياض">الرياض</option>
+                                                                    <option value="جدة">جدة</option>
+                                                                    <option value="مكة المكرمة">مكة المكرمة</option>
+                                                                    <option value="المدينة المنورة">المدينة المنورة</option>
+                                                                    <option value="الدمام">الدمام</option>
+                                                                    <option value="الخبر">الخبر</option>
+                                                                    <option value="الجبيل">الجبيل</option>
+                                                                    <option value="أبها">أبها</option>
+                                                                    <option value="الطائف">الطائف</option>
+                                                                    <option value="بريدة">بريدة</option>
+                                                                    <option value="حائل">حائل</option>
+                                                                    <option value="جيزان">جيزان</option>
+                                                                    <option value="نجران">نجران</option>
+                                                                    <option value="تبوك">تبوك</option>
+                                                                    <option value="الأحساء">الأحساء</option>
+                                                                    <option value="ينبع">ينبع</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-outline mb-4">
+                                                                <select class="form-select" asp-for="@CoursenRe.CoursesTypeCode" asp-items="ViewBag.SelectType" name="CoursesTypeCode">
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-outline mb-4 d-flex">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" name="IsAribic" id="flexRadioDefault1" checked="checked" value="true">
+                                                                    <label class="form-check-label" for="flexRadioDefault1">عربي</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" id="flexRadioDefault2" name="IsAribic" value="false">
+                                                                    <label class="form-check-label" for="flexRadioDefault2">English</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-outline mb-4">
+                                                                <textarea class="form-control" asp-for="@CoursenRe.Nots" placeholder="اكتب استفسار" rows="3"></textarea>
+                                                            </div>
+                                                            <div class="form-outline mb-4">
+                                                                @{
+                                                                    Random random = new Random();
+                                                                    randomNumber = random.Next(1000, 10000);
+                                                                }
+                                                                <input type="number" id="userCode" style="font-size: 14px; padding:16px; width:70%; display:inline" class="form-control form-control-lg" placeholder="ادخل الكود" />
+                                                                <label class="badge" style="background: #fdb614; font-size: 15px;">@randomNumber</label>
+                                                            </div>
+                                                           
+                                                            <input type="hidden" name="TokenNumber" value="@Model.TokenNumber" />
+                                                            <div class="pt-1">
+                                                                <button class="submit-login btn btn-primary btn-lg btn-block w-100" type="submit">ارسال الطالب</button>
+                                                            </div>
+                                                        </form>
+
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model.DetailsAr))
+            {
+
+                <div class="tab-pane fade" id="tab1">
+                    <h2>@Model.HeaderAr</h2>
+                    <p class="break-after-dot">@Model.DetailsAr</p>
+                </div>
+            }
+
+
+            @if (!string.IsNullOrEmpty(Model.GoalsAr))
+            {
+                <div class="tab-pane fade" id="tab2">
+                    <h3>الأهداف المتوقعة من @Model.HeaderAr</h3>
+                    <p class="break-after-dot">@Model.GoalsAr</p>
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.TargetAr))
+            {
+                <div class="tab-pane fade" id="tab3">
+                    <h3>من يحتاج @Model.HeaderAr</h3>
+                    <p class="break-after-dot">@Model.TargetAr</p>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.SkillsAr))
+            {
+                <div class="tab-pane fade" id="tab4">
+                    <h3>من يحتاج @Model.HeaderAr </h3>
+                    <p class="break-after-dot">@Model.SkillsAr</p>
+                </div>
+            }
+
+
+            @if (!check)
+            {
+                <div class="tab-pane fade" id="tab5">
+                    @if (!string.IsNullOrEmpty(Model.TestAr))
+                    {
+                        <h3>شروط اختبار @Model.HeaderAr</h3>
+                        <p class="tab-pane">@Model.TestAr</p>
+                        <br>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.PriceM.ToString()))
+                    {
+                        <span>سعر اختبار @Model.HeaderAr</span>
+                        <p>
+                            للأفراد المنتسبين لمعهد ® PMI الدولي: @Model.PriceM ر.س
+                        
+                        </p>
+                        <br>
+                    }
+                    else if (!string.IsNullOrEmpty(Model.FromalutetestAr))
+                    {
+                        <span>صيغة اختبار @Model.HeaderAr</span>
+                        <p class="tab-pane">@Model.FromalutetestAr</p>
+                    }
+                </div>
+            }
+
+
+
+
+
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function validateForm() {
+        var userInput = document.getElementById('userCode').value;
+        var randomNumber = '@randomNumber'; 
+
+        if (userInput === randomNumber.toString()) {
+            Swal.fire({
+                icon: 'success',
+                title: 'تم الارسال بنجاح!',
+                showConfirmButton: false,
+                timer: 300000 
+            });
+
+            return true;
+        } else {
+            Swal.fire({
+                title: 'الكود غير مطابق',
+                confirmButtonColor: '##095F90',
+                confirmButtonText: 'فهمت'
+            });
+
+            return false;
+        }
+    }
+</script>

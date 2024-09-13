@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="123" height="123" viewBox="0 0 123 123">
+  <g id="Group_238" data-name="Group 238" transform="translate(-990 -1313)">
+    <circle id="Ellipse_97" data-name="Ellipse 97" cx="61.5" cy="61.5" r="61.5" transform="translate(990 1313)" fill="#1b548a"/>
+    <g id="Group_235" data-name="Group 235" transform="translate(1022.006 1340.6)">
+      <g id="SVGRepo_iconCarrier" transform="translate(0)">
+        <path id="Path_135" data-name="Path 135" d="M106,0V66.8h55.055V51.519h1.966a1.965,1.965,0,1,0,0-3.929h-1.966V35.8h1.966a1.965,1.965,0,1,0,0-3.929h-1.966V20.084h1.966a1.965,1.965,0,1,0,0-3.929h-1.966V0Zm3.932,3.929h47.19V16.154h-1.966a1.965,1.965,0,1,0,0,3.929h1.966V31.872h-1.966a1.965,1.965,0,1,0,0,3.929h1.966V47.589h-1.966a1.965,1.965,0,1,0,0,3.929h1.966V62.87h-47.19V3.929ZM146.4,14.793H120.354v3.929H146.4V14.793Zm0,7.474H124.152V26.2H146.4V22.268Zm0,18.608H120.354v3.929H146.4V40.876Zm0,7.474H124.152v3.929H146.4V48.35Z" transform="translate(-106.001)" fill="#fff" fill-rule="evenodd"/>
+      </g>
+    </g>
+  </g>
+</svg>

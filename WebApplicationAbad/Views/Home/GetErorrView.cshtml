@@ -1,0 +1,36 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+<style>
+    body{
+        font-family: 'Cairo', sans-serif;
+        margin:0;
+    }
+    .text{
+        color: #095d8d;
+        font-size: 24px;
+        background: #b6cfde;
+        width: 100%;
+        text-align: center;
+        margin-top:0;
+        padding-top:0;
+    }
+    
+
+</style>
+<html>
+    <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+
+    </head>
+<body style="display: flex; flex-direction: column; align-items: center;">
+    <h3 class="text">الرابط غير صالح</h3>
+    <img style="margin-top: -30px;width:40%" src="~/customer/content/assets/images/Error.png" />
+    <a asp-controller="Home" asp-action="GetLogin" style="padding: 15px 20px; color: white; background: #007dfd; font-weight: bold; font-size: 18px; border-radius: 50px; text-decoration: none;">الانتقال الى صفحة تسجيل الدخول</a>
+    </body>
+</html>

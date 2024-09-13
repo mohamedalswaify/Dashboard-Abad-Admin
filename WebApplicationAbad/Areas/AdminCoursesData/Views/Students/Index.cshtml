@@ -1,0 +1,93 @@
+﻿@using WebApplicationAbad.Areas.AdminManageData.Data;
+@model IEnumerable<Student>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Students Data";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                <a class="btn btn-outline-primary" asp-action="GetCreateStudent">اضافة طالب <i class="fa-solid fa-plus"></i> </a>
+            </div>
+            <h2 class="card-title">Students Data</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="Search.....">
+        </div>
+        <form asp-action="Index" onsubmit="return AllBool()">
+            <table id="myTable" class="table mt-2 table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            رقم الطالب
+                        </th>
+                        <th>
+                            الاسم بالعربي
+                        </th>
+                  
+                        <th>
+                            الهاتف
+                        </th>
+                        <th>
+                            البريد الالكتروني
+                        </th>
+                        <th>
+                            رقم الهوية
+                        </th>
+
+@*                         <th>
+                            النوع
+                        </th> *@
+                        <th>
+                            حالة الحظر
+                        </th>
+                        <th>
+                            حالة الوصول
+                        </th>
+
+                        <th>
+                            صورة الطالب
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td> @item.Id </td>
+                            <td> @Html.DisplayFor(modelItem => item.ArabicName)</td>
+                           
+                            <td>  @Html.DisplayFor(modelItem => item.Phone)</td>
+                            <td> <a asp-action="GetDetailsStudent" asp-route-id="@item.Id">@item.Email</a></td>
+                            <td>  @Html.DisplayFor(modelItem => item.Idnumber)</td>
+                           @*  <td>  @Html.DisplayFor(modelItem => item.Gender)</td> *@
+                            <td>  @Html.DisplayFor(modelItem => item.IsBlock)</td>
+                            <td>  @Html.DisplayFor(modelItem => item.IsLocked)</td>
+                            <td>
+                                @if(item.Image!=null){
+                                    <img width="100px" height="100px" src="~/Admin/StudentImage/@item.Image" />
+                                }
+                                else
+                                {
+                                    <img width="100px" height="100px" src="~/Admin/StudentImage/Stduent.png" />
+                                }
+                            </td>
+
+                            <td class="table-action">
+                                <a class="btn btn-success" asp-action="GetCreateStudent" asp-route-id="@item.Id"><i class="align-middle" data-feather="edit-2"></i></a>
+                                <button type="submit" class="btn btn-danger" asp-route-id="@item.Id"><i class="align-middle" data-feather="trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

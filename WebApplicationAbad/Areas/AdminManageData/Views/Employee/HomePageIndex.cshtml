@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebApplicationAbad.Areas.AdminManageData.Data.HomeScreen>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">ادراة الصفحة الرئيسية</h2>
+        </div>
+     
+        <form asp-action="GetCoursesIsonlineIndex" id="myTable" onsubmit="return AllBool()">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                           العنوان
+                        </th>
+                        <th>
+                            الوصف
+                        </th>
+                        <th>
+                            الصورة
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.Description</td>
+                            <td><img width="100px" height="100px" src="~/Admin/HomeScreen/@item.Image" /></td>
+                            <td class="table-action">
+                                <a class="btn btn-success" asp-action="GetHomeUpdate" asp-route-id="@item.Id"><i class="align-middle" data-feather="edit-2"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

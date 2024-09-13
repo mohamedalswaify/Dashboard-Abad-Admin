@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebApplicationAbad.Areas.Setting.Data.Comment>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Comments List";
+}
+
+
+
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+              
+                <a class="btn btn-outline-primary" asp-action="Create">اضافة <i class="fa-solid fa-plus"></i> </a>
+            </div>
+            <h2 class="card-title">تعليقات الرئيسية</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="بحث">
+        </div>
+
+
+
+        <table id="myTable" class="table mt-2 table-striped">
+    <thead>
+        <tr>
+            <th>m</th>
+            <th>Student Name</th>
+            <th>Job</th>
+            <th>Comment</th>
+            <th>Evaluation</th>
+            <th>Created Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.StudentName</td>
+                <td>@item.Studentjob</td>
+                <td>@item.comment</td>
+                <td>@item.evaluation</td>
+                <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+</div>

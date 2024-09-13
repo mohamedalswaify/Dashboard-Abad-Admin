@@ -1,0 +1,127 @@
+﻿@using WebApplicationAbad.Areas.AdminManageData.Data;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Student
+@inject WebApplicationAbad.Data.ApplicationDbContext context
+@{
+}
+<style>
+    .image-upload > input {
+        display: none;
+    }
+</style>
+</header>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<partial name="_Notfactions" />
+<div class="sign-background container-fulid">
+
+    <div class="sign">
+        <section>
+            <div class="container h-100">
+                <div class="row  h-100">
+                    <div class="col col-xl-10">
+                        <div class="card card-sign">
+                            <div class="row g-0">
+
+                                <div class="col-md-6 col-lg-7 w-100 ">
+                                    <div class="card-body p-4 p-lg-5 text-black">
+
+                                        <form asp-action="EditProfile" class="row justify-content-center" method="post" enctype="multipart/form-data">
+
+                                            <div class="d-flex  mb-3 pb-1 w-100" style="align-items: center; flex-direction: column;">
+                                                @if (Model.Image == null || Model.Image.Length <= 0)
+                                                {
+                                                    <img id="LoadIameg" src="~/Admin/StudentImage/account.png" width="100px" height="100px" style="border-radius:50%" />
+
+                                                }
+                                                else
+                                                {
+                                                    <img id="LoadIameg" src="~/Admin/StudentImage/@Model.Image" width="100px" height="100px" style="border-radius:50%" />
+                                                }
+                                                <br />
+                                                <div class="image-upload">
+                                                    <label for="file-input" style="direction: ltr; color: #8c8e91;">
+                                                       <label>تعديل الصورة</label> <img src="~/Admin//StudentImage/Edit.png" width="20px" />
+                                                    </label>
+
+                                                    <input asp-for="FormFiles" onchange="ImageLoad(event)" accept="image/png,image/jpeg" id="file-input" type="file" />
+                                                </div>
+                                              
+                                            </div>
+
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="form-outline col-12 col-md-12 col-lg-12   mb-4">
+                                                <label for="Name-Ar" class="fw-bold mb-2" style="color: #095F90;">
+                                                    الاسم الرباعي بالعربي
+                                                </label>
+                                                <input required type="text" id="Name-Ar" asp-for="ArabicName" class="form-control form-control-lg "
+                                                       style="font-size: 14px; padding:16px;" asp-for="ArabicName" />
+                                                <span asp-validation-for="ArabicName" class="text-danger"></span>
+                                            </div>
+                                         
+                                            <div class="form-outline col-12 col-md-12 col-lg-12   mb-4">
+                                                <label for="Email" class="fw-bold mb-2" style="color: #095F90;"> البريد الإلكتروني</label>
+                                                <input dir="ltr" required type="email" asp-for="Email" id="Email" class="form-control form-control-lg "
+                                                       placeholder="البريد الالكتروني" style="font-size: 14px; padding:16px;" asp-for="Email" />
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+
+
+                                            <div class="form-outline col-12 col-md-12 col-lg-12   mb-4">
+                                                <label for="telphone" class="fw-bold mb-2" style="color: #095F90;"> الهاتف</label>
+                                                <input required type="tel" asp-for="Phone" id="telphone" class="form-control form-control-lg" style="font-size: 14px; padding:16px;direction: rtl; text-align: left;" asp-for="Phone" />
+                                                <span asp-validation-for="Phone" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="form-outline col-12 col-md-12 col-lg-12   mb-4" hidden="false">
+                                                <label for="telphone" class="fw-bold mb-2" style="color: #095F90;"> الهاتف</label>
+                                                <input required type="tel" asp-for="Password" name="Password" id="telphone" class="form-control form-control-lg" style="font-size: 14px; padding:16px;direction: rtl; text-align: left;" asp-for="Phone" />
+                                                <span asp-validation-for="Password" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-outline col-12 col-md-12 col-lg-12   mb-4" hidden="false">
+                                                <label for="telphone" class="fw-bold mb-2" style="color: #095F90;"> الهاتف</label>
+                                                <input required type="tel" asp-for="ConfirmPassword" name="ConfirmPassword" value="@Model.Password" id="telphone" class="form-control form-control-lg" style="font-size: 14px; padding:16px;direction: rtl; text-align: left;" asp-for="Phone" />
+                                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                            </div>
+
+                                            <div class="pt-1 text-center">
+                                                <button class="create-account btn btn-warning btn-lg btn-block w-50" style="font-weight:bold" type="submit">
+                                                    تعديل الحساب
+                                                </button>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    var ImageLoad = function (event) {
+        var allowedExtensions = ['jpg', 'png'];
+        var file = event.target.files[0];
+        var fileExtension = file.name.split('.').pop().toLowerCase();
+
+        var img = document.getElementById("LoadIameg");
+
+        if (allowedExtensions.includes(fileExtension)) {
+            var red = new FileReader();
+            red.onload = function () {
+                currentImageSrc = img.src;
+                img.src = red.result;
+            }
+            red.readAsDataURL(file);
+        } else {
+            if (currentImageSrc !== null) {
+                img.src = currentImageSrc;
+            }
+            event.target.value = '';
+            alert("Please Upload File Type (jpg, png) only");
+        }
+    }
+</script>

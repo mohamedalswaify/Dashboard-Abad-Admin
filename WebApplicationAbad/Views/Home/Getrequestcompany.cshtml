@@ -1,0 +1,199 @@
+﻿@using WebApplicationAbad.Data
+@model WebApplicationAbad.Areas.CompanyData.Models.CompanyRequest
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject ApplicationDbContext context
+@{
+    ViewData["Title"] = "Getrequestcompany";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var courType = context.CoursesTypes.ToList();
+    SelectList selectListItemsType = new SelectList(courType, "Code", "ArabicName");
+
+}
+
+
+
+     </header>
+  <!-- company-->
+  <div class="company-background container-fulid">
+    <partial name="_Notfactions" />
+
+    <div class="company">
+      <section>
+        <div class="container h-100">
+          <div class="row  h-100">
+            <div class="col col-xl-10">
+              <div class="card card-company">
+                <div class="row g-0">
+
+                  <div class="col-md-6 col-lg-7 w-100 ">
+                    <div class="card-body p-4 p-lg-5 text-black">
+
+                                        <form class="row justify-content-between" method="post" enctype="multipart/form-data">
+
+                                            <div class="d-flex  mb-3 pb-5 w-100">
+                          <span class="fs-3 fw-bold mb-0 text-center w-100" style=" 
+                          color: #095F90"> طلب عرض للشركات </span>
+                        </div>
+                                            <div asp-validation-summary="All" class="text-danger"></div>
+
+
+                        <div class="form-outline col-12 col-md-12 col-lg-6   mb-4">
+                          <label for="FullName" class="fw-bold mb-2" style="color: #095F90;"> الاسم كاملا *
+                            *</label>
+                          <input type="text" id="FullName" class="form-control form-control-lg "
+                            style="font-size: 14px; padding:16px;" asp-for="FullName" />
+                                                <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-outline col-12 col-md-12 col-lg-6   mb-4">
+                          <label for="OurEmail" class="fw-bold mb-2" style="color: #095F90;">
+                            البريد الإلكتروني الخاص بالعمل *
+                          </label>
+                          <input type="email" id="OurEmail" placeholder="البريد الالكتروني"
+                            class="form-control form-control-lg " style="font-size: 14px; padding:16px;" asp-for="OurEmail" />
+                                                <span asp-validation-for="OurEmail" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-outline col-12 col-md-12 col-lg-6   mb-4">
+                          <label for="telphone" class="fw-bold mb-2" style="color: #095F90;"> رقم الهاتف *</label>
+                          <input type="tel" id="telphone" class="form-control form-control-lg "
+                                                       placeholder=" رقم الهاتف" style="font-size: 14px; padding:16px;" asp-for="Telphone" />
+                                                <span asp-validation-for="Telphone" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-outline col-12 col-md-12 col-lg-6   mb-4">
+                          <label for="TitleJob" class="fw-bold mb-2" style="color: #095F90;"> المسمي الوظيفي*</label>
+                          <input type="text" id="TitleJob" placeholder="المسمي الوظيفي*"
+                                                       class="form-control form-control-lg " style="font-size: 14px; padding:16px;" asp-for="TitleJob" />
+                                                <span asp-validation-for="TitleJob" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-outline   col-12 col-md-12 col-lg-12   mb-4">
+                          <label for="text" class="fw-bold mb-2" style="color: #095F90;"> اسم المنظمة*</label>
+                          <input type="text" id="date" class=" form-control form-control-lg "
+                                                       style="font-size: 14px; padding:16px;" asp-for="OrganizationName" />
+                                                <span asp-validation-for="OrganizationName" class="text-danger"></span>
+
+                        </div>
+
+
+                        <hr style="color: #C5CAD3;">
+
+
+                        <div class="form-outline col-12 col-md-12 col-lg-6   mb-4">
+                          <label class="form-label fw-bold mb-2" for="services" style="color: #095F90;"> الخدمة
+                            المطلوبة* </label>
+                                                <select class=" form-control form-control-lg" asp-items="@selectListItemsType" id="courseTypeSelect" style="font-size: 14px; padding:16px;" asp-for="CoursesTypeId">
+                              <option>من فضلك اختر اسم الدورة</option>
+                                                   
+                          </select>
+                                              
+
+                        </div>
+
+                        <div class="form-outline col-12 col-md-12 col-lg-6   mb-4">
+                          <label class="form-label fw-bold mb-2" for="CoursesName" style="color: #095F90;"> اسم الدورة
+                          </label>
+                        <select id="CoursesDataId" required class=" form-control form-control-lg"  style="font-size: 14px; padding:16px;" asp-for="SerivesModelId">
+                          </select>
+                                              
+                        </div>
+
+                        <div class="form-outline col-12 col-md-12 col-lg-12   mb-4">
+                          <label for="detais" class="fw-bold mb-2" style="color: #095F90;"> تفاصيل الطلب </label>
+                          <textarea cols="30" rows="3" id="detais" class="form-control form-control-lg "
+                                                          style="font-size: 14px; " asp-for="Details">
+                             </textarea >
+                        </div>
+
+
+
+
+
+                                            <div class="form-outline col-12 col-md-12 col-lg-12 mb-4">
+                                                <label for="SendFile" class="mb-2 fw-bold" style="color: #095F90;">
+                                                    ملف مرفق
+                                                </label>
+                                                <input type="file" id="SendFile" class="form-control form-control-lg"
+                                                       style="font-size: 14px; padding:16px;" asp-for="AttachedFile" />
+                                            </div>
+
+
+
+
+
+
+
+
+                        <div class="pt-1  text-center">
+                          <button class="create-account btn btn-lg btn-block   w-75" type="submit"
+                            style="background:#095F90;  color:#fff;">
+                            ارسل
+                          </button>
+                        </div>
+                      </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+
+<script>
+    document.getElementById('SendFile').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+
+        if (file) {
+
+            if (file.type === 'application/pdf') {
+               
+            } else {
+                alert('يجب ان يكون الملف PDF.');
+
+                event.target.value = '';
+            }
+        } else {
+            alert('يجب ان يكون الملف PDF.');
+        }
+    });
+</script>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        $('#courseTypeSelect').change(function () {
+            var selectedValue = $(this).val();
+            $.ajax({
+                url: '/AdminCoursesData/CoursesScheduless/GetFilteredCoursesData',
+                type: 'GET',
+                data: { courseTypeCode: selectedValue },
+                success: function (data) {
+                    var coursesDataSelect = $('#CoursesDataId');
+
+                    coursesDataSelect.empty();
+                    coursesDataSelect.append($('<option>', {
+                        value: '',
+                        text: 'Please Select Course Data'
+                    }));
+
+                    $.each(data, function (index, item) {
+                        coursesDataSelect.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+                }
+            });
+        });
+    });
+</script>

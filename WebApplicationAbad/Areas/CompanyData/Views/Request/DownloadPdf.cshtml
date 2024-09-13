@@ -1,0 +1,56 @@
+﻿@model List<WebApplicationAbad.Areas.CompanyData.Models.CompanyRequest>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "DownloadPdf";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<div class="col-12 myrow">
+    <div class="card">
+
+                <div class="card-header">
+            <div class="text-end">
+                       @* <a class="btn btn-outline-primary" asp-action="Create">Create New  <i class="fa-solid fa-plus"></i> </a>*@
+                    </div>
+                    <h2 class="card-title">بيانات طلبات التعاقدات</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="Search.....">
+        </div>
+
+<div class="table-responsive">
+                <table id="myTable" class="table mt-2 table-striped">
+        <thead>
+            <tr>
+                <th>رقم الطلب</th>
+                <th>الاسم الكامل</th>
+                <th>البريد الإلكتروني</th>
+                <th>تاريخ الإنشاء</th>
+                <th>العمليات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in Model)
+            {
+                    <tr>
+                        <td>@request.Id</td>
+                        <td>@request.FullName</td>
+                        <td>@request.OurEmail</td>
+                        <td>@request.CreatedDate.ToString("yyyy-MM-dd")</td>
+                        <td>
+                        <a asp-area="CompanyData" asp-controller="Request" asp-action="DownloadFile" asp-route-Id="@request.Id">تحميل PDF</a>
+
+                                &nbsp; &nbsp;
+                         <a asp-area="CompanyData" asp-controller="Request" asp-action="Details" asp-route-Id="@request.Id">تفاصيل</a>
+                        </td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+</div>
+</div>

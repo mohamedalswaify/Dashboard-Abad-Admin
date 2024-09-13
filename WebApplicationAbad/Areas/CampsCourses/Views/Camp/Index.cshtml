@@ -1,0 +1,85 @@
+﻿@model IEnumerable<WebApplicationAbad.Areas.CampsCourses.Models.CampsModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int serialNumber = Model.Count();
+}
+
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                <a asp-action="ExportToExcel" class="btn btn-success">Export to Excel</a>
+            </div>
+            <h2 class="card-title">المعسكرات</h2>
+            <!-- هنا ستتم إضافة عرض عدد الزوار -->
+            <button type="button" class="btn btn-primary">
+                <strong>عدد الزوار:</strong> <span>@ViewBag.VisitorCount</span>
+            </button>
+            <br />
+            <br />
+       
+
+            <button type="button" class="btn btn-primary">
+                <strong> عدد الزوارللمقالات:</strong> <span>@ViewBag.ArticleViewCounts</span>
+            </button>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="بحث">
+        </div>
+
+        <table id="myTable" class="table mt-2 table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Education</th>
+                    <th>Phone Number</th>
+                    <th>Type Course</th>
+                    <th>Created Date</th>
+                    <th>Time</th>
+                  @*   <th>Payment Status</th> *@
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>@item.Education</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.TypeCourse</td>
+                        <td>@item.CreatedCode.ToString("HH:mm yyyy-MM-dd")</td>
+                        <td>@item.CreatedCode.ToString("HH:mm")</td>
+                      @*   <td class="@(item.IsPayment ? "text-success" : "text-danger")">
+                            @(item.IsPayment ? "تم الدفع" : "غير دافع")
+                        </td> *@
+                        <td>
+                            @if (item.IsPayment)
+                            {
+                                <form asp-action="UpdatePaymentStatus" method="post" class="btn-success  text-white">
+                                    <input type="hidden" name="Id" value="@item.Id" />
+                                    <input type="hidden" name="IsPayment" value="false" />
+                                    <button type="submit" class="btn btn-success">دفع</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form asp-action="UpdatePaymentStatus" method="post" class="btn-danger text-white">
+                                    <input type="hidden" name="Id" value="@item.Id" />
+                                    <input type="hidden" name="IsPayment" value="true" />
+                                    <button type="submit" class="btn btn-danger">لم يدفع</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model WebApplicationAbad.Areas.AdminCoursesData.Models.Room
+@{
+    ViewData["Title"] = "Room";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row myrow">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">انواع الدورات</h2>
+            </div>
+            <div class="card-body">
+
+                <form asp-action="Create" enctype="multipart/form-data" onsubmit="confirmFormAlert(this); return false">
+                    <div class="mb-3" hidden="false">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" placeholder="Arabic Name" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label"> الاسم بالعربي</label>
+                        <input asp-for="RoomNameAR" class="form-control" placeholder="الاسم بالعربي" required />
+                        <span asp-validation-for="RoomNameAR" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label"> الاسم بالانجليزي</label>
+                        <input asp-for="RoomNameEN" class="form-control" placeholder="الاسم بالانجليزي" required />
+                        <span asp-validation-for="RoomNameEN" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">حالة الاخفاء</label>
+                        <input asp-for="IsHide"/>
+                        <span asp-validation-for="IsHide" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">@ViewBag.coursesStatus</button>
+                    <a asp-action="Index" class="btn btn-info">االرجوع للخلف</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const confirmFormAlert = async function (form) {
+            const sweetConfirm = await swal("Success!", "operation accomplished successfully", "success");
+            if (sweetConfirm) {
+                form.submit();
+            }
+            return sweetConfirm;
+        }
+
+        var currentImageSrc = null;
+
+        var ImageLoad = function (event) {
+            var allowedExtensions = ['jpg', 'png'];
+            var file = event.target.files[0];
+            var fileExtension = file.name.split('.').pop().toLowerCase();
+
+            var img = document.getElementById("LoadIameg");
+
+            if (allowedExtensions.includes(fileExtension)) {
+                var red = new FileReader();
+                red.onload = function () {
+                    currentImageSrc = img.src;
+                    img.src = red.result;
+                }
+                red.readAsDataURL(file);
+            } else {
+                if (currentImageSrc !== null) {
+                    img.src = currentImageSrc;
+                }
+                event.target.value = '';
+                alert("Please Upload File Type (jpg, png) only");
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+</div>

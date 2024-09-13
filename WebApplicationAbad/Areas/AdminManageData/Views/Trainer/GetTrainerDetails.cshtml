@@ -1,0 +1,166 @@
+﻿@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@using WebApplicationAbad.Data;
+@inject ApplicationDbContext context;
+@model WebApplicationAbad.Areas.AdminManageData.Data.Trainer;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Coursesm Scheduless";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var mod = context.coursesSchedulesses.Where(w => !w.IsDelete && w.TrainerId == Model.Id).OrderByDescending(b=>b.StartDate).ThenBy(b=>b.StartTime).ToList();
+    int Count = 0;
+    DateTime DateNew = DateTime.Now;
+    DateTime Date;
+}
+<link href="~/Admin/css/StyleSheet.css" rel="stylesheet">
+
+<style>
+    .popup-container, .popup-container2 {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-content, .popup-content2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 50%;
+        direction: ltr;
+    }
+
+    #courseSelect {
+        direction: ltr;
+    }
+
+    .close-btn, .close-btn2 {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .marg {
+        margin-top: 70px;
+        margin-bottom: 30px;
+    }
+
+    h4 {
+        ont-size: 22px;
+        font-weight: bold;
+        color: #677880;
+    }
+
+    .table-action a {
+        color: #ffffff;
+    }
+
+    .tab-title {
+        font-size: 10px !important;
+    }
+
+    .tab-title1 {
+        font-size: 12px !important;
+    }
+
+    .mod {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+        .mod button {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    .Roal {
+        display: none;
+        flex-wrap: wrap
+    }
+
+    .active {
+        display: none;
+    }
+
+</style>
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>اسم المدرب</th>
+                    <th>البريد الالكتروني</th>
+                    <th>رقم الجوال</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.NameAr</td>
+                    <td>@Model.EmailPerson</td>
+                    <td>@Model.Mobile</td>
+                </tr>
+            </tbody>
+
+
+
+        </table>
+
+        <div class="text-center marg">
+            <h4>الدورات  المسجلة بأسم المدرب</h4>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>م</th>
+                    <th>اسم الدورة</th>
+                    <th>تاريح البداية</th>
+                    <th>تاريخ النهاية</th>
+                    <th>عدد الاسابيع</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in mod)
+                {
+
+                    <tr>
+                        <th>
+                            @{
+                                Count++;
+                            }
+                            @Count
+                        </th>
+                        <th>@item.CoursesData.HeaderAr</th>
+                        <th>@item.StartDate.Value.ToString("dd-MM-yyyy")</th>
+                        <th>@item.EndDate.Value.ToString("dd-MM-yyyy")</th>
+                        <td class="table-action">@item.NumberOfWeek</td>
+                       
+                    </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

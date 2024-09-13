@@ -1,0 +1,82 @@
+﻿@model WebApplicationAbad.Areas.AdminCoursesData.Models.RequiredCourse
+@{
+    ViewData["Title"] = "Courses Request";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row myrow">
+	<div >
+		<div class="card mb-3 d-flex" style="flex-direction:row">
+
+		<div style="width:50%">
+			<div class="card-header">
+				<h5 class="card-title mb-0">بيانات المرسل</h5>
+			</div>
+			<hr class="my-0" />
+			<div class="card-body">
+				<h5 class="h6 card-title">اسم المستخدم</h5>
+				<label href="#" class="badge bg-primary me-1 my-1">@Model.UsserName</label>
+			</div>
+			<hr class="my-0" />
+			<div class="card-body">
+				<h5 class="h6 card-title">البريد الالكتروني</h5>
+				<span class="badge bg-info">@Model.UsserEmail</span>
+
+			</div>
+
+			<hr class="my-0" />
+			<div class="card-body">
+				<h5 class="h6 card-title">رقم الجوال</h5>
+				<span class="badge bg-info">@Model.UserPhone</span>
+
+			</div>
+
+			<hr class="my-0" />
+			<div class="card-body">
+				<h5 class="h6 card-title">المدينة</h5>
+				<span class="badge bg-info">@Model.UserCity</span>
+			</div>
+
+			<hr class="my-0" />
+			<div class="card-body">
+				<h5 class="h6 card-title">الاستفسار</h5>
+				<span class="badge bg-info">@Model.Nots</span>
+			</div>
+
+			</div>
+
+
+
+			<div style="width:50%">
+				<div class="card-header">
+					<h5 class="card-title mb-0">بيانات الدورة</h5>
+				</div>
+				<hr class="my-0" />
+				<div class="card-body">
+					<h5 class="h6 card-title">نوع الدورة المطلوب</h5>
+					<label href="#" class="badge bg-primary me-1 my-1">@Model.CoursesType.ArabicName</label>
+				</div>
+				<hr class="my-0" />
+				<div class="card-body">
+					<h5 class="h6 card-title">الدورة المطلوبة</h5>
+					<span class="badge bg-info">@Model.CoursesData.HeaderAr</span>
+
+				</div>
+
+				<hr class="my-0" />
+				<div class="card-body">
+					<h5 class="h6 card-title">لغة الدورة</h5>
+					@if (Model.IsAribic)
+					{
+						<span class="badge bg-info">اللغة العربية</span>
+					}
+					else
+					{
+						<span class="badge bg-info">اللغة الانجليزية</span>
+					}
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

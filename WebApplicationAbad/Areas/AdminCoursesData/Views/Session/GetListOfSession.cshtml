@@ -1,0 +1,56 @@
+﻿@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@model IEnumerable<CoursesScheduless>
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "GetListOfSession";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-12 myrow">
+    <partial name="_Notfactions" />
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                @* <a class="btn btn-outline-primary" asp-action="Index">اضافه  <i class="fa-solid fa-plus"></i> </a> *@
+            </div>
+            <h2 class="card-title">قائمه المحاضرات </h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="Search.....">
+        </div>
+        <form asp-action="GetCoursesDataIndex" id="myTable" onsubmit="return AllBool()">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>الدوره</th>
+                        <th>المدرب</th>
+                        <th>التاريخ</th>
+                        <th>التوقيت</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td><a asp-action="DetalisSession" asp-route-id="@item.Id">@item.CoursesData.HeaderAr</a></td>
+                            <td> @item.Trainer.NameAr</td>
+                            <td>
+                                <span class="tab-title1 badge bg-success">@item.StartDate?.ToString("dd-MM-yyyy")</span><br>
+                                <span class="tab-title1 badge bg-danger">@item.EndDate?.ToString("dd-MM-yyyy")</span>
+                            </td>
+                            
+                    <td>
+                        <span class="tab-title1 badge bg-success">@item.StartTime</span><br>
+                        <span class="tab-title1 badge bg-danger">@item.EndTime</span>
+                    </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

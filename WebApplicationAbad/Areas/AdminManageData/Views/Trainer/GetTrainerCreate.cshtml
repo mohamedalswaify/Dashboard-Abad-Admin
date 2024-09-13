@@ -1,0 +1,188 @@
+﻿@using WebApplicationAbad.Data;
+@model WebApplicationAbad.Areas.AdminManageData.Data.Trainer
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject ApplicationDbContext context
+@{
+    ViewData["Title"] = "Courses Views";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string Email = "";
+}
+<p>@ViewData["DataView"]</p>
+
+<div class="row myrow">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">المدرب</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="GetTrainerCreate" enctype="multipart/form-data" id="studentForm" onsubmit="confirmFormAlert(this); return false">
+                    <div class="row">
+                    <div class="mb-3" hidden="false">
+                        <label asp-for="Id" class="control-label"></label>
+                            <input id="IdNumbers" asp-for="Id" class="form-control" placeholder="Arabic Name" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label"> الاسم بالعربي</label>
+                        <input asp-for="NameAr" class="form-control" placeholder="الاسم بالعربي" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label"> الاسم بالانجليزي</label>
+                        <input asp-for="NameEn" class="form-control" placeholder="الاسم بالانجليزي" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label"> الجوال</label>
+                        <input asp-for="Mobile" id="phone" class="form-control" placeholder="رقم الجوال" required />
+                    </div>
+                        <div class="mb-3">
+                            <label class="control-label">رقم الهوية</label>
+                            <input asp-for="IdNumber" id="identfire" class="form-control" placeholder="رقم الجوال" required />
+                        </div>
+                    <div class="mb-3">
+                        <label class="control-label">المرتب</label>
+                        <input type="number" asp-for="Salary" class="form-control" placeholder="المرتب" required />
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label">البريد الالكتروني</label>
+                        <input id="email" type="email" asp-for="EmailPerson" class="form-control" placeholder="البريد الالكرتوني" required />
+                    </div>
+                    <div class="mb-3 col-6">
+                            <label class="control-label">كلمة المرور</label>
+                            <input type="text" asp-for="PasswordPerson" class="form-control" placeholder="البريد الالكرتوني" required />
+                        </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label">بريد الزوم</label>
+                        <input  asp-for="EmailZoom" class="form-control" placeholder="بريد الزوم" required />
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label">كلمة مرور الزروم</label>
+                        <input  asp-for="PasswordZoom" class="form-control" placeholder="كلمة مرور الزوم" required />
+                    </div>
+                        <div class="mb-3 d-flex">
+                            <div>
+                                <label class="control-label"> صورة المدرب</label>
+                                <input type="file" asp-for="FormFile" class="form-control" onchange="ImageLoad(event)" accept="image/png,image/jpeg" />
+                            </div>
+                            @if (ViewBag.BoolValue != null && !ViewBag.BoolValue)
+                            {
+                                <div>
+                                    <img id="LoadIameg" src="~/Admin/TrainerImage/@Model.Image" width="150px" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <img id="LoadIameg" width="150px" />
+                                </div>
+                            }
+
+                        </div>
+                        </div>
+                    @if (ViewBag.coursesStatus=="تعديل")
+                    {
+                        <button id="submitBtn2" type="submit" class="btn btn-primary">@ViewBag.coursesStatus</button>
+                    }
+                    else
+                    {
+                        <button id="submitBtn" type="submit" class="btn btn-primary">@ViewBag.coursesStatus</button>
+                    }
+                    <a asp-action="GetIndexTrainer" class="btn btn-info">االرجوع للخلف</a>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#submitBtn').click(function (e) {
+            e.preventDefault();
+
+            var form = $('#studentForm')[0];
+            var isFormValid = form.checkValidity();
+
+            if (!isFormValid) {
+                form.reportValidity();
+                return;
+            }
+
+            var Email = $('#email').val();
+            var Phone = $('#phone').val();
+            var Identfire = $('#identfire').val();
+
+            $.ajax({
+                url: '/AdminManageData/Trainer/CheckData',
+                type: 'GET',
+                data: { Email: Email, Phone: Phone, Identfire: Identfire },
+                success: function (result) {
+                    if (result) {
+                        $('#studentForm').submit();
+                    } else {
+                        swal({
+                            title: "بيانات مكررة !",
+                            text: 'قد يكون هناك تكرار في بيانات البريد الالكتروني او الجوال او الهوية',
+                            icon: "error"
+                        });
+                    }
+                },
+            });
+        });
+
+
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#submitBtn2').click(function (e) {
+            e.preventDefault();
+
+            var form = $('#studentForm')[0];
+            var isFormValid = form.checkValidity();
+
+            if (!isFormValid) {
+                form.reportValidity();
+                return;
+            }
+
+            var Email = $('#email').val();
+            var Phone = $('#phone').val();
+            var Identfire = $('#identfire').val();
+            var IDs = $('#IdNumbers').val();
+            $.ajax({
+                url: '/AdminManageData/Trainer/CheckDataEdit',
+                type: 'GET',
+                data: { Email: Email, Phone: Phone, Identfire: Identfire, IDs: IDs },
+                success: function (result) {
+                    if (result) {
+                        $('#studentForm').submit();
+                    } else {
+                        swal({
+                            title: "بيانات مكررة !",
+                            text: 'قد يكون هناك تكرار في بيانات البريد الالكتروني او الجوال او الهوية',
+                            icon: "error"
+                        });
+                    }
+                },
+            });
+        });
+
+
+    });
+</script>
+
+<script>
+    const confirmFormAlert = async function (form) {
+        const sweetConfirm = await swal("Success!", "operation accomplished successfully", "success");
+        if (sweetConfirm) {
+            form.submit();
+        }
+        return sweetConfirm;
+    }
+
+</script>

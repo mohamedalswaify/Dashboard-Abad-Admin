@@ -1,0 +1,107 @@
+﻿@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@model IEnumerable<CoursesStatus>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+
+@{
+    ViewData["Title"] = "Courses Status";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                <a class="btn btn-outline-primary" asp-action="GetCoursesStutesCretae">اضافه  <i class="fa-solid fa-plus"></i> </a>
+            </div>
+            <h2 class="card-title">حاله الدورات</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="بحث">
+        </div>
+        <form asp-action="GetCoursesStutesIndex" id="myTable" onsubmit="return AllBool()">
+        <table class="table table-striped">
+	<thead>
+		<tr>
+            <th>
+               الاسم بالعربي
+            </th>
+            <th>
+              الاسم بالانجليزي
+            </th>
+            <th>
+               الاخفاء؟
+            </th>
+			<th>العمليات</th>
+		</tr>
+	</thead>
+	<tbody>
+        
+        @foreach (var item in Model) {
+		<tr>
+                <td> @Html.DisplayFor(modelItem => item.ArabicName)</td>
+                <td>  @Html.DisplayFor(modelItem => item.EnglishName)</td>
+                <td class=" d-md-table-cell">   @Html.DisplayFor(modelItem => item.IsHide)</td>
+			    <td class="table-action">
+                                <a class="btn btn-success" asp-action="GetCoursesStutesCretae" asp-route-id="@item.Id"><i class="align-middle" data-feather="edit-2"></i></a>
+                                <button type="submit" class="btn btn-danger" asp-route-id="@item.Id"><i class="align-middle" data-feather="trash"></i></button>
+                </td>
+		</tr>
+        }
+	</tbody>
+</table>
+        </form>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArabicName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnglishName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsHide)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArabicName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnglishName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsHide)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDelete)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Code">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Code">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Code">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@

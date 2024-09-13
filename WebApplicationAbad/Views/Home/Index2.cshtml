@@ -1,0 +1,322 @@
+﻿@using System.Globalization;
+@model IEnumerable<WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesScheduless>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+    <!-- <start content Body> -->
+      <div class="container" >
+         <!-- start Section Auto Number -->
+         <section class="section-number">
+            <div class="section-number-content firt-num">
+               <div class="num-count">
+                  <div class="num-autocount">
+                     <h3 id="count1">00000</h3>
+                  </div>
+                  <div class="num-title">
+                     <h4>منشأة مستفيدة</h4>
+                  </div>
+               </div>
+               <div class="num-image">
+                <img src="~/Client/img/building.svg" alt="Stuent">
+               </div>
+            </div>
+            <div class="section-number-content">
+               <div class="num-count">
+                  <div class="num-autocount">
+                     <h3 id="count2">00000</h3>
+                  </div>
+                  <div class="num-title">
+                     <h4>دورة معتمدة</h4>
+                  </div>
+               </div>
+               <div class="num-image">
+                <img src="~/Client/img/course.svg" alt="Stuent">
+               </div>
+            </div>
+            <div class="section-number-content">
+               <div class="num-count">
+                  <div class="num-autocount">
+                     <h3 id="count3">0</h3>
+                  </div>
+                  <div class="num-title">
+                     <h4>جلسة تدربيبة</h4>
+                  </div>
+               </div>
+               <div class="num-image">
+                <img src="~/Client/img/class.svg" alt="Stuent">
+               </div>
+            </div>
+            <div class="section-number-content">
+               <div class="num-count">
+                  <div class="num-autocount">
+                     <h3 id="count4">000000</h3>
+                  </div>
+                  <div class="num-title">
+                     <h4>مندوب محترف</h4>
+                  </div>
+               </div>
+               <div class="num-image">
+                <img src="~/Client/img/student.svg" alt="Stuent">
+               </div>
+            </div>
+         </section>
+         <!-- End Section Auto Number -->
+         <!--Start Section category-->
+         <div class="d-flex justify-content-center menue-mobile pt-5">
+            <button id="Moli">تصنيفات الدورات&nbsp;&nbsp;<i class="fa-solid fa-bars"></i></button>
+         </div>
+         <section class="section-cat pt-5" id="munel">
+            <div class="back">
+               <p class="text-blue-dark" id="hied"><i
+                  class="fa-solid fa-caret-left fa-rotate-180 fa-2xl"></i>رجوع</p>
+            </div>
+            <div class="head-section-cat text-center">
+               <h1 class="text-blue-dark">تصنيفات الدورات</h1>
+               <svg xmlns="http://www.w3.org/2000/svg" width="92" height="4"
+                  viewBox="0 0 92 4">
+                  <rect id="Shape" width="60" height="4" rx="2" fill="#1f75fe" />
+                  <rect id="Shape-2" data-name="Shape" width="16" height="4" rx="2"
+                     transform="translate(65)" fill="#1f75fe" />
+                  <rect id="Shape-3" data-name="Shape" width="6" height="4" rx="2"
+                     transform="translate(86)" fill="#1f75fe" />
+               </svg>
+            </div>
+            <div class="row mt-4 justify-content-center">
+               <div
+                  class="d-flex justify-content-center align-items-center div-cat col-lg-3 col-6">
+                <img src="~/Client/img/Logo/random icon.svg">
+                  <p>اسم تصنيف الدورة</p>
+               </div>
+               <div
+                  class="d-flex justify-content-center align-items-center div-cat col-lg-3 col-6">
+                <img src="~/Client/img/Logo/random icon.svg">
+                  <p>اسم تصنيف الدورة</p>
+               </div>
+               <div
+                  class="d-flex justify-content-center align-items-center div-cat col-lg-3 col-6 ">
+                <img src="~/Client/img/Logo/random icon.svg">
+                  <p>اسم تصنيف الدورة</p>
+               </div>
+               <div
+                  class="d-flex justify-content-center align-items-center div-cat col-lg-3 col-6">
+                <img src="~/Client/img/Logo/random icon.svg">
+                  <p>اسم تصنيف الدورة</p>
+               </div>
+               <div
+                  class="d-flex justify-content-center align-items-center div-cat col-lg-3 col-6">
+                <img src="~/Client/img/Logo/random icon.svg">
+                  <p>اسم تصنيف الدورة</p>
+               </div>
+               <div
+                  class="d-flex justify-content-center align-items-center div-cat col-lg-3 col-6">
+                <img src="~/Client/img/Logo/random icon.svg">
+                  <p>اسم تصنيف الدورة</p>
+               </div>
+               <div
+                  class="d-flex justify-content-center align-items-center div-cat col-lg-3 col-6">
+                <img src="~/Client/img/Logo/random icon.svg">
+                  <p>اسم تصنيف الدورة</p>
+               </div>
+               <div
+                  class="d-flex justify-content-center align-items-center div-cat col-lg-3 col-6">
+                <img src="~/Client/img/Logo/random icon.svg">
+                  <p>اسم تصنيف الدورة</p>
+               </div>
+            </div>
+         </section>
+         <!--End Section category-->
+         <!-- <end content body> -->
+
+
+         <!-- start sction Dates -->
+         <section class="section-Dates pt-5">
+            <div class="head-section-cat text-center">
+               <h1 class="text-blue-dark">مواعيد الدورات القادمة</h1>
+               <svg xmlns="http://www.w3.org/2000/svg" width="92" height="4"
+                  viewBox="0 0 92 4">
+                  <rect id="Shape" width="60" height="4" rx="2" fill="#1f75fe" />
+                  <rect id="Shape-2" data-name="Shape" width="16" height="4" rx="2"
+                     transform="translate(65)" fill="#1f75fe" />
+                  <rect id="Shape-3" data-name="Shape" width="6" height="4" rx="2"
+                     transform="translate(86)" fill="#1f75fe" />
+               </svg>
+            </div>
+            <div class="selection-corse d-flex justify-content-center">
+               <div class="nav nav-tabs justify-content-center" role="tablist">
+                  <div class="div-radio m-0">
+                     <input type="text" placeholder="اسم تصنيف الدورة">
+                  </div>
+                  <div class="d-flex">
+                     <div class="div-radio">
+                        <label for="attendance">حضوري</label>
+                        <input id="attendance" checked name="intervaltype" type="radio"
+                           data-target="#scheduleDaily">
+                     </div>
+                     <div class="div-radio">
+                        <label for="online">اونلاين</label>
+                        <input id="online" name="intervaltype" type="radio"
+                           data-target="#scheduleWeekly">
+                     </div>
+                     <div class="div-radio">
+                        <label for="alldata">الكل</label>
+                        <input id="alldata" name="intervaltype" type="radio"
+                           data-target="#scheduleMonthly">
+                     </div>
+                  </div>
+                  <div class="div-radio mar-right">
+                     <label for="Goal">فقط الدورات المدعومة من هدف</label>
+                     <input id="Goal" name="intervaltype" type="checkbox"
+                        data-target="#scheduleMonthly">
+                  </div>
+               </div>
+            </div>
+            <div class="div-att mt-3 " id="att">
+               <div class="row fcal">
+                @foreach (var course in Model)
+                    {
+                  <div class="manage-att col-lg-3 col-md-5 ">
+                     <div class="div-tilte-att text-center" >
+                        <h2>
+
+                                @course.CoursesData?.HeaderAr
+                                
+                                
+                        <h2>
+                     </div>
+                        <div class="div-date-att">
+                            <span>
+                                @{
+                                    CultureInfo arabicCulture = new CultureInfo("ar-SA");
+                                    string dayOfWeek = course.StartDate?.ToString("dddd", arabicCulture);
+                                    // Convert the day of the week to Arabic
+                                    switch (dayOfWeek)
+                                    {
+                                        case "Friday":
+                                            dayOfWeek = "الجمعة";
+                                            break;
+                                        case "Saturday":
+                                            dayOfWeek = "السبت";
+                                            break;
+                                        case "Sunday":
+                                            dayOfWeek = "الأحد";
+                                            break;
+                                        case "Monday":
+                                            dayOfWeek = "الاثنين";
+                                            break;
+                                        case "Tuesday":
+                                            dayOfWeek = "الثلاثاء";
+                                            break;
+                                        case "Wednesday":
+                                            dayOfWeek = "الأربعاء";
+                                            break;
+                                        case "Thursday":
+                                            dayOfWeek = "الخميس";
+                                            break;
+                                    }
+                                    @dayOfWeek
+                                } الموافق
+                            </span>
+                            <span>@(course.StartDate != null ? course.StartDate.Value.ToString("yyyy/MM/dd") : "")</span>
+
+                        </div>
+                     <div class="div-time-att">
+                              <span>من</span>
+                            @{
+                                string morningOrEvening = "صباحًا";
+
+                                if (course.StartTime != null)
+                                {
+                                    if (course.StartTime.Value.Hour >= 12)
+                                    {
+                                        morningOrEvening = "مساءً";
+                                    }
+                                }
+                            }
+
+                            <span>@course.StartTime?.ToString("hh:mm tt") @morningOrEvening</span>
+
+                            <span>حتى</span>
+
+                            @{
+                                morningOrEvening = "صباحًا";
+
+                                if (course.EndTime != null)
+                                {
+                                    if (course.EndTime.Value.Hour >= 12)
+                                    {
+                                        morningOrEvening = "مساءً";
+                                    }
+                                }
+                            }
+
+                            <span>@course.EndTime?.ToString("hh:mm tt") @morningOrEvening</span>
+
+                     </div>
+                     <div class="div-tpye-att mt-2">
+                            <p>@course.CoursesData?.HeaderEn</p>
+                     </div>
+                        @if (course.CoursesData?.Nots != null)
+                            {
+                                <div class="div-tpyeData-att">
+                                 <p>@course.CoursesData?.Nots</p>
+                                </div>
+                            }
+
+                        @if (course.IsHadaf)
+                        {
+                            <div class="div-goal-att">
+                                <p>الدورة مدعومة من هدف</p>
+                            </div>
+                        }
+                                    <div class="div-goalon-att">
+                    @{
+                        string arabicName = course.CoursesIsonline?.ArabicName;
+                        if (!string.IsNullOrWhiteSpace(arabicName))
+                        {
+                            if (arabicName.Trim().Equals("اون لاين", StringComparison.OrdinalIgnoreCase))
+                            {
+                                <h5 style="color: red;">@arabicName</h5>
+                            }
+                            else
+                            {
+                                <h5>@arabicName</h5>
+                            }
+                        }
+                    }
+                </div>
+                        <div class="div-buttons-att">
+                            <a asp-controller="Home" asp-action="Index" asp-route-id="@course.Id" class="first-link">التفاصيل</a>
+                            <a asp-controller="Home" asp-action="Indes" asp-route-id="@course.Id">التسجيل الان<i class="fa-solid fa-arrow-right fa-rotate-180"></i>&nbsp;&nbsp;</a>
+                        </div>
+
+                  </div>
+                  }
+
+               </div>
+            </div>
+
+            <div class="div-att mt-3 onlin-div" id="on">
+               <div class="row fcal">
+                  
+                  
+               </div>
+            </div>
+
+
+            <div class="div-att mt-3 all-div" id="all">
+               <div class="row fcal">
+                 
+                  
+               </div>
+            </div>
+
+         </section>
+
+
+      </div>
+      <!-- End section Dates -->

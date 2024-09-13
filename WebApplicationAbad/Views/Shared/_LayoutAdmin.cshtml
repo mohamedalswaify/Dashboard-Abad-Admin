@@ -1,0 +1,802 @@
+﻿@using Azure;
+@using Microsoft.AspNetCore.Identity
+@using WebApplicationAbad.Areas.AdminManageData.Data;
+@using WebApplicationAbad.Data;
+@using WebApplicationAbad.Models;
+@using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@inject ApplicationDbContext context
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+	string? Cook = Context.Request.Cookies["EmployeeId"]?.ToString();
+	Employee employee;
+	EmployeePremotion prema;
+	if (Cook != null) { 
+		employee = context.Employees.FirstOrDefault(b => b.Token == Cook);
+		prema = context.EmployeePremotion.FirstOrDefault(b => b.EmployeeId == employee.Id);
+	}
+	else
+	{
+		employee = context.Employees.FirstOrDefault();
+		prema = context.EmployeePremotion.FirstOrDefault();
+
+	}
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="~/admin/img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://demo.adminkit.io/pages-blank.html" />
+
+	<!-- toastr -->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" asp-append-version="true" />
+
+	<title>Dashboard Admin</title>
+	
+	
+
+	<link  href="~/admin/css/light.css" rel="stylesheet" />
+
+
+	<style>
+		body {
+			opacity: 0;
+		}
+
+		.myrow{
+			direction: rtl;
+		}
+	</style>
+	<!-- END SETTINGS -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-10"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'UA-120946860-10', { 'anonymize_ip': true });
+	</script>
+
+	<script>
+		function getCookieValue(cookieName) {
+			var name = cookieName + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var cookieArray = decodedCookie.split(';');
+
+			for (var i = 0; i < cookieArray.length; i++) {
+				var cookie = cookieArray[i].trim();
+				if (cookie.indexOf(name) === 0) {
+					return cookie.substring(name.length);
+				}
+			}
+
+			return null;
+		}
+		var employeeId = getCookieValue("EmployeeId");
+		if (employeeId == null) {
+			window.location.href = "/AdminManageData/Employee/GetLoginEmployee";
+		}
+	</script>
+</head>
+
+<body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar" style="text-align:right;">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="index.html">
+					<span class="sidebar-brand-text align-middle">
+						Abadnet
+						<sup><small class="badge bg-primary text-uppercase">Pro</small></sup>
+					</span>
+					<svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"
+						 stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF" style="margin-left: -3px">
+						<path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
+						<path d="M20 12L12 16L4 12"></path>
+						<path d="M20 16L12 20L4 16"></path>
+					</svg>
+				</a>
+
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Pages
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link collapsed" style="direction: rtl;">
+							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">لوحة التحكم</span>
+						</a>
+						<ul id="dashboards" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="Home" asp-action="Index">
+									الرئيسيه 
+								</a>
+							</li>
+						
+						</ul>
+					</li>
+
+
+
+
+
+					<li class="sidebar-item">
+						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link" style="direction: rtl;">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">ادارة المعسكرات</span>
+						</a>
+						<ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+							@if (prema.CoursesData)
+							{
+								<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="CampsCourses" asp-controller="Camp" asp-action="Index" target="_self">
+										ادارة تسجيلات المعسكر
+									</a>
+								</li>
+							}
+
+
+						
+							
+						</ul>
+					</li>
+
+
+
+
+
+
+
+
+
+					<li class="sidebar-item">
+						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link" style="direction: rtl;">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">الدورات</span>
+						</a>
+						<ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+							@if (prema.CoursesData)
+							{
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="CoursesData" asp-action="GetCoursesDataIndex" target="_self">
+									ادارة الدورات 
+								</a>
+							</li>
+							}
+							@if(prema.CoursesScheduless){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="CoursesScheduless" asp-action="GetCoursesSchedulessIndex" target="_self">
+									الدورات القائمة
+								</a>
+							</li>
+							}
+							@if (prema.CoursesStutes){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="CoursesStutes" asp-action="GetCoursesStutesIndex" target="_self">
+									ادارة حالة الدورات 
+								</a>
+							</li>
+							}
+							@if (prema.Matdetory)
+							{
+								<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="Session" asp-action="GetListOfSession" target="_self">
+										ادارة المحاضرات المسجله
+									</a>
+								</li>
+							}
+							@if (prema.Matdetory)
+							{
+								<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="Zoom" asp-action="Index" target="_self">
+										ادارة محاضرات Zoom
+									</a>
+								</li>
+							}
+							@if (prema.Room)
+							{
+								<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="Room" asp-action="Index" target="_self">
+										ادارة بيانات الغرف
+									</a>
+								</li>
+							}
+						</ul>
+					</li>
+
+					<li class="sidebar-item ">
+						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link" style="direction: rtl;">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">العروض والطلبات والمقالات</span>
+						</a>
+						<ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+
+							@if(prema.ViewsNow){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="ViewsNow" asp-action="GetViewsNowIndex" target="_self">
+									ادارة العروض
+								</a>
+							</li>
+							}
+							
+							@if(prema.RequiredCourse){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="RequiredCourse" asp-action="RequiredCourseIndex" target="_self">
+									ادارة الطلبات المرسلة
+								</a>
+							</li>
+							}
+		
+							@if(prema.Article){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="Article" asp-action="ArticleIndex" target="_self">
+									ادارة المقالات
+								</a>
+							</li>
+							}
+
+							
+							@if (prema.HomePage)
+							{
+								<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="AdminManageData" asp-controller="Employee" asp-action="HomePageIndex" target="_self">
+										ادارة  الصفحة الرئيسة
+									</a>
+								</li>
+							}
+
+						</ul>
+					</li>
+
+				
+
+					<li class="sidebar-item ">
+						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link" style="direction: rtl;">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">التعاميد</span>
+						</a>
+						<ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+							@if(prema.Company){
+							<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="CompanyData" asp-controller="CompaniesData" asp-action="Index" target="_self">
+									ادارة بيانات الشركات
+								</a>
+							</li>
+							}
+							@if(prema.CompanyRequest){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="CompanyData" asp-controller="Request" asp-action="DownloadPdf" target="_self">
+									طلبات المنشات 
+								</a>
+							</li>
+							}
+							@if (prema.Complaints)
+							{
+								<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="Complaint" asp-action="Index" target="_self">
+										المقترحات والشكاوي
+									</a>
+								</li>
+							}
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="CompanyData" asp-controller="Partners" asp-action="Index" target="_self">
+									الشركاء
+								</a>
+							</li>
+
+						</ul>
+					</li>
+					
+					<li class="sidebar-item ">
+						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link" style="direction: rtl;">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">ادارة بيانات الطالب والمدرب</span>
+						</a>
+						<ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+							@if (prema.Studnt)
+							{
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="Students" asp-action="Index" target="_self">
+									ادارة بيانات الطلاب
+								</a>
+							</li>
+							}
+							@if (prema.Contract)
+							{
+								<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="AdminManageData" asp-controller="Trainer" asp-action="GetIndexTrainer" target="_self">
+										ادارة بيانات المدرب
+									</a>
+								</li>
+							}
+						
+
+
+						</ul>
+					</li>
+					
+					<li class="sidebar-item ">
+						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link" style="direction: rtl;">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">ادراة محتوي الموقع</span>
+						</a>
+						
+						<ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+							@if (prema.CoursesType){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="CoursesIsonline" asp-action="GetCoursesIsonlineIndex" target="_self">
+									انواع الدورات
+								</a>
+							</li>
+							}
+							
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="CoursesType" asp-action="GetCoursesTypeIndex" target="_self">
+									تصنيفات الدورات
+								</a>
+							</li>
+							@if(prema.TypePaid){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminCoursesData" asp-controller="CoursesPiad" asp-action="GetCoursesPaidIndex" target="_self">
+									انواع الدفع
+								</a>
+							</li>
+							}
+						</ul>
+					</li>
+					
+					<li class="sidebar-item ">
+						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link" style="direction: rtl;">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">ادارة صلاحيات المستخدمين</span>
+						</a>
+
+						<ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+							@if(prema.EmployeePage){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminManageData" asp-controller="Employee" asp-action="GetEmployeeIndex" target="_self">
+									ادارة بيانات الموظفين
+								</a>
+							</li>
+							}
+							@if (prema.HomePage){
+							<li class="sidebar-item">
+								<a class="sidebar-link" asp-area="AdminManageData" asp-controller="Employee" asp-action="HomePageIndex" target="_self">
+									ادارة بيانات الصفحة الرئيسية
+								</a>
+							</li>
+							}
+						</ul>
+					</li>
+
+					<li class="sidebar-item ">
+						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link" style="direction: rtl;">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">الاعدادات</span>
+						</a>
+
+						<ul id="pages" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+							@if (prema.EmployeePage)
+							{
+								<li class="sidebar-item">
+									<a class="sidebar-link" asp-area="Setting" asp-controller="SettingsHome" asp-action="Index" target="_self">
+										ادارة الاعدادات
+									</a>
+								</li>
+							}
+							@if (prema.HomePage)
+							{
+								<li class="sidebar-item">
+
+									<a class="sidebar-link" asp-area="Setting" asp-controller="Comment" asp-action="Index" target="_self">
+										ادارة التعليقات
+									</a>
+								</li>
+
+								<li class="sidebar-item">
+
+									<a class="sidebar-link" asp-area="Setting" asp-controller="Privacy" asp-action="Index" target="_self">
+										ادارة الخصوصية
+									</a>
+								</li>
+							}
+						</ul>
+					</li>
+
+
+
+
+
+
+				</ul>
+
+				<div class="sidebar-cta">
+					<div class="sidebar-cta-content">
+						<strong class="d-inline-block mb-2">Weekly Sales Report</strong>
+						<div class="mb-3 text-sm">
+							Your weekly sales report is ready for download!
+						</div>
+
+						<div class="d-grid">
+							@*<a href="https://adminkit.io/" class="btn btn-outline-primary" target="_blank">Download</a>
+							<a href="#" class="btn btn-outline-primary" target="_blank">Download</a>
+						</div>
+					</div>
+				</div>*@
+			</div>
+			</div>
+			</div>
+		</nav>
+
+		<div class="main"  >
+			<nav class="navbar navbar-expand navbar-light navbar-bg" style="justify-content:space-around">
+				<a class="sidebar-toggle js-sidebar-toggle" style="margin-left:400px">
+					<i class="hamburger align-self-center"></i>
+				</a>
+				<div style="display:flex">
+				<form class="d-none d-sm-inline-block">
+					<div class="input-group input-group-navbar">
+						<input type="text" class="form-control" placeholder="Search…" aria-label="Search">
+						<button class="btn" type="button">
+							<i class="align-middle" data-feather="search"></i>
+						</button>
+					</div>
+				</form>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+
+						<li class="nav-item">
+							<a class="nav-icon js-fullscreen d-none d-lg-block" href="#">
+								<div class="position-relative">
+									<i class="align-middle" data-feather="maximize"></i>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				</div>
+
+			</nav>
+
+			<main class="content">
+				<div class="container-fluid p-0">
+                @RenderBody()
+				</div>
+			</main>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							<p class="mb-0">
+								<a href="https://adminkit.io/" target="_blank" class="text-muted"><strong>AdminKit</strong></a> &copy;
+							</p>
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Support</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Help Center</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Privacy</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Terms</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+    <script src="~/admin/js/app.js"></script>
+	
+		<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
+			var gradientLight = ctx.createLinearGradient(0, 0, 0, 225);
+			gradientLight.addColorStop(0, "rgba(215, 227, 244, 1)");
+			gradientLight.addColorStop(1, "rgba(215, 227, 244, 0)");
+			var gradientDark = ctx.createLinearGradient(0, 0, 0, 225);
+			gradientDark.addColorStop(0, "rgba(51, 66, 84, 1)");
+			gradientDark.addColorStop(1, "rgba(51, 66, 84, 0)");
+			// Line chart
+			new Chart(document.getElementById("chartjs-dashboard-line"), {
+				type: "line",
+				data: {
+					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					datasets: [{
+						label: "Sales ($)",
+						fill: true,
+						backgroundColor: window.theme.id === "light" ? gradientLight : gradientDark,
+						borderColor: window.theme.primary,
+						data: [
+							2115,
+							1562,
+							1584,
+							1892,
+							1587,
+							1923,
+							2566,
+							2448,
+							2805,
+							3438,
+							2917,
+							3327
+						]
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					tooltips: {
+						intersect: false
+					},
+					hover: {
+						intersect: true
+					},
+					plugins: {
+						filler: {
+							propagate: false
+						}
+					},
+					scales: {
+						xAxes: [{
+							reverse: true,
+							gridLines: {
+								color: "rgba(0,0,0,0.0)"
+							}
+						}],
+						yAxes: [{
+							ticks: {
+								stepSize: 1000
+							},
+							display: true,
+							borderDash: [3, 3],
+							gridLines: {
+								color: "rgba(0,0,0,0.0)",
+								fontColor: "#fff"
+							}
+						}]
+					}
+				}
+			});
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Pie chart
+			new Chart(document.getElementById("chartjs-dashboard-pie"), {
+				type: "pie",
+				data: {
+					labels: ["Chrome", "Firefox", "IE", "Other"],
+					datasets: [{
+						data: [4306, 3801, 1689, 3251],
+						backgroundColor: [
+							window.theme.primary,
+							window.theme.warning,
+							window.theme.danger,
+							"#E8EAED"
+						],
+						borderWidth: 5,
+						borderColor: window.theme.white
+					}]
+				},
+				options: {
+					responsive: !window.MSInputMethodContext,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					cutoutPercentage: 70
+				}
+			});
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Bar chart
+			new Chart(document.getElementById("chartjs-dashboard-bar"), {
+				type: "bar",
+				data: {
+					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					datasets: [{
+						label: "This year",
+						backgroundColor: window.theme.primary,
+						borderColor: window.theme.primary,
+						hoverBackgroundColor: window.theme.primary,
+						hoverBorderColor: window.theme.primary,
+						data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+						barPercentage: .75,
+						categoryPercentage: .5
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					scales: {
+						yAxes: [{
+							gridLines: {
+								display: false
+							},
+							stacked: false,
+							ticks: {
+								stepSize: 20
+							}
+						}],
+						xAxes: [{
+							stacked: false,
+							gridLines: {
+								color: "transparent"
+							}
+						}]
+					}
+				}
+			});
+		});
+	</script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var markers = [{
+					coords: [31.230391, 121.473701],
+					name: "Shanghai"
+				},
+				{
+					coords: [28.704060, 77.102493],
+					name: "Delhi"
+				},
+				{
+					coords: [6.524379, 3.379206],
+					name: "Lagos"
+				},
+				{
+					coords: [35.689487, 139.691711],
+					name: "Tokyo"
+				},
+				{
+					coords: [23.129110, 113.264381],
+					name: "Guangzhou"
+				},
+				{
+					coords: [40.7127837, -74.0059413],
+					name: "New York"
+				},
+				{
+					coords: [34.052235, -118.243683],
+					name: "Los Angeles"
+				},
+				{
+					coords: [41.878113, -87.629799],
+					name: "Chicago"
+				},
+				{
+					coords: [51.507351, -0.127758],
+					name: "London"
+				},
+				{
+					coords: [40.416775, -3.703790],
+					name: "Madrid "
+				}
+			];
+			var map = new jsVectorMap({
+				map: "world",
+				selector: "#world_map",
+				zoomButtons: true,
+				markers: markers,
+				markerStyle: {
+					initial: {
+						r: 9,
+						stroke: window.theme.white,
+						strokeWidth: 7,
+						stokeOpacity: .4,
+						fill: window.theme.primary
+					},
+					hover: {
+						fill: window.theme.primary,
+						stroke: window.theme.primary
+					}
+				},
+				regionStyle: {
+					initial: {
+						fill: window.theme["gray-200"]
+					}
+				},
+				zoomOnScroll: false
+			});
+			window.addEventListener("resize", () => {
+				map.updateSize();
+			});
+			setTimeout(function() {
+				map.updateSize();
+			}, 250);
+		});
+	</script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
+			var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
+			document.getElementById("datetimepicker-dashboard").flatpickr({
+				inline: true,
+				prevArrow: "<span class=\"fas fa-chevron-left\" title=\"Previous month\"></span>",
+				nextArrow: "<span class=\"fas fa-chevron-right\" title=\"Next month\"></span>",
+				defaultDate: defaultDate
+			});
+		});
+	</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    setTimeout(function(){
+      if(localStorage.getItem('popState') !== 'shown'){
+        window.notyf.open({
+          type: "success",
+          message: "Get access to all 500+ components and 45+ pages with AdminKit PRO. <u><a class=\"text-white\" href=\"https://adminkit.io/pricing\" target=\"_blank\">More info</a></u> 🚀",
+          duration: 10000,
+          ripple: true,
+          dismissible: false,
+          position: {
+            x: "left",
+            y: "bottom"
+          }
+        });
+
+        localStorage.setItem('popState','shown');
+      }
+    }, 15000);
+  });
+</script>
+	<script>
+		function searchTable() {
+			let input = document.getElementById("searchInput").value.toLowerCase();
+			let table = document.getElementById("myTable");
+			let rows = table.getElementsByTagName("tr");
+
+			for (let i = 1; i < rows.length; i++) {
+				let cells = rows[i].getElementsByTagName("td");
+				let rowVisible = false;
+
+				for (let j = 0; j < cells.length; j++) {
+					let cellText = cells[j].textContent || cells[j].innerText;
+
+					if (cellText.toLowerCase().indexOf(input) > -1) {
+						rowVisible = true;
+						break;
+					}
+				}
+				rows[i].style.display = rowVisible ? "" : "none";
+			}
+		}
+			function AllBool() {
+				const Bool = confirm("Are you sure?");
+				if (Bool) {
+					alert("operation accomplished successfully");
+					return true;
+				}
+
+				return false
+			}
+	</script>
+		<script src="~/admin/js/settings.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>
+
+

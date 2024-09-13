@@ -1,0 +1,490 @@
+﻿@using System.Globalization;
+@model WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesReserved;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+    DateTime NowDate=DateTime.Now;
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Index -->
+
+    <link rel="stylesheet" href="~/content/css/main/style.css">
+    <link rel="stylesheet" href="~/content/css/main/media.css">
+
+    <link rel="stylesheet" href="~/content/css/vendors/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+         @@media print {
+          button {
+             display :  none !important;
+           }
+          select{
+          display:none !important;
+          }
+          a{
+              display:none !important
+          }
+        }
+        input{
+            text-align: center;
+            font-weight: bold;
+            border: navajowhite;
+            width:50px;
+        }
+        label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .cont-invece {
+            padding-bottom: 0px;
+            border-bottom: 7px double black;
+            margin-top:20px
+        }
+
+        .root {
+            padding: 15px;
+            padding-bottom: 0px;
+            padding-top: 5px;
+        }
+
+        .table > :not(caption) > * > *{
+            padding:0 !important;
+        }
+
+        .d-lable label {
+            font-size: 16px;
+        }
+
+        .non-weight {
+            font-weight: 500;
+        }
+
+        th {
+            text-align: center;
+            background-color: #dddddd !important;
+            color: #0a0a6a;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        td {
+            font-weight: 700 !important;
+            border: 1px solid black;
+        }
+
+        table {
+            border: 1px solid black !important;
+        }
+
+        tr {
+            text-align: center;
+            height: 30px;
+            font-size: 14px;
+        }
+
+        .tex-end {
+            text-align: right;
+        }
+
+        .tbl-bot div {
+            padding: 5px;
+            padding-right: 5px;
+            padding-left: 50px;
+            width: 30%;
+            font-size: 20px;
+            border-bottom: 2px solid;
+        }
+
+            .tbl-bot div label {
+                direction: rtl
+            }
+
+        .after-invoe {
+            background-color: #dddddd;
+            color: #0a0a6a;
+        }
+       
+    </style>
+
+</head>
+
+
+<body>
+
+    
+    <div class="container">
+        <div class="row cont-invece">
+            <div class="col-4">
+                <h1>فاتورة ضريبیة <br>TAX Invoice</h1>
+            </div>
+            <div class="col-4" style="direction: rtl;">
+                <h3>MASARA NETWORK FOR TRAINING</h3>
+                <label>الرقم الضريبي: &nbsp;</label><label>3120993069</label><br>
+                <label>ھاتف: &nbsp;</label><label>0544160497</label><br>
+                <label>
+                    طريق ابي بكر الصديق الفرعي، التعاون، الرياض
+              </label><br>
+                <label>مركز البلازا دور الأول مكتب  رقم 5</label>
+            </div>
+            <div class="col-4" style="text-align:center">
+                <img height="100px" src="~/content/assets/images/Masratk.png" alt="Abad logo" />
+            </div>
+        </div>
+
+
+        <div class="row root">
+            <div class="col-6">
+                <div class="d-flex">
+                    <div class="m-3">
+                        <label class="non-weight">@Model.Id</label>
+                    </div>
+                    <div>
+                        <label>رقم الفاتورة &nbsp;</label><br>
+                        <label>Invoice NO</label>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="m-3" style="margin-left: -26px !important;">
+                        @if(Model.LastUpdateUserCode==null){
+                            <label class="non-weight">@NowDate.ToString("dd-MM-yyyy")</label>
+                        }
+                        else
+                        {
+                            <label class="non-weight">@Model.LastUpdateDate</label>
+                        }
+                    </div>
+                    <div>
+                        <label>تاريخ الفاتورة &nbsp;</label><br>
+                        <label>Invoice Date</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-6" dir="rtl">
+                <div class="d-flex d-lable">
+                    <div>
+                        <label>العميل &nbsp; &nbsp; </label><br><label>Client</label><br>
+                    </div>
+                    <div>
+                        <label>@Model.Student.ArabicName</label><br><label class="non-weight">@Model.StudentId</label><br>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+
+        <table class="table" dir="rtl">
+            <tbody>
+                <tr>
+                    <th>البند <br> Item</th>
+                    <th>الكمیة <br> Qty</th>
+                    <th>السعر <br> price</th>
+                    <th>نسبة <br>الضريبة<br> VAT <br>15%</th>
+                    <th>قیمة الضريبة<br>VAT Amount</th>
+                    <th>الإجمالي مع <br> الضريبة <br> Total With <br>VAT </th>
+                    <th>نسبة الخصم <br> Discount percentage</th>
+                    <th>قيمة الخصم<br>discount value</th>
+                    <th>الاجمالي بعد الخصم<br>Total after discount</th>
+                </tr>
+
+                <tr>
+                    <td>@Model.CoursesScheduless.CoursesData.HeaderAr</td>
+                    <td>1</td>
+                    <td dir="ltr">
+                        ر.س<input type="number" id="price" style="width:60px" value="@Convert.ToInt32(Model.Paidup)" />
+                    </td>
+                    <td>
+                        <label id="vat">15%</label>
+                    </td>
+                    <td>
+                        <label id="amount">0</label>
+                    </td>
+                    <td>
+                        <label id="amountvat">0</label>
+                    </td>
+                    <td>
+                        %<input id="discount" max="3" value="@Model.PreDiscount" type="number" />
+                    </td>
+                    <td>
+                        <label id="discountValue">@Model.Discount</label>
+                    </td>
+                    <td>
+                        <label id="totalAfterDiscount">@Convert.ToInt32(Model.Paidup)</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tbl-bot">
+            <div class="d-flex justify-content-between">
+                
+                <label class="mt-2" id="priceAfter"> <label> ر.س</label> @Convert.ToInt32(Model.Paidup)  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>الاجمالي قبل الضرية <br>Total Before VAT &nbsp; &nbsp;</label>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <label class="mt-2" id="totalVAT"> <label> ر.س</label> @Model.Paidup         &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>القيمة المضافة (15%)</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <label class="mt-2" id="totalAfterVAT"> <label> ر.س</label>  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>الاجمالي بعد الضرية <br>Total After VAT &nbsp; &nbsp;</label>
+            </div>
+            
+            
+            <div class="d-flex justify-content-between">
+                <label class="mt-2" id="dicotuntAfter"> <label> ر.س</label> 0 &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>اجمالي  الخصم<br>Total discount &nbsp; &nbsp;</label>
+            </div>
+            <div class="d-flex justify-content-between after-invoe">
+                <label class="mt-2" id="totalDiscountAfter"> <label> ر.س</label> 0   &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>الاجمالي بعد الخصم <br>Total Total after discount &nbsp; &nbsp;</label>
+            </div>
+
+            <div class="d-flex justify-content-between">
+
+                <input type="checkbox" id="checkBook" checked/> <label class="mt-2" id="DueStudnet"> 
+                <label> ر.س</label> @Model.Student.Amount  &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label> رصيد الطالب <br>Total Total after discount &nbsp; &nbsp;</label>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <input type="number" id="Paid" style="width:100px" value="@Model.Payment" />
+                <label>المدفوع<br> Paid</label>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <div style="padding:0;border:none">
+                    @if (Model.TypePaidId == null)
+                    {
+                        <label id="typeofPaid">لايوجد</label>
+                    }
+                    else{
+                        <label id="typeofPaid">@Model.TypePaid.ArabicName</label>
+                    }
+                    
+                </div>
+                <label>نوع الدفع<br>Type Paid</label>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <label id="total">@Convert.ToInt32(Model.BalanceDue) ر.س</label>
+                <label>الرصيد المستحق <br> Due Amount</label>
+            </div>
+        </div>
+
+        <div class="mt-5 d-flex">
+            <div style="margin-left:10px">
+            <button class="btn btn-lg btn-danger" onclick="clickHandler()">تاكيد الدفع</button>
+            <a href="javascript:void(0);" onclick="printInvoice()" class="btn btn-lg btn-primary">طباعة الفاتورة</a>
+            </div>
+            <div style="margin-left:10px">
+                <select id="selectElement" class="form-select"  asp-items="@ViewBag.FillData" required>
+                </select>
+            </div>
+        </div>
+        <img src="~/content/assets/images/Mask.jpg" width="200px" />
+
+
+
+
+    </div>
+
+
+
+
+
+    <script src="~/content/js/vendors/bootstrap.bundle.min.js"></script>
+
+    <script src="~/content/js/vendors/jquery-3.7.1.min.js"></script>
+    <script src="~/content/js/vendors/swiper-bundle.min.js"></script>
+    <script src="~/content/js/main/swiper.js"></script>
+
+    <script>
+
+       
+
+        var elements = {
+            price: document.getElementById("price"),
+            discount: document.getElementById("discount"),
+            vat: document.getElementById("vat"),
+            amount: document.getElementById("amount"),
+            amountvat: document.getElementById("amountvat"),
+            totalAfterDiscount: document.getElementById("totalAfterDiscount"),
+            discountValue: document.getElementById("discountValue"),
+
+            priceAfterLabel: document.getElementById("priceAfter"),
+            dicotuntAfterLabel: document.getElementById("dicotuntAfter"), 
+            totalDiscountAfterLabel: document.getElementById("totalDiscountAfter"), 
+            totalVATLabel: document.getElementById("totalVAT"),
+            totalAfterVATLabel: document.getElementById("totalAfterVAT"),
+            totalPaid: document.getElementById("Paid"), 
+            typeofPaid: document.getElementById("typeofPaid"),
+            checkBook: document.getElementById("checkBook")
+        };
+        
+
+        document.addEventListener("DOMContentLoaded", calculateValues);
+        elements.discount.addEventListener("input", calculateValues);
+        elements.price.addEventListener("input", calculateValues);
+
+        function calculateValues() {
+            var priceValue = parseFloat(elements.price.value);
+            var vatPercentage = parseFloat(elements.vat.innerText.replace('%', ''));
+
+            var vatValue = priceValue * (vatPercentage / 100);
+            elements.amount.textContent = Math.ceil(vatValue);
+
+            var amountValue = priceValue + vatValue;
+            elements.amountvat.textContent = Math.ceil(amountValue);
+
+            calculateDiscount(amountValue);
+            updateLabel();
+        }
+
+        function calculateDiscount(amountValue) {
+            var discountPercentage = parseFloat(elements.discount.value.replace('%', ''));
+            var totalDiscount = amountValue * (discountPercentage / 100);
+
+            elements.discountValue.textContent = Math.ceil((totalDiscount));
+            elements.totalAfterDiscount.textContent = Math.ceil((amountValue - totalDiscount));
+
+            var currencyUnit = "ر.س  ";
+            elements.priceAfterLabel.textContent = elements.price.value + currencyUnit;
+            elements.dicotuntAfterLabel.textContent = Math.ceil(totalDiscount) + currencyUnit;
+            elements.totalDiscountAfterLabel.textContent = elements.totalAfterDiscount.textContent + currencyUnit;
+            elements.totalVATLabel.textContent = elements.amount.textContent + currencyUnit;
+            elements.totalAfterVATLabel.textContent = elements.amountvat.textContent + currencyUnit;
+
+            var total = document.getElementById("total");
+            var totalDiscountAfter = parseFloat(elements.totalDiscountAfterLabel.textContent);
+            var totalvalue = parseFloat(elements.totalPaid.value);
+            total.textContent = (totalDiscountAfter - totalvalue) + "ر.س ";
+
+
+            var Tax = parseInt(elements.amount.textContent);
+            var PreDiscount = parseInt(elements.discount.value);
+            var Discount = parseInt(elements.discountValue.textContent);
+            var BalanceDue = parseInt(elements.discountValue.textContent);
+
+
+        }
+        elements.totalPaid.addEventListener("input", function (event) {
+            var total = document.getElementById("total");
+            var totalDiscountAfter = parseFloat(elements.totalDiscountAfterLabel.textContent);
+            var totalvalue = parseFloat(elements.totalPaid.value);
+            total.textContent = (totalDiscountAfter - totalvalue)+"ر.س ";
+        });
+        function printInvoice() {
+            window.print();
+        }
+
+        var selectElement = document.getElementById('selectElement');
+        var typeofPaid = document.getElementById('typeofPaid');
+
+        selectElement.addEventListener('click', function () {
+            updateLabel();
+        });
+
+        function updateLabel() {
+            var selectedOption = selectElement.selectedOptions[0];
+
+            var selectedText = selectedOption ? selectedOption.text : '';
+
+            typeofPaid.textContent = selectedText;
+        }
+
+
+        function clickHandler() {
+            var totalElement = document.getElementById("total");
+            var currentText = totalElement.textContent;
+            var cleanNumber = parseInt(currentText.replace(/\D/g, ''), 10);
+            
+           
+            var Tax = parseInt(elements.amount.textContent);
+            var PreDiscount = parseInt(elements.discount.value);
+            var Discount = parseInt(elements.discountValue.textContent);
+            var BalanceDue = cleanNumber;
+            var Id = parseInt('@Model.Id');
+            var TypePaid = selectElement.value;
+            var Payment = parseInt(elements.totalPaid.value);
+            var Prices = elements.price.value;
+            var CheckBooks = elements.checkBook.checked;
+            
+            
+
+            console.log(CheckBooks);
+
+            var data = {
+                id: Id,
+                tax: Tax,
+                preDiscount: PreDiscount,
+                discount: Discount,
+                balanceDue: BalanceDue,
+                typePaid: TypePaid,
+                payment: Payment,
+                vrice: Prices,
+                checkbooks: CheckBooks
+            };
+            console.log(data);
+
+            $.ajax({
+                url: '/AdminCoursesData/Invoice/ConfirmIvoice',
+                data: data,
+                method: 'GET',
+                success: function (response) {
+                    if (response) {
+                        var IdSec = '@Model.CoursesSchedulessId';
+                        console.log(IdSec);
+                        var newUrl = `/AdminCoursesData/CoursesScheduless/GetDaitlsCoursesSchduless?IdCourses=${IdSec}`;
+                        window.location.href = newUrl;
+                    } else {
+                        alert("من فضلك ادخل المبلغ المدفوع بالكامل")
+                    }
+                },
+                error: function (error) {
+                    console.log('Error:', error);
+                }
+            });
+
+        }
+        var isStatusPaidup = @Model.StutusPaidup.ToString().ToLower();
+        console.log(typeof(isStatusPaidup))
+        console.log(isStatusPaidup)
+        var buttons = document.querySelectorAll('button');
+        var selects = document.querySelectorAll('select');
+        var inputs = document.querySelectorAll('input');
+
+        buttons.forEach(function (button) {
+            button.style.display = isStatusPaidup ? 'none' : '';
+        });
+
+        selects.forEach(function (select) {
+            select.style.display = isStatusPaidup ? 'none' : '';
+        });
+        inputs.forEach(function (input) {
+            input.disabled = isStatusPaidup;
+        });
+
+
+
+
+        
+    </script>
+
+</body>
+
+
+</html>

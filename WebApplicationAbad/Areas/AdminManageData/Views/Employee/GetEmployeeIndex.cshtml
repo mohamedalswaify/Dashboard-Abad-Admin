@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebApplicationAbad.Areas.AdminManageData.Data.Employee>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Employee";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                <a class="btn btn-outline-primary" asp-action="GetCreateEmployee">اضافة <i class="fa-solid fa-plus"></i> </a>
+            </div>
+            <h2 class="card-title">الموظفين</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="بحث">
+        </div>
+        <form asp-action="DeleteArticle" onsubmit="return AllBool()">
+            <table id="myTable" class="table mt-2 table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            الاسم 
+                        </th>
+                        <th>
+                            البريد الالكتروني
+                        </th>
+                        <th>
+                           الهاتف
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><a style="color: red; font-size: 15px; font-weight: bold;" asp-action="GetPremotionEmployee" asp-route-Id="@item.Id">@item.Name</a></td>
+                            <td class=" d-md-table-cell">@item.Email</td>
+                            <td>@item.Phone</td>
+                            <td class="table-action">
+                                <a class="btn btn-success" asp-action="GetEmployeeIndex" asp-route-id="@item.Id"><i class="align-middle" data-feather="edit-2"></i></a>
+                                <button type="submit" class="btn btn-danger" asp-route-id="@item.Id"><i class="align-middle" data-feather="trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

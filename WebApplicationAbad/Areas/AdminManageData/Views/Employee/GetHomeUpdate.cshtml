@@ -1,0 +1,101 @@
+﻿@model WebApplicationAbad.Areas.AdminManageData.Data.HomeScreen;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row myrow">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2 class="card-title">محتوي الصفحه</h2>
+            </div>
+            <div class="card-body">
+                @*onsubmit="confirmFormAlert(this); return false"*@
+                <form asp-action="GetHomeUpdate" enctype="multipart/form-data">
+                    <div class="row">
+
+                        <div class="mb-3" hidden="false">
+                            <label asp-for="Id" class="control-label"></label>
+                            <input asp-for="Id" class="form-control" />
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 col-12 ">
+                            <label class="control-label">العنوان</label>
+                            <input asp-for="Title" class="form-control" min="6" placeholder="العنوان" required>
+                            <span asp-validation-for="Title" class="text-danger"></span>
+@*                             <label class="control-label">اظهار العنوان</label>
+                            <input asp-for="IsShowTitel"/> *@
+                        </div>
+                        <div class="mb-3 col-12 ">
+                            <label class="control-label"> الوصف</label>
+                            <textarea asp-for="Description" class="form-control" min="6" maxlength="30" placeholder="الوصف" required rows="4"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+@*                             <label >اظهار الوصف</label>
+                            <input asp-for="IsShowDes"/> *@
+                        </div>
+                        <div class="mb-3 col-6 col-md-6">
+                            <label class="control-label">اظهار الفديو</label>
+                            <input asp-for="State" placeholder="اظهار الفديو">
+                            <span asp-validation-for="State" class="text-danger"></span>
+                          @*   <label class="control-label">اظهار الزر</label>
+                            <input asp-for="IsButton"> *@
+                            <span asp-validation-for="IsShowTitel" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3 d-flex col-md-6">
+                            <div class="mb-3 d-flex">
+                                <div>
+                                    <label class="control-label">الصوره</label>
+                                    <input type="file" asp-for="FormFiles" class="form-control" onchange="ImageLoad(event)" accept="image/png,image/jpeg" />
+                                </div>
+                                <div>
+                                   <img id="LoadIameg" src="~/Admin/HomeScreen/@Model.Image" width="150px" />
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                    <button type="submit" class="btn btn-primary">تعديل</button>
+                    <a asp-action="HomePageIndex" class="btn btn-info">الرجوع للخلف</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+
+
+
+
+    const confirmFormAlert = async function (form) {
+        var inputFile = document.getElementById("inputFile");
+        var formFile = inputFile.files[0].size;
+        var fileSizeInMB = formFile / (1024 * 1024); 
+
+        if (fileSizeInMB > 106) {
+            alert("حجم الملف أكبر من المساحة المحددة (200 MB)");
+            return false;
+        }
+
+        const sweetConfirm = await swal("Success!", "operation accomplished successfully", "success");
+        if (sweetConfirm) {
+            form.submit();
+        }
+        return sweetConfirm;
+    }
+
+    var currentImageSrc = null;
+
+    var ImageLoad = function (event) {
+        var allowedExtensions = ['jpg', 'png'];
+        var file = event.target.files[0];
+        var fileExtension = file.name.split('.').pop().toLowerCase();
+
+        var img = document.getElementById("LoadIameg");
+        var red = new FileReader();
+        red.readAsDataURL(file);
+        red.onload = function () {
+            currentImageSrc = img.src;
+            img.src = red.result;
+        }
+    }
+</script>

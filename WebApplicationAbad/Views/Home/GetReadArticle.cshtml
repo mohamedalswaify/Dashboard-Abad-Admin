@@ -1,0 +1,223 @@
+﻿@using WebApplicationAbad.Data;
+@model WebApplicationAbad.Areas.AdminCoursesData.Models.Article
+@inject ApplicationDbContext context
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var Type = context.CoursesTypes.Where(b => !b.IsDelete && !b.IsHide).ToList();
+    var sec = context.coursesSchedulesses.Where(b => b.CoursesTypeCode == Model.CoursesTypeCode && !b.IsDelete &&!b.IsHide).OrderByDescending(b=>b.StartDate).Take(2).ToList();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@* <style>
+    .left-article{
+        margin-top:70px;
+    }
+
+    .right-article{
+        justify-content:start;
+        text-align:right;
+        align-items:start;
+    }
+
+    .imge {
+        width: 100%;
+        height: 200px;
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .left-article{
+        position:relative;
+    }
+    @@media (min-width: 320px) and (max-width: 991px) {
+    .left-art-card img {
+            width: 70%;
+            margin: auto;
+            text-align: right;
+    }
+
+        .list-article-content {
+            width:90%;
+            position:absolute
+
+        }
+        footer{
+            margin-top: 400px;
+        }
+}
+</style>
+</header>
+    <div class="article">
+        <div class="right-article">
+            <h1 class="title">@Model.Title</h1>
+
+        <p class="description break-after-dot">
+               @Model.ContetntTitle
+            </p>
+
+            <p class="art">
+               @Model.Absractation
+            </p>
+
+
+            <div class="info">
+                <h1><span class="badge bg-warning">@Model.TitelSubject2؟</span></h1>
+            <p class="break-after-dot">
+                    @Model.ContentSubject2
+                </p>
+            </div>
+
+            <div class="info">
+                <h1><span class="badge bg-warning">@Model.TitleSubject3</span></h1>
+            <p class="break-after-dot">
+                    @Model.TitleContont3
+                   @* <b> إليك مجموعة من الأهداف التي تغطيها شهادة الشبكات من سيسكو :</b>
+                    <br>1.<b> فهم أساسيات الشبكات: </b>تعريف الشبكة، وظائف الشبكة، وكيفية عملها.
+                    <br> 2. <b> تكوين الموجهات والمفاتيح:</b> القدرة على إعداد وصيانة الأجهزة الأساسية في الشبكة.
+                    <br> 3. <b> الأمان السيبراني: </b>مبادئ الأمان الأساسية وكيفية حماية الشبكات من التهديدات.
+                    <br> 4. <b>IPV4 , IPV6</b> فهم وتطييق عنونة الشبكة باستخدام كلا الإصدارين.
+                    <br>5. <b>نموذج OSI وبروتوكولات TCP/IP:</b> فهم النماذج النظرية وتطبيقها على الشبكات الواقعية.
+                    <br>6. <b>الشبكات اللاسلكية وتقنيات WAN:</b> التعرف على تقنيات الشبكات اللاسلكية والشبكات ذات المناطق الواسعة
+                    (WAN).
+                    <br>7. <b> مهارات استكشاف الأخطاء وإصلاحها:</b> القدرة على تحديد وحل المشكلات في الشبكات.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="left-article">
+            <div class="left-article-content">
+                <div class="search-items">
+                    <input type="text" name="" id="" placeholder="بحث">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <g clip-path="url(#clip0_734_7521)">
+                            <path d="M-2.54588 17.4438L2.84313 12.0465C1.78072 10.7713 1.14174 9.14174 1.14174 7.36191C1.14174 3.30143 4.47138 -0.00012207 8.56702 -0.00012207C12.6627 -0.00012207 16 3.30528 16 7.36576C16 11.4262 12.6704 14.7278 8.57472 14.7278C6.83484 14.7278 5.23354 14.1307 3.96327 13.1329L-1.44498 18.5456C-1.76062 18.8615 -2.23024 18.8615 -2.54588 18.5456C-2.86152 18.2297 -2.86152 17.7597 -2.54588 17.4438ZM14.4218 7.36576C14.4218 4.17593 11.7966 1.58323 8.57472 1.58323C5.35286 1.58323 2.72765 4.17593 2.72765 7.36576C2.72765 10.5556 5.35286 13.1483 8.57472 13.1483C11.7966 13.1483 14.4218 10.5517 14.4218 7.36576Z"
+                                  fill="#102447" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_734_7521">
+                                <rect width="16" height="16" fill="white" transform="matrix(-1 0 0 1 16 0)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <span>التصنيفات</span>
+
+            <ul id="typeList">
+                    @foreach (var item in Type)
+                    {
+                        <li><a asp-action="GetArticleType" asp-route-Id="@item.Code">@item.ArabicName (@item.EnglishName)</a></li>
+                    }
+                </ul>
+
+
+                <span>الدورات المقترحة</span>
+
+
+            @foreach (var item in sec)
+            {
+                <div class="left-art-card">
+                    <img src="~/Admin/CoursesDataImage/@item.CoursesData.Image" class="imge" alt="">
+                    <h3>@item.CoursesData.HeaderAr</h3>
+                    <a asp-action="GetDetailsCourses" asp-route-Id="@item.TokenNumber">تفاصيل الدورة</a>
+                </div>
+            }
+            </div>
+        </div>
+
+        <div class="media-article-content">
+
+            <div class="box-svg">
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="28" viewBox="0 0 22 28" fill="none">
+                    <path d="M3.98662 0.677429L1.94531 2.75555H20.3516L18.3102 0.677429H3.98544H3.98662ZM21.3538 10.9196H0.90625V3.7578H21.3538V10.9196ZM15.2311 8.87949V6.83818H7.067V8.87949H8.06925V7.84043H14.192V8.87949H15.2311ZM21.3538 19.1217H0.90625V11.9599H21.3538V19.1217ZM15.2311 17.0804V15.0022H7.067V17.0804H8.06925V16.0413H14.192V17.0804H15.2311ZM21.3538 27.2857H0.90625V20.1607H21.3538V27.2857ZM15.2311 25.2444V23.2031H7.067V25.2444H8.06925V24.2054H14.192V25.2444H15.2311Z"
+                          fill="white" />
+                </svg>
+            </div>
+
+        <div >
+
+            <div class="list-article-content">
+                <svg class="remove1 mb-2" xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42"
+                     fill="none">
+                    <path d="M27 15L15 27" stroke="black" stroke-width="1" stroke-linecap="round" />
+                    <path d="M27 27L15 15" stroke="black" stroke-width="1" stroke-linecap="round" />
+                </svg>
+
+
+                <div class="search-items">
+                    <input type="text" name="" id="" placeholder="بحث">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <g clip-path="url(#clip0_734_7521)">
+                            <path d="M-2.54588 17.4438L2.84313 12.0465C1.78072 10.7713 1.14174 9.14174 1.14174 7.36191C1.14174 3.30143 4.47138 -0.00012207 8.56702 -0.00012207C12.6627 -0.00012207 16 3.30528 16 7.36576C16 11.4262 12.6704 14.7278 8.57472 14.7278C6.83484 14.7278 5.23354 14.1307 3.96327 13.1329L-1.44498 18.5456C-1.76062 18.8615 -2.23024 18.8615 -2.54588 18.5456C-2.86152 18.2297 -2.86152 17.7597 -2.54588 17.4438ZM14.4218 7.36576C14.4218 4.17593 11.7966 1.58323 8.57472 1.58323C5.35286 1.58323 2.72765 4.17593 2.72765 7.36576C2.72765 10.5556 5.35286 13.1483 8.57472 13.1483C11.7966 13.1483 14.4218 10.5517 14.4218 7.36576Z"
+                                  fill="#102447" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_734_7521">
+                                <rect width="16" height="16" fill="white" transform="matrix(-1 0 0 1 16 0)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <span>التصنيفات</span>
+
+                <ul id="typeeList">
+                    @foreach (var item in Type)
+                    {
+                        <li><a asp-action="GetArticleType" asp-route-Id="@item.Code">@item.ArabicName (@item.EnglishName)</a></li>
+                    }
+                </ul>
+
+                <span>الدورات المقترحة</span>
+
+            @foreach (var item in sec){
+                <div class="left-art-card">
+                    <img src="~/Admin/CoursesDataImage/@item.CoursesData.Image" alt="">
+                    <h3>@item.CoursesData.HeaderAr</h3>
+                    <a asp-action="">تفاصيل الدورة</a>
+                </div>
+            }
+            </div>
+        </div>
+
+        </div>
+
+    </div> *@
+
+<script>
+          document.addEventListener('DOMContentLoaded', function () {
+            var elements = document.querySelectorAll('.break-after-dot');
+
+            elements.forEach(function (element) {
+
+                element.innerHTML = element.innerHTML.replace(/\./g, '.<br>');
+                element.innerHTML = element.innerHTML.replace(/\:-/g, ':-<br>');
+            });
+        });
+ </script>
+
+<script>
+    function search() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById('typeList');
+        li = ul.getElementsByTagName('li');
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName('a')[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = '';
+            } else {
+                li[i].style.display = 'none';
+            }
+        }
+    }
+    document.getElementById('searchInput').addEventListener('input', search);
+</script>
+
+
+
+
+<script src="~/customer/content/js/main/article.js"></script>

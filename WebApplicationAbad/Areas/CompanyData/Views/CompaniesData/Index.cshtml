@@ -1,0 +1,64 @@
+﻿@using WebApplicationAbad.Areas.CompanyData.Models;
+@model IEnumerable<CompaniesData>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Companies Data";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<p>@ViewBag.ex</p>
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                <a class="btn btn-outline-primary" asp-action="Create">انشاء شركة جديدة<i class="fa-solid fa-plus"></i> </a>
+            </div>
+            <h2 class="card-title">الشركات</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="بحث">
+        </div>
+        <form asp-action="GetCoursesStutesIndex" onsubmit="return AllBool()">
+            <table id="myTable" class="table mt-2 table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            الاسم بالعربي
+                        </th>
+                        <th>
+                            اسم المسؤول بالعربي
+                        </th>
+                        <th>
+                            رقم الجوال
+                        </th>
+                        <th>
+                            البريد الالكتروني
+                        </th>
+                        <th>
+                            الصورة
+                        </th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><a asp-action="GetDaitelsCompany" asp-route-Token="@item.Token"> @Html.DisplayFor(modelItem => item.ArabicName)</a></td>
+                            <td> @Html.DisplayFor(modelItem => item.ResponsibleNameAr)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Phone)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Email)</td>
+                            <td> <img width="100px" height="100px" src="~/Admin/CompanyImage/@item.Image" /></td>
+                            <td class="table-action">
+                                <a class="btn btn-success" asp-action="Create" asp-route-Token="@item.Token"><i class="align-middle" data-feather="edit-2"></i></a>
+                                <button type="submit" class="btn btn-danger" asp-route-Token="@item.Token"><i class="align-middle" data-feather="trash"></i></button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

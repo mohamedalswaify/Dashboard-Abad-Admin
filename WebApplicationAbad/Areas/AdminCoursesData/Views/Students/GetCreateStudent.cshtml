@@ -1,0 +1,235 @@
+﻿@model WebApplicationAbad.Areas.AdminManageData.Data.Student
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row myrow">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">الطالب</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="GetCreateStudent" id="studentForm" enctype="multipart/form-data" onsubmit="confirmFormAlert(this); return false">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group  mt-3 " hidden="false">
+                        <label asp-for="Id" class="control-label">الاسم العربي</label>
+                        <input asp-for="Id" id="IdNumbers" class="form-control"  />
+                    </div>
+            <div class="form-group  mt-3 ">
+                <label asp-for="ArabicName" class="control-label" >الاسم العربي</label>
+                        <input asp-for="ArabicName" class="form-control" placeholder="الاسم العربي" required />
+            </div>
+        
+            <div class="form-group  mt-3 ">
+                <label asp-for="Idnumber" class="control-label">رقم الهوية</label>
+                        <input type="number" id="identfire" asp-for="Idnumber" class="form-control" placeholder="رقم الهوية" required />
+            </div>
+            <div class="form-group  mt-3 ">
+                <label asp-for="Email" class="control-label">البريد الالكتروني</label>
+                        <input type="email" id="email" asp-for="Email" class="form-control" placeholder="البريد الالكتروني"  required />
+            </div>
+                    <div class="form-group  mt-3 ">
+                        <label asp-for="Password" class="control-label">كلمة المرور</label>
+                        <input type="text" asp-for="Password" class="form-control" placeholder="كلمة المرور" required />
+                    </div>
+            <div class="form-group  mt-3 ">
+                <label asp-for="Phone" class="control-label">رقم الجوال</label>
+              <input type="text" id="phone" asp-for="Phone" class="form-control" placeholder="رقم الجوال" required />
+            </div>
+
+                    <div class="form-group  mt-3 ">
+                        <label asp-for="Phone" class="control-label">تاريخ الميلاد</label>
+                        <input type="date"  asp-for="BirthDate" class="form-control"  required />
+                    </div>
+
+            <div class="form-group  mt-3 ">
+                <label asp-for="Gender" class="control-label">النوع</label>
+                <select asp-for="Gender" class="form-control" >
+                   <option value="1">ذكر</option>
+                   <option value="0">انثى</option>
+                </select>
+            </div>
+                    <div class="form-group  mt-3 ">
+                        <label asp-for="Countries" class="control-label">الجنسيه</label>
+                        <input asp-for="Countries" type="number" class="form-control" placeholder="الجنسيه" required />
+                    </div>
+                
+                    <div class="form-group  mt-3 ">
+                        <label asp-for="City" class="control-label">المدينة</label>
+                        <input asp-for="City" type="number" class="form-control" placeholder="المدينة" required />
+                    </div>
+            <div class="form-group  mt-3 ">
+                   <label asp-for="EducationsType" class="control-label">الدرجة العلمية</label>
+                   <input asp-for="EducationsType" class="form-control" placeholder="الدرجة العلمية" required />
+            </div>
+          
+            <div class="form-group  mt-3 ">
+                <label asp-for="Nots" class="control-label"> ملاحظات</label>
+                <textarea asp-for="Nots" rows="4" class="form-control" placeholder="الملاحظات" ></textarea>
+            </div>
+             <div class="form-group d-flex col-md-6  mt-3 ">
+              <div>
+                <label asp-for="Image" class="control-label">الصورة</label>
+                <input type="file"  asp-for="FormFiles" class="form-control" onchange="ImageLoad(event)" accept="image/png,image/jpeg" />
+              </div>
+                        <div>
+                            @if (ViewBag.coursesStatus=="ارسال")
+                            {
+                                <img id="LoadIameg" width="150px" />
+                            }
+                            else
+                            {
+                                <img id="LoadIameg" width="150px" />
+                            }
+                        </div>
+                      
+            </div>
+                
+            <div class="form-group  mt-3  form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsBlock" /> @Html.DisplayNameFor(model => model.IsBlock)
+                </label>
+            </div>
+            <div class="form-group  mt-3  form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsLocked" /> @Html.DisplayNameFor(model => model.IsLocked)
+                </label>
+            </div>
+            <div class="form-group  mt-3 ">
+                        @if (ViewBag.coursesStatus == "تعديل")
+                        {
+                            <button id="submitBtn2" type="submit" class="btn btn-primary">@ViewBag.coursesStatus</button>
+                        }
+                        else
+                        {
+                            <button id="submitBtn" type="submit" class="btn btn-primary">@ViewBag.coursesStatus</button>
+                        }
+                        <a asp-action="Index" class="btn btn-info">االرجوع للخلف</a>
+            </div>
+        </form>
+    </div>
+</div>
+</div> 
+</div>
+<div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var currentImageSrc = null;
+
+    var ImageLoad = function (event) {
+        var allowedExtensions = ['jpg', 'png'];
+        var file = event.target.files[0];
+        var fileExtension = file.name.split('.').pop().toLowerCase();
+
+        var img = document.getElementById("LoadIameg");
+
+        if (allowedExtensions.includes(fileExtension)) {
+            var red = new FileReader();
+            red.onload = function () {
+                currentImageSrc = img.src;
+                img.src = red.result;
+            }
+            red.readAsDataURL(file);
+        } else {
+            if (currentImageSrc !== null) {
+                img.src = currentImageSrc;
+            }
+            event.target.value = '';
+            alert("Please Upload Iamge Type (jpg, png) only");
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#submitBtn').click(function (e) {
+            e.preventDefault();
+
+            var form = $('#studentForm')[0];
+            var isFormValid = form.checkValidity();
+
+            if (!isFormValid) {
+                form.reportValidity();
+                return;
+            }
+
+            var Email = $('#email').val();
+            var Phone = $('#phone').val();
+            var Identfire = $('#identfire').val();
+
+            $.ajax({
+                url: '/AdminCoursesData/Students/CheckData',
+                type: 'GET',
+                data: { Email: Email, Phone: Phone, Identfire: Identfire },
+                success: function (result) {
+                    if (result) {
+                        $('#studentForm').submit();
+                    } else {
+                        swal({
+                            title: "بيانات مكررة !",
+                            text: 'قد يكون هناك تكرار في بيانات البريد الالكتروني او الجوال او الهوية',
+                            icon: "error"
+                        });
+                    }
+                },
+            });
+        });
+
+
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#submitBtn2').click(function (e) {
+            e.preventDefault();
+
+            var form = $('#studentForm')[0];
+            var isFormValid = form.checkValidity();
+
+            if (!isFormValid) {
+                form.reportValidity();
+                return;
+            }
+
+            var Email = $('#email').val();
+            var Phone = $('#phone').val();
+            var Identfire = $('#identfire').val();
+            var IDs = $('#IdNumbers').val();
+            $.ajax({
+                url: '/AdminCoursesData/Students/CheckDataEdit',
+                type: 'GET',
+                data: { Email: Email, Phone: Phone, Identfire: Identfire, IDs: IDs },
+                success: function (result) {
+                    if (result) {
+                        $('#studentForm').submit();
+                    } else {
+                        swal({
+                            title: "بيانات مكررة !",
+                            text: 'قد يكون هناك تكرار في بيانات البريد الالكتروني او الجوال او الهوية',
+                            icon: "error"
+                        });
+                    }
+                },
+            });
+        });
+
+
+    });
+</script>
+<script>
+    const confirmFormAlert = async function (form) {
+        const sweetConfirm = await swal("Success!", "operation accomplished successfully", "success");
+        if (sweetConfirm) {
+            form.submit();
+        }
+        return sweetConfirm;
+    }
+
+</script>

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<WebApplicationAbad.Areas.Setting.Data.PrivacyModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Privacy Index";
+}
+
+
+
+<div class="col-12 myrow">
+<div class="card">
+    <div class="card-header">
+        <div class="text-start">
+
+            <a class="btn btn-outline-primary" asp-action="Create">اضافة <i class="fa-solid fa-plus"></i> </a>
+        </div>
+        <h2 class="card-title">الخصوصية والاستخدام</h2>
+    </div>
+    <div class="p-3 col-4">
+        <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="بحث">
+    </div>
+
+
+
+    <table id="myTable" class="table mt-2 table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>TermsofService</th>
+            <th>PrivacyPolicy</th>
+            <th>IntellectualPropertyPolicy</th>
+            <th>MainServicesAgreement</th>
+            <th>PromotionsPolicy</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@GetFirstThreeWords(item.TermsofService)</td>
+                <td>@GetFirstThreeWords(item.PrivacyPolicy)</td>
+                <td>@GetFirstThreeWords(item.IntellectualPropertyPolicy)</td>
+                <td>@GetFirstThreeWords(item.MainServicesAgreement)</td>
+                <td>@GetFirstThreeWords(item.PromotionsPolicy)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+
+                </td>
+            </tr>
+        }
+
+        @functions {
+            private string GetFirstThreeWords(string text)
+            {
+                if (string.IsNullOrWhiteSpace(text))
+                {
+                    return string.Empty;
+                }
+
+                var words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (words.Length <= 3)
+                {
+                    return text;
+                }
+
+                return string.Join(" ", words.Take(3)) + "...";
+            }
+        }
+
+    </tbody>
+</table>
+</div>
+</div>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="123" height="123" viewBox="0 0 123 123">
+  <g id="Group_240" data-name="Group 240" transform="translate(-1745 -1313)">
+    <circle id="Ellipse_95" data-name="Ellipse 95" cx="61.5" cy="61.5" r="61.5" transform="translate(1745 1313)" fill="#1b548a"/>
+    <g id="SVGRepo_iconCarrier" transform="translate(1756.903 1269.569)">
+      <g id="Group_206" data-name="Group 206" transform="translate(0 71.031)">
+        <path id="Path_124" data-name="Path 124" d="M91.34,90.783,50.427,71.951a10.055,10.055,0,0,0-8.4,0L1.113,90.783a1.914,1.914,0,0,0,0,3.477l40.912,18.832a10.041,10.041,0,0,0,8.4,0L82.716,98.23V113.2a2.566,2.566,0,0,0-.438,5.012l-2.183,14.408H90.148l-2.183-14.408a2.566,2.566,0,0,0-.438-5.012V96.015L91.34,94.26a1.914,1.914,0,0,0,0-3.477Z" transform="translate(0 -71.031)" fill="#fff"/>
+        <path id="Path_125" data-name="Path 125" d="M138.652,299.2a13.9,13.9,0,0,1-5.848-1.283l-20.011-9.212v18.353c0,4.029,12.175,9.141,25.859,9.141s25.859-5.112,25.859-9.141V288.71L144.5,297.922A13.886,13.886,0,0,1,138.652,299.2Z" transform="translate(-92.426 -249.403)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

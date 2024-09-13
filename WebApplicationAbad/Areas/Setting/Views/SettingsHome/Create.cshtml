@@ -1,0 +1,111 @@
+﻿@model WebApplicationAbad.Areas.Setting.Data.SettingsHome
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Create SettingsHome</h2>
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="TitlePlane"></label>
+        <input asp-for="TitlePlane" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ShortDescription"></label>
+        <textarea asp-for="ShortDescription" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="WhoMe1"></label>
+        <input asp-for="WhoMe1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WhoMe2"></label>
+        <input asp-for="WhoMe2" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WhoMe3"></label>
+        <input asp-for="WhoMe3" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WhoMe4"></label>
+        <input asp-for="WhoMe4" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TitleVideo"></label>
+        <input asp-for="TitleVideo" class="form-control" />
+    </div>
+     <div class="form-group">
+        <label asp-for="formFile">Upload Video</label>
+        <input asp-for="formFile" type="file" class="form-control" id="videoInput" accept="video/*" />
+    </div>
+    
+    <div class="form-group">
+        <video id="videoPreview" width="400" controls style="display:none;">
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WahtsAppNumber"></label>
+        <input asp-for="WahtsAppNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="LinkedinURL"></label>
+        <input asp-for="LinkedinURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="GoogleURL"></label>
+        <input asp-for="GoogleURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FacebookURL"></label>
+        <input asp-for="FacebookURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="YoutubeURL"></label>
+        <input asp-for="YoutubeURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TwitterURL"></label>
+        <input asp-for="TwitterURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="InstagramURL"></label>
+        <input asp-for="InstagramURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SnapchatURL"></label>
+        <input asp-for="SnapchatURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<script>
+    document.getElementById('videoInput').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        var videoPreview = document.getElementById('videoPreview');
+        var videoSource = document.getElementById('videoSource');
+
+        if (file) {
+            var objectURL = URL.createObjectURL(file);
+            videoSource.src = objectURL;
+            videoPreview.style.display = 'block';
+            videoPreview.load();
+        } else {
+            videoPreview.style.display = 'none';
+            videoSource.src = '';
+        }
+    });
+</script>

@@ -1,0 +1,126 @@
+﻿@model WebApplicationAbad.Areas.Setting.Data.SettingsHome
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Edit SettingsHome</h2>
+
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="TitlePlane"></label>
+        <input asp-for="TitlePlane" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ShortDescription"></label>
+        <textarea asp-for="ShortDescription" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="WhoMe1"></label>
+        <input asp-for="WhoMe1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WhoMe2"></label>
+        <input asp-for="WhoMe2" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WhoMe3"></label>
+        <input asp-for="WhoMe3" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WhoMe4"></label>
+        <input asp-for="WhoMe4" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TitleVideo"></label>
+        <input asp-for="TitleVideo" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="formFile">Upload New Video</label>
+        <input asp-for="formFile" type="file" class="form-control" id="videoUpload" />
+    </div>
+
+    <div class="form-group">
+        @if (!string.IsNullOrEmpty(Model.lVideoURL))
+        {
+            <div>
+                <label>Current Video:</label>
+                <video width="400" controls>
+                    <source src="@Url.Content("~/uploads/" + Model.lVideoURL)" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="WahtsAppNumber"></label>
+        <input asp-for="WahtsAppNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="LinkedinURL"></label>
+        <input asp-for="LinkedinURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="GoogleURL"></label>
+        <input asp-for="GoogleURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="FacebookURL"></label>
+        <input asp-for="FacebookURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="YoutubeURL"></label>
+        <input asp-for="YoutubeURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TwitterURL"></label>
+        <input asp-for="TwitterURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="InstagramURL"></label>
+        <input asp-for="InstagramURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="SnapchatURL"></label>
+        <input asp-for="SnapchatURL" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById('videoUpload').addEventListener('change', function (event) {
+            var file = event.target.files[0];
+            var videoElement = document.createElement('video');
+            var sourceElement = document.createElement('source');
+            var objectURL = URL.createObjectURL(file);
+
+            videoElement.setAttribute('width', '400');
+            videoElement.setAttribute('controls', '');
+            sourceElement.setAttribute('src', objectURL);
+            sourceElement.setAttribute('type', 'video/mp4');
+
+            videoElement.appendChild(sourceElement);
+
+            var currentVideoContainer = document.querySelector('.form-group > div');
+            if (currentVideoContainer) {
+                currentVideoContainer.innerHTML = '';
+            }
+
+            document.querySelector('.form-group').appendChild(videoElement);
+        });
+    </script>
+}

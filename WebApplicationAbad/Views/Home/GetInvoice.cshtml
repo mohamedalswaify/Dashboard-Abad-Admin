@@ -1,0 +1,232 @@
+﻿@using System.Globalization;
+@model WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesScheduless
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Index -->
+
+    <link rel="stylesheet" href="~/customer/content/css/main/style.css">
+    <link rel="stylesheet" href="~/customer/content/css/main/media.css">
+
+    <link rel="stylesheet" href="~/customer/content/css/vendors/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        label {
+            font-weight: bold;
+        }
+
+        .cont-invece {
+            padding-bottom: 30px;
+            border-bottom: 7px double black
+        }
+
+        .root {
+            padding: 15px;
+        }
+
+        .d-lable label {
+            font-size: 20px;
+        }
+
+        .non-weight {
+            font-weight: 500;
+        }
+
+        th {
+            text-align: center;
+            background-color: #dddddd !important;
+            color: #0a0a6a;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+        td {
+            font-weight: 700 !important;
+            border: 1px solid black;
+        }
+
+        table {
+            border: 1px solid black !important;
+        }
+
+        tr {
+            text-align: center;
+        }
+
+        .tex-end {
+            text-align: right;
+        }
+
+        .tbl-bot div {
+            padding: 10px;
+            padding-right: 5px;
+            padding-left: 50px;
+            width: 40%;
+            font-size: 20px;
+            border-bottom: 2px solid;
+        }
+
+            .tbl-bot div label {
+                direction: rtl
+            }
+
+        .after-invoe {
+            background-color: #dddddd;
+            color: #0a0a6a;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+        <div class="row cont-invece mt-5">
+            <div class="col-4">
+                <h1>فاتورة ضريبیة <br>TAX Invoice</h1>
+            </div>
+            <div class="col-4" style="direction: rtl;">
+                <h3>ABAD NETWORK FOR TRAINING</h3>
+                <label>الرقم الضريبي: &nbsp;</label><label>310190210900003</label><br>
+                <label>ھاتف: &nbsp;</label><label>310190210900003</label><br>
+                <label>شارع ابن شاھین </label><br>
+                <label>الرياض الروضه</label>
+            </div>
+            <div class="col-4">
+                <img src="~/abad/abad.jpg" alt="Abad logo" />
+            </div>
+        </div>
+
+
+        <div class="row mt-4 root">
+            <div class="col-6">
+                <div class="d-flex">
+                    <div class="m-3">
+                        <label class="non-weight">01918</label>
+                    </div>
+                    <div>
+                        <label>رقم الفاتورة &nbsp;</label><br>
+                        <label>Invoice NO</label>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="m-3" style="margin-left: -26px !important;">
+                        <label class="non-weight">17/05/2023</label>
+                    </div>
+                    <div>
+                        <label>تاريخ الفاتورة &nbsp;</label><br>
+                        <label>Invoice Date</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-6" dir="rtl">
+                <div class="d-flex d-lable">
+                    <div>
+                        <label>العميل &nbsp; &nbsp; </label><br><label>Client</label><br>
+                    </div>
+                    <div>
+                        <label>لافي عبدالله القحطاني</label><br><label class="non-weight">966546200001</label><br>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <table class="table" dir="rtl">
+            <tbody>
+                <tr>
+                    <th>البند <br> Item</th>
+                    <th>وصف الخدمة</th>
+                    <th>الكمیة <br> Qty</th>
+                    <th>السعر <br> price</th>
+                    <th>نسبة <br>الضريبة<br> VAT <br>15%</th>
+                    <th>قیمة الضريبة<br>VAT Amount</th>
+                    <th>الإجمالي مع <br> الضريبة <br> Total With <br>VAT </th>
+                </tr>
+
+                <tr>
+                    <td>ISM Exam</td>
+                    <td class="tex-end">اختبار</td>
+                    <td>1</td>
+                    <td>3,000</td>
+                    <td>15%</td>
+                    <td>4500</td>
+                    <td>3540.00</td>
+                </tr>
+
+                <tr>
+                    <td>COMPITIA (SECURITY+) EXAM</td>
+                    <td class="tex-end">اختبار</td>
+                    <td>1</td>
+                    <td>1,000</td>
+                    <td>15%</td>
+                    <td>150.00</td>
+                    <td>1,150.00 </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tbl-bot">
+            <div class="d-flex justify-content-between">
+                <label class="mt-2"> ر.س 400&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>الاجمالي قبل الضرية <br>Total Before VAT &nbsp; &nbsp;</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <label class=""> ر.س 600&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>القيمة المضافة (15%)</label>
+            </div>
+            <div class="d-flex justify-content-between after-invoe">
+                <label class="mt-2"> ر.س 4600&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>الاجمالي بعد الضرية <br>Total After VAT &nbsp; &nbsp;</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <label class="mt-2"> ر.س 400 &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>اجمالي  الخصم<br>Total discount &nbsp; &nbsp;</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <label class="mt-2"> ر.س 4600&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>الاجمالي بعد الخصم <br>Total Total after discount &nbsp; &nbsp;</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <label> -4ر.س 600&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>مدفوع <br> Paid</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <label>0.00 ر.س&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;</label>
+                <label>الرصيد المستحق <br> Due Amount</label>
+            </div>
+        </div>
+
+        <img src="" alt="">
+
+    </div>
+
+
+
+
+
+    <script src="~/customer/content/js/vendors/bootstrap.bundle.min.js"></script>
+
+    <script src="~/customer/content/js/vendors/jquery-3.7.1.min.js"></script>
+    <script src="~/customer/content/js/vendors/swiper-bundle.min.js"></script>
+    <script src="~/customer/content/js/main/counter.js"></script>
+    <script src="~/customer/content/js/main/swiper.js"></script>
+</body>
+
+</html>

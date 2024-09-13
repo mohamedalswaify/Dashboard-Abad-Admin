@@ -1,0 +1,91 @@
+﻿@using WebApplicationAbad.Data;
+@model WebApplicationAbad.Areas.CompanyData.Models.ContractDatum
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject ApplicationDbContext context
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var Company = context.ContractStatuses.ToList();
+    SelectList listItems = new SelectList(Company, "Code", "ArabicName");
+}
+<style>
+    nav {
+        display: none
+    }
+
+    .navbar {
+        display: none
+    }
+
+    body {
+        font-size: 18px
+    }
+
+    .form-control {
+        font-size: 18px
+    }
+
+    .form-select {
+        font-size: 18px
+    }
+
+    h4 {
+        font-size: 26px
+    }
+
+    .btn {
+        font-size: 20px
+    }
+</style>
+
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="text-center">التعديل على بيانات العقد</h4>
+            <hr />
+            <form asp-action="GetUpdateContrat" onsubmit="confirmFormAlert(this); return false">
+                @* <form asp-action="GetCoursesPaidCreate" >*@
+                <div class="row">
+                    <div class="mb-3" hidden="false">
+                        <input asp-for="Id" name="Id" class="form-control" placeholder="Arabic Name" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">العنوان</label>
+                        <input asp-for="Tiltle" name="Tiltle" class="form-control" placeholder="الاسم بالعربي" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">الموضوع</label>
+                        <textarea asp-for="Subject" name="Subject" rows="3" class="form-control" placeholder="الموضوع" required></textarea>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label">عدد الطلاب</label>
+                        <input type="number" asp-for="StudentCount" name="StudentCount" class="form-control" placeholder="عدد الطلاب" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label">تعين العقد</label>
+                        <input type="number" asp-for="ContractRest" name="ContractRest" class="form-control" placeholder="تعين العقد" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label">سعر التعميد</label>
+                        <input asp-for="ContractPrise" name="ContractPrise" class="form-control" placeholder="سعر التعميد" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label class="control-label">المبلع المدفوع</label>
+                        <input asp-for="ContractPaid" name="ContractPaid" class="form-control" placeholder="المبلغ المدفوع" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">حالة التعميد</label>
+                        <select asp-items="@listItems" name="StatusCode" class="form-control" required></select>
+                    </div>
+                    <div class="mb-3 col-12">
+                        <label class="control-label">الملاحظات</label>
+                        <textarea asp-for="Nots" rows="3" name="Nots" class="form-control" placeholder="الملاحظات" required></textarea>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary" id="moveStudent">تعديل التعميد</button>
+                </div>
+            </form>
+
+</div>
+</div>
+</div>

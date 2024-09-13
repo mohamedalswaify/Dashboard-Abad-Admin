@@ -1,0 +1,274 @@
+﻿@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@using WebApplicationAbad.Areas.CompanyData.Models;
+@using WebApplicationAbad.Data;
+@inject ApplicationDbContext context;
+@model WebApplicationAbad.Areas.CompanyData.Models.CompaniesData;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Coursesm Scheduless";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var Contract = context.ContractData.Where(b => !b.IsDeletae && b.CompaniesDataId == Model.Code);
+    int Count = 0;
+    var ModelContract =new ContractDatum();
+
+    var Company = context.ContractStatuses.ToList();
+    SelectList listItems = new SelectList(Company, "Code", "ArabicName");
+    
+}
+<link href="~/Admin/css/StyleSheet.css" rel="stylesheet">
+<style>
+    .popup-container, .popup-container2 {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-content, .popup-content2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 50%;
+        direction: rtl
+    }
+
+    #courseSelect {
+        direction: ltr;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .marg {
+        margin-top: 70px;
+        margin-bottom: 30px;
+    }
+
+    h4 {
+        ont-size: 22px;
+        font-weight: bold;
+        color: #677880;
+    }
+
+    .table-action a {
+        color: #ffffff;
+    }
+
+    .tab-title {
+        font-size: 10px !important;
+    }
+
+    .tab-title1 {
+        font-size: 12px !important;
+    }
+
+    .mod {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+        .mod button {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    .Roal {
+        display: none;
+        flex-wrap: wrap
+    }
+
+    .active {
+        display: none;
+    }
+    th,td{
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+
+</style>
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <table class="taظble table-striped " style="padding:10px">
+            <thead>
+                <tr>
+                    <th>اسم الشركة</th>
+                    <th>البريد الالكتروني</th>
+                    <th>الهاتف</th>
+                    <th>نشاط الشركة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.ArabicName</td>
+                    <td>@Model.Email</td>
+                    <td>@Model.Phone</td>
+                    <td>@Model.WorkFiled</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="text-center marg">
+            <h4>تعاميد الشركة</h4>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>م</th>
+                    <th>عنوان التعميد</th>
+                    <th>عدد طلاب التعميد</th>
+                    <th>سعر التعميد</th>
+                    <th>المبلغ المدفع</th>
+                    <th>العمليات</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Contract)
+                {
+
+                    <tr>
+                        <th>
+                            @{
+                                Count++;
+                            }
+                            @Count
+                        </th>
+                        <th>@item.Tiltle</th>
+                        <th>@item.StudentCount</th>
+                        <th>@item.ContractPrise</th>
+                        <th>@item.ContractPaid</th>
+                <td class="table-action">
+                    <a class="btn btn-success" asp-action="GetUpdateContrat" asp-route-Token="@item.Token"><i class="align-middle" data-feather="edit-2"></i></a>
+                    <a id="colew" class="btn btn-danger" data-id="@item.Id"><i class="align-middle" data-feather="trash"></i></a>
+
+                </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+      <div class="text-center mt-5 mb-5">
+            <button class="btn btn-primary" id="openPopup">اضافة عقد للشركة</button>
+      </div>
+
+    </div>
+</div>
+
+
+
+<div id="popupContainer" class="popup-container">
+    <div class="popup-content">
+        <span class="close-btn" id="closePopup">&times;</span>
+        <h2 class="text-center">اضافة تعميد للشركة</h2>
+        <form asp-action="AddContract" onsubmit="confirmFormAlert(this); return false">
+            @* <form asp-action="GetCoursesPaidCreate" >*@
+            <div class="row">
+             <div class="mb-3" hidden="false">
+                <input asp-for="@ModelContract.Id" name="Id" class="form-control" placeholder="Arabic Name" />
+            </div>
+            <div class="mb-3">
+                <label class="control-label">العنوان</label>
+                <input asp-for="@ModelContract.Tiltle" name="Tiltle" class="form-control" placeholder="الاسم بالعربي" required />
+            </div>
+            <div class="mb-3">
+                <label class="control-label">الموضوع</label>
+                <textarea asp-for="@ModelContract.Subject" name="Subject" rows="3" class="form-control" placeholder="الموضوع" required></textarea>
+            </div>
+            <div class="mb-3 col-6">
+                    <label class="control-label">عدد الطلاب</label>
+                    <input type="number" asp-for="@ModelContract.StudentCount" name="StudentCount" class="form-control" placeholder="عدد الطلاب" required>
+                </div>
+            <div class="mb-3 col-6">
+                    <label class="control-label">تعين العقد</label>
+                    <input type="number" asp-for="@ModelContract.ContractRest" name="ContractRest" class="form-control" placeholder="تعين العقد" required>
+                </div>
+            <div class="mb-3 col-6">
+                <label class="control-label">سعر التعميد</label>
+                <input asp-for="@ModelContract.ContractPrise" name="ContractPrise" class="form-control" placeholder="سعر التعميد" required>
+            </div>
+            <div class="mb-3 col-6">
+                <label class="control-label">المبلع المدفوع</label>
+                <input asp-for="@ModelContract.ContractPaid" name="ContractPaid" class="form-control" placeholder="المبلغ المدفوع" required>
+            </div>
+            <div class="mb-3">
+                <label class="control-label">حالة التعميد</label>
+                <select  asp-items="@listItems" name="StatusCode" class="form-control" required></select>
+            </div>
+            <div class="mb-3" hidden>
+                <input asp-for="@Model.Code" name="CompaniesDataId" class="form-control" required />
+            </div>
+            <div class="mb-3 col-12">
+                <label class="control-label">الملاحظات</label>
+                <textarea asp-for="@ModelContract.Nots" rows="3" name="Nots" class="form-control" placeholder="الملاحظات" required></textarea>
+            </div>
+            </div>
+            <div class="text-center">
+                @*<a asp class="btn btn-primary" asp-route-idResved="@item.Id" asp-route-NewSeccId="" asp-route-IdSecc="@model2.Id" asp-controller="CoursesScheduless" asp-action="Tarnsform" style="font-size: 20px; width: 30%;" id="moveStudent">نقل الطالب</a>*@
+                <button class="btn btn-primary" id="moveStudent">اضافة التعميد</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+        
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    const openPopupButton = document.getElementById('openPopup');
+    const popupContainer = document.getElementById('popupContainer');
+
+    openPopupButton.addEventListener('click', function () {
+        popupContainer.style.display = 'block';
+    });
+
+    document.getElementById('closePopup').addEventListener('click', function () {
+        popupContainer.style.display = 'none';
+    });
+
+    $(document).ready(function () {
+        $('#colew').click(function () {
+            var itemId = $(this).data('id');
+            if (confirm('هل أنت متأكد أنك تريد حذف هذا العقد؟')) {
+                $.ajax({
+                    url: '/CompanyData/CompaniesData/DeleteContract',
+                    type: 'POST',
+                    data: { id: itemId },
+                    success: function (response) {
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+       

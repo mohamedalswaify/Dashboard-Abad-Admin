@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebApplicationAbad.Areas.CompanyData.Models.Partners>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h2>Partners</h2>
+<a asp-action="Create">Add New Partner</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var partner in Model)
+        {
+            <tr>
+                <td>@partner.Name</td>
+                <td><img src="@partner.Image" alt="@partner.Name" width="100" /></td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@partner.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@partner.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

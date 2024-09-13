@@ -1,0 +1,183 @@
+﻿@model WebApplicationAbad.Areas.AdminManageData.Data.Employee
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<style>
+    ul {
+        list-style: none;
+        text-align: center
+    }
+
+    .popup-container, .popup-container2 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-content, .popup-content2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 50%;
+        direction: ltr;
+    }
+
+    #courseSelect {
+        direction: ltr;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .marg {
+        margin-top: 70px;
+        margin-bottom: 30px;
+    }
+
+    h4 {
+        ont-size: 22px;
+        font-weight: bold;
+        color: #677880;
+    }
+
+    .table-action a {
+        color: #ffffff;
+    }
+
+    .tab-title {
+        font-size: 10px !important;
+    }
+
+    .tab-title1 {
+        font-size: 12px !important;
+    }
+
+    .mod {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+        .mod button {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    .Roal {
+        display: none;
+        flex-wrap: wrap
+    }
+
+    .active {
+        display: none;
+    }
+
+</style>
+<form id="account" asp-area="AdminManageData" asp-controller="Employee" asp-action="GetLoginEmployee">
+    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">البريد الالكتورني</label>
+        <input asp-for="Email" class="form-control form-control-lg" autocomplete="username" aria-required="true" placeholder="name@example.com" required />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">كلمة المرور</label>
+        <input asp-for="Password" type="password" class="form-control form-control-lg" autocomplete="current-password" aria-required="true" placeholder="كلمة المرور" required />
+        <span asp-validation-for="Password" class="text-danger"></span>
+
+        <small>
+            <a class="openPopup">نسيت كلمة المرور ؟</a>
+        </small>
+    </div>
+    <div>
+    </div>
+    <div class="d-grid gap-2 mt-3">
+        <button id="login-submit" type="submit" class="btn btn-lg btn-primary">تسجيل دخول</button>
+    </div>
+    <div>
+    </div>
+
+</form>
+
+<div id="popupContainer" class="popup-container">
+    <div class="popup-content">
+        <span class="close-btn" id="closePopup">&times;</span>
+        <h2 class="text-center">اعادة تعين كلمة المرور</h2>
+        <hr />
+        <form asp-action="NewPassword" id="studentForm" dir="rtl">
+            <div class="form-outline mb-4">
+                <input type="text" asp-for="Token" name="Token" value="@Model.Token" class="form-control " placeholder=" ادخل كلمة المرور" style="font-size: 14px; padding:16px;" />
+            </div>
+            <div class="form-outline mb-4">
+                <label for="new-password" class="mb-2">كلمة المرور الجديدة </label>
+                <input type="password" asp-for="Password" name="Password" id="passwordel" class="form-control " placeholder=" ادخل كلمة المرور" style="font-size: 14px; padding:16px;" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-outline mb-4">
+                <label for="new-password" class="mb-2"> تأكيد كلمة المرور الجديدة</label>
+                <input type="password"  name="ConfirmPassword" id="telphone" class="form-control form-control-lg " placeholder="تأكيد كلمة المرور" style="font-size: 14px; padding:16px;" />
+                <span  id="comp" class="text-danger"></span>
+            </div>
+            <div class="pt-1 text-center">
+                <butto id="subbtn" class="submit-login btn btn-primary btn-lg btn-block w-75" style="font-size:16px" type="submit">
+                    اعادة تعيين كلمة المرور
+                    </button>
+            </div>
+
+        </form>
+        <br />
+     
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#subbtn').click(function (e) {
+            e.preventDefault();
+            var passwordel = $('#passwordel').val();
+            var ConfirmPass = $('#telphone').val();
+
+            if (passwordel != ConfirmPass) {
+                $('#comp').text("كلمة المرور وتأكيد كلمة المرور غير متطابقين");
+
+                $('#comp').css('display', 'block');
+                return;
+            }
+            if (passwordel.length < 6) {
+                $('#comp').text("كلمة المرور اقل من 6 حروف");
+                $('#comp').css('display', 'block');
+                return;
+            }
+            $('#studentForm').submit();
+
+        });
+    });
+</script>

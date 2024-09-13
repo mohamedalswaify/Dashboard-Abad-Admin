@@ -1,0 +1,187 @@
+﻿@using WebApplicationAbad.Areas.AdminManageData.Data;
+@using WebApplicationAbad.Data;
+@model WebApplicationAbad.Areas.AdminManageData.Data.Employee
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject ApplicationDbContext context
+@{
+    ViewData["Title"] = "Employee";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var model1 = ViewBag.PremotionAll as EmployeePremotion;
+
+}
+<style>
+    .popup-container {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .popup-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        width: 50%
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .marg {
+        margin-top: 70px;
+        margin-bottom: 30px;
+    }
+
+    h4 {
+        ont-size: 22px;
+        font-weight: bold;
+        color: #677880;
+    }
+
+    .table-action a {
+        color: #ffffff;
+    }
+
+    .tab-title {
+        font-size: 10px !important;
+    }
+
+    .tab-title1 {
+        font-size: 12px !important;
+    }
+
+    .mod {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+        .mod button {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    .Roal {
+        display: none;
+        flex-wrap: wrap
+    }
+
+    .active {
+        display: none;
+    }
+    th{
+        width:0%;
+    }
+
+
+</style>
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>اسم الموظف</th>
+                    <th>البريد الالكتروني</th>
+                    <th>الهاتف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Name</td>
+                    <td>@Model.Email</td>
+                    <td>@Model.Phone</td>
+                </tr>
+            </tbody>
+
+
+
+        </table>
+
+       <div class="text-center marg">
+            <h4>صلاحيات الموظــــف</h4>
+        </div>
+      <form asp-action="AddPremtion">
+      <table class="table table-striped" style="text-align:center">
+                <tr>
+                    <th>ادارة الدورات</th>
+                    <input asp-for="@model1.Id" hidden="true" name="Id" />
+                    <input asp-for="@model1.EmployeeId" hidden="true" name="EmployeeId" />
+                    <th><input asp-for="@model1.CoursesData" checked="@model1.CoursesData" type="checkbox" name="CoursesData" /></th>
+                    <th>الدورات القائمة</th>
+                    <th><input asp-for="@model1.CoursesScheduless" type="checkbox"  name="CoursesScheduless" /></th>
+                    <th>حالة الدورة</th>
+                    <th><input asp-for="@model1.CoursesStutes" type="checkbox" name="CoursesStutes" /></th>
+                    <th>المحاضرات المسجلة</th>
+                    <th><input asp-for="@model1.Matdetory" type="checkbox" name="Matdetory" /></th>
+                    <th>العروض</th>
+                    <th><input asp-for="@model1.ViewsNow" type="checkbox" name="ViewsNow" /></th>
+                    <th>ادارة بيانات الصفحة الرئيسية</th>
+                    <th><input asp-for="@model1.HomePage" type="checkbox" name="HomePage" /></th>
+
+                </tr>
+                <tr>
+                    <th>الطلبات المرسلة</th>
+                    <th><input asp-for="@model1.RequiredCourse" type="checkbox" name="RequiredCourse" /></th>
+                    <th>المقالات</th>
+                    <th><input asp-for="@model1.Article" type="checkbox" name="Article" /></th>
+                    <th>بيانات الشركات</th>
+                    <th><input asp-for="@model1.Company" type="checkbox" name="Company" /></th>
+                    <th>بيانات المدرب</th>
+                    <th><input asp-for="@model1.Contract" type="checkbox" name="Contract" /></th>
+                    <th>طلبات المنشأة</th>
+                    <th><input asp-for="@model1.CompanyRequest" type="checkbox" name="CompanyRequest" /></th>
+                    <th>بيانات الموظف</th>
+                    <th><input asp-for="@model1.EmployeePage" type="checkbox" name="EmployeePage" /></th>
+                </tr>
+                <tr>
+                    <th>بيانات الطالب</th>
+                    <th><input asp-for="@model1.Studnt" type="checkbox" name="Studnt" /></th>
+                    <th>تصنيفات الدورات</th>
+                    <th><input asp-for="@model1.CoursesType" type="checkbox" name="CoursesType" /></th>
+                    <th>انواع الدفع</th>
+                    <th><input asp-for="@model1.TypePaid" type="checkbox" name="TypePaid" /></th>
+                    <th>بيانات الغرف</th>
+                    <th><input asp-for="@model1.Room" type="checkbox" name="Room" /></th>
+                    <th>بيانات Zoom</th>
+                    <th><input asp-for="@model1.Zoom" type="checkbox" name="Zoom" /></th>
+                    <th style="color:red">الشكاوي</th>
+                    <th><input asp-for="@model1.Complaints" type="checkbox" name="Complaints" /></th>
+                </tr>
+                <tr>
+                    <th style="color:red">ادارة المشتركين</th>
+                    <th><input asp-for="@model1.MessageReapet" type="checkbox" name="MessageReapet" /></th>
+                    <th style="color:red">اصدار فاتوره</th>
+                    <th><input asp-for="@model1.ButtonInvoice" type="checkbox" name="ButtonInvoice" /></th>
+                    <th style="color:red">مدير نظام</th>
+                    <th><input asp-for="@model1.Admin" type="checkbox" name="Admin" /></th>
+                </tr>
+           </table>
+        <div class="text-center mt-3">
+                <th><button class="btn btn-dark">اعطاء الصلاحية</button></th>
+        </div>
+     </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

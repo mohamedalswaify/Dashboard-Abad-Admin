@@ -1,0 +1,115 @@
+﻿@using WebApplicationAbad.Data;
+@model WebApplicationAbad.Areas.AdminManageData.Data.Employee
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject ApplicationDbContext context
+@{
+    ViewData["Title"] = "Courses Views";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    string Email = "";
+}
+<p>@ViewData["DataView"]</p>
+
+<div class="row myrow">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">الموظف</h2>
+            </div>
+            <div class="card-body">
+                
+                <form asp-action="GetCreateEmployee" enctype="multipart/form-data" onsubmit="return validateForm();">
+                    <div class="mb-3" hidden="false">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" placeholder="Arabic Name" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label  class="control-label"> الاسم بالعربي</label>
+                        <input asp-for="Name" class="form-control" placeholder="الاسم بالعربي" required />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label  class="control-label"> الجوال</label>
+                        <input asp-for="Phone" class="form-control" placeholder="رقم الجوال" required />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label"> العنوان</label>
+                        <input asp-for="Address" class="form-control" placeholder="العنوان" required />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">البريد الالكتروني</label>
+                        <input id="Email" asp-for="Email" class="form-control" placeholder="البرد الالكرتوني" required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label" >كلمة المرور</label>
+                        <input asp-for="Password" id="userPassword" class="form-control" placeholder="كلمة المرور" required />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    @if (ViewBag.BoolValue)
+                    {
+                        <div class="mb-3">
+                            <label  class="control-label">تاكيد كلمة المرور</label>
+                            <input id="userPasswordConfirm" class="form-control" placeholder="تاكيد كلمة المرور" required />
+                        </div>
+                    }
+                    <button id="Clickbtn" type="submit" class="btn btn-primary">@ViewBag.coursesStatus</button>
+                    <a asp-action="GetEmployeeIndex" class="btn btn-info">االرجوع للخلف</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function validateForm(e) {
+        var userInput = document.getElementById('userPassword').value;
+        var userInput2 = document.getElementById('userPasswordConfirm').value;
+        var Email = document.getElementById("Email").value;
+        console.log(Email);
+        console.log("Hello");
+        $.ajax({
+            url: '/AdminManageData/Employee/CheckEmail',
+            method: 'GET',
+            data: {
+                email: Email
+            },
+            cache: false,
+            success: function (data) {
+
+                var isEmailExist = data.toLowerCase() === 'true';
+
+                console.log(isEmailExist);
+                return false;
+                if (isEmailExist) {
+                    return true;
+                } else {
+                    e.preventDefault
+                    Swal.fire({
+                        title: 'البريد الالكتروني موجود من قبل',
+                        confirmButtonColor: '##095F90',
+                        confirmButtonText: 'فهمت'
+                    });
+                    return false
+                }
+            }
+            error: function (error) {
+                console.log(error);
+            }
+        });
+        if (userInput != userInput2) {
+            Swal.fire({
+                title: 'كلمة المرور غير متطابقة',
+                confirmButtonColor: '##095F90',
+                confirmButtonText: 'فهمت'
+            });
+            return false;
+        }
+
+        
+    }
+</script>
+

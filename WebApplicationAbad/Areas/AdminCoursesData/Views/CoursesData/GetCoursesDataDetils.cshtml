@@ -1,0 +1,179 @@
+﻿@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@model CoursesData;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Courses Data";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+	.tab-primary .tab-content {
+		background: #ffffff;
+		color: #000
+	}
+
+	.tab .nav-tabs .nav-link{
+		padding:5px;
+		font-weight:bold
+	}
+
+      .tab-contentle {
+		background: #fff;
+		border-radius: 0 0 0.2rem 0.2rem;
+		box-shadow: 0 0.1rem 0.2rem rgba(0,0,0,.05);
+		padding: 1.25rem;
+	}
+	
+</style>
+<div class="row myrow">
+	<div class="col-md-4 col-xl-3">
+		<div class="card mb-3">
+			<div class="card-header">
+				<h5 class="card-title mb-0">تفاصيل الدوره</h5>
+			</div>
+			<div class="card-body text-center">
+				<img src="~/Admin/CoursesDataImage/@Model.Image" alt="Christina Mason" class="img-fluid rounded-circle mb-2" width="128" height="128" />
+				<h5 class="card-title mb-0" asp-for="HeaderEn">@Model.HeaderEn</h5>
+				<div class="text-muted mb-2" asp-for="Header">@Model.HeaderAr</div>
+			</div>
+			<hr class="my-0" />
+			<div class="card-body">
+				<h5 class="h6 card-title">اقسام الدورات</h5>
+				<label href="#" class="badge bg-primary me-1 my-1">@Model.CoursesType.EnglishName</label>
+				<label href="#" class="badge bg-primary me-1 my-1">@Model.CoursesType.ArabicName</label>
+			</div>
+			<hr class="my-0" />
+			<div class="card-body">
+				<h5 class="h6 card-title">سعر الدوره</h5>
+				<span class="badge bg-info">@Model.Price</span>
+
+			</div>
+			
+			<hr class="my-0" />
+			<div class="card-body">
+				<h5 class="h6 card-title">ملفات الدوره</h5>
+				<img src="~/Admin/img/icons/ZIP.ico" width="100px">
+				<span class="badge bg-info">@Model.FilesData</span>
+
+			</div>
+			
+
+		</div>
+		<div class="mt-4">
+			<a asp-action="GetCoursesDataIndex" class="btn btn-info">الرجوع للخلف</a>
+		</div>
+	</div>
+
+	<div class="col-md-8 col-xl-9">
+		<div class="">
+			<div class="row">
+
+				<div class="col-12 col-lg-6">
+					<div class="tab tab-primary">
+						<h4 class="tab-title badge bg-info">ملخص الدوره</h4>
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item"><a class="nav-link active" href="#primary-tab-1" data-bs-toggle="tab" role="tab">ملخص الدوره بالانجليزي</a></li>
+							<li class="nav-item"><a class="nav-link" href="#primary-tab-2" data-bs-toggle="tab" role="tab">ملخص الدوره بالعربي</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="primary-tab-1" role="tabpanel">
+								<p>
+									@Model.SammaryEn
+								</p>
+								
+							</div>
+							<div class="tab-pane" id="primary-tab-2" role="tabpanel">
+								<p>
+									@Model.SummaryAr
+								</p>
+								
+							</div>
+							
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-lg-6">
+					<div class="tab tab-primary">
+						<h4 class="tab-title badge bg-info">من يحتاج الي الدوره</h4>
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item"><a class="nav-link active" href="#primary-tab-3" data-bs-toggle="tab" role="tab">  بالانجليزي</a></li>
+							<li class="nav-item"><a class="nav-link" href="#primary-tab-4" data-bs-toggle="tab" role="tab"> بالعربي</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="primary-tab-3" role="tabpanel">
+								<p>
+									@Model.TargetEn
+								</p>
+
+							</div>
+							<div class="tab-pane" id="primary-tab-4" role="tabpanel">
+								<p>
+									@Model.TargetAr
+								</p>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-lg-6">
+					<div class="tab tab-primary">
+						<h4 class="tab-title badge bg-info">تفاصيل الدوره</h4>
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item"><a class="nav-link active" href="#primary-tab-5" data-bs-toggle="tab" role="tab">التفاصيل بالانجليزي</a></li>
+							<li class="nav-item"><a class="nav-link" href="#primary-tab-6" data-bs-toggle="tab" role="tab">التفاصيل بالعربي</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="primary-tab-5" role="tabpanel">
+								<p>
+									@Model.DetailsEn
+								</p>
+
+							</div>
+							<div class="tab-pane" id="primary-tab-6" role="tabpanel">
+								<p>
+									@Model.DetailsAr
+								</p>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-lg-6">
+					<div class="tab tab-primary">
+						<h4 class="tab-title badge bg-info">اهداف الدوره</h4>
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="nav-item"><a class="nav-link active" href="#primary-tab-7" data-bs-toggle="tab" role="tab">الاهداف بالانجليزي</a></li>
+							<li class="nav-item"><a class="nav-link" href="#primary-tab-8" data-bs-toggle="tab" role="tab">الاهداف بالعربي</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="primary-tab-7" role="tabpanel">
+								<p>
+									@Model.GoalsEn
+								</p>
+
+							</div>
+							<div class="tab-pane" id="primary-tab-8" role="tabpanel">
+								<p>
+									@Model.GoalsAr
+								</p>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-contentle col-12">
+					<h4 class="tab-title badge bg-info">ملاحظات</h4>
+					<p>@Model.Nots	</p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>

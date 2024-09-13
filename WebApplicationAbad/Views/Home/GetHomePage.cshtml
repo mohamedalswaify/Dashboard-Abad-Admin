@@ -1,0 +1,363 @@
+﻿@model WebApplicationAbad.Areas.AdminManageData.Data.Student
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "GetHomePage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int Count = 0;
+    var CoursenOline = ViewBag.OnlineCore as List<WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesReserved>;
+    var CourseMantadory = ViewBag.MatodaryCore as List<WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesReserved>;
+    var combinedCourses = CoursenOline.Concat(CourseMantadory);
+    decimal Valueby=0;
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+  a{
+    font-weight: bold !important;
+  }
+  .conect{
+    text-decoration: solid;
+    color: #095F90;
+  }
+  th ,td{
+        color: #095F90 !important
+  }
+  .butn{
+    width: 100px;
+  }
+  tr{
+        border-bottom: 1px solid #ffc10773
+  }
+  .cards{
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+        padding:20px
+  }
+  </style>
+</header>
+ <section >
+    <div class="container py-5">
+  
+      <div class="row">
+        <div class="col-lg-4">
+                <div class="cards mb-4">
+            <div class="card-body text-center">
+                        @if(Model.Image == null || Model.Image.Length <= 0)
+                        {
+                            <img src="~/Admin/StudentImage/account.png" width="100" height="100" style="border-radius:50%" />
+
+                        }
+                        else
+                        {
+                            <img src="~/Admin/StudentImage/@Model.Image" width="150px" height="150px" style="border-radius:50%" />
+                        }
+                       
+              <h5 class="my-3">@Model.ArabicName</h5>
+                        <p class="text-muted mb-1">@Model.Email</p>
+                        <p class="btn mt-2 btn-warning text-primary butn" style="color: #095F90 !important; font-weight: bold;">@Model.Id</p>
+              <a class="d-block conect mt-2" asp-controller="Home" asp-action="EditProfile">تعديل الحساب</a>
+            </div>
+          </div>
+         
+        </div>
+        <div class="col-lg-8">
+          <div class="cards mb-4"  style="padding: 20px; font-weight: bold;">
+            <div class="card-body">
+              <h3 class="text-warning">الدورات</h3>
+              <div class="conect" style="margin-top: 30px;padding: 10px; border: 1px solid #ffc107; border-radius: 10px; width: 200px;">
+                            <span class="live-courses">
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                                    <g clip-path="url(#clip0_1153_3198)">
+                                        <path d="M14.6582 9.85152C14.6582 10.5175 15.1957 11.0563 15.8643 11.0563C16.5303 11.0563 17.0678 10.5175 17.0678 9.85152C17.0678 9.18553 16.5303 8.64673 15.8643 8.64673C15.1957 8.64543 14.6582 9.18487 14.6582 9.85152Z" fill="#F2B829" />
+                                        <path d="M14.1289 13.6185C14.1289 14.5741 14.9051 15.3516 15.8634 15.3516C16.8177 15.3516 17.5945 14.5741 17.5945 13.6185C17.5945 12.6609 16.8177 11.884 15.8634 11.884C14.9051 11.884 14.1289 12.6609 14.1289 13.6185Z" fill="#F2B829" />
+                                        <path d="M17.9287 16.0307L16.5321 15.6106L15.8929 16.377L15.2328 15.6106L13.7012 16.0307V18.9529H18.0252L17.9287 16.0307Z" fill="#F2B829" />
+                                        <path d="M9.65974 11.9324C8.70283 11.9324 7.92529 12.7093 7.92529 13.6662C7.92529 14.6218 8.70283 15.3993 9.65974 15.3993C10.616 15.3993 11.3922 14.6218 11.3922 13.6662C11.3916 12.7099 10.6147 11.9324 9.65974 11.9324Z" fill="#F2B829" />
+                                        <path d="M10.3297 15.6589L9.68845 16.4267L9.02963 15.6589L7.49805 16.079V19H11.8228L11.7256 16.079L10.3297 15.6589Z" fill="#F2B829" />
+                                        <path d="M12.7114 12.5149C13.4117 12.5149 13.9795 11.9471 13.9795 11.2468C13.9795 10.5465 13.4117 9.97876 12.7114 9.97876C12.0111 9.97876 11.4434 10.5465 11.4434 11.2468C11.4434 11.9471 12.0111 12.5149 12.7114 12.5149Z" fill="#F2B829" />
+                                        <path d="M14.2923 15.0724C14.066 14.6458 13.9088 14.1827 13.9088 13.6661C13.9088 13.3262 14.0007 13.0105 14.1031 12.7046H13.9792H13.6707H13.1991L12.7314 13.2656L12.2493 12.7046H11.7529H11.4764C11.6042 13.0014 11.6786 13.3256 11.6786 13.6648C11.6786 14.2225 11.4829 14.7332 11.1606 15.1507H14.2936L14.2923 15.0724Z" fill="#F2B829" />
+                                        <path d="M4.01346 9.39753C5.35792 9.39753 6.44782 8.30763 6.44782 6.96317C6.44782 5.61871 5.35792 4.52881 4.01346 4.52881C2.669 4.52881 1.5791 5.61871 1.5791 6.96317C1.5791 8.30763 2.669 9.39753 4.01346 9.39753Z" fill="#F2B829" />
+                                        <path d="M9.56564 8.18164L6.46333 9.7628H4.89913L3.97222 10.8391L3.07336 9.7628L1.11126 10.1835L0.975586 14.5043H1.81052L1.84379 15.1749H6.24677L6.46007 11.0263L9.94266 9.32054L9.56564 8.18164Z" fill="#F2B829" />
+                                        <path d="M8.57197 5.41397L7.59483 6.87119L7.97381 6.84119C7.9999 6.83858 10.5269 6.62724 12.2763 6.23912C14.5731 5.73164 15.9396 4.71536 16.0303 3.45187C16.1516 1.73308 14.2163 0.191711 11.7173 0.0162439C9.21904 -0.159875 7.088 1.09514 6.96732 2.81393C6.89818 3.7878 7.49503 4.74928 8.57197 5.41397ZM11.6919 0.38218C13.9886 0.543949 15.7713 1.9092 15.663 3.42643C15.5548 4.97433 13.2032 5.65923 12.1981 5.88167C10.8759 6.17454 9.09771 6.36632 8.3267 6.44068L9.09511 5.29264L8.92355 5.19545C7.86553 4.59991 7.27064 3.71801 7.33196 2.83937C7.44024 1.32279 9.39451 0.221064 11.6919 0.38218Z" fill="#F2B829" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_1153_3198">
+                                            <rect width="19" height="19" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                 <label>دورات حضورية</label> <label>&nbsp  (@ViewBag.OfflineCoursesCount)</label>
+                        </div>
+
+                        @if (ViewBag.OfflineCoursesCount != 0)
+                                {
+                                    <table class="table mt-5">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">م</th>
+                                                <th scope="col">الدورة</th>
+                                                <th scope="col">التاريخ</th>
+                                                <th scope="col">السعر</th>
+                                                <th scope="col">الحالة</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var course in CourseMantadory)
+                                            {
+                                                <tr>
+                                                    @{
+                                                        Count++;
+                                                    }
+                                                    <td>@Count</td>
+                                                    <td>@course.CoursesScheduless.CoursesData.HeaderAr</td>
+                                                    <td>
+                                                        @(
+                                                            course.CoursesScheduless.StartDate != null ? course.CoursesScheduless.StartDate.Value.ToString("dd/MM/yyyy") : ""
+                                                            )
+                                                    </td>
+                                            <td> 
+                                                @{
+                                                    Valueby = Convert.ToDecimal((@course.CoursesScheduless.Cost + @course.Tax) - @course.Discount);
+                                                }
+                                                     @Valueby
+                                                        رس</td>
+                                                    @if (course.StutusPaidup == false)
+                                                    {
+                                                        <td class="text-danger">
+                                                            لم يتم الدفع
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="text-success">
+                                                            تم الدفع
+                                                        </td>
+                                                    }
+                                                    @if (course.StutusPaidup.Value == true)
+                                                    {
+                                                        <td><a href="@course.CoursesScheduless.LinkWhatsApp" class="conect">الانضمام الى الدورة</a></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><span class="text-danger">لايمكنك الانضمام</span></td>
+                                                    }
+                                                    <td>
+                                                        @if (CoursenOline.Contains(course))
+                                                        {
+                                                            <a asp-action="GetSession" asp-route-id="@course.CoursesScheduless.TokenNumber" class="btn btn-warning w-100" style="color: #095F90 !important;">المحاضرة</a>
+                                                        }
+                                                        else if (CourseMantadory.Contains(course))
+                                                        {
+                                                            <a asp-action="offlineCourses" asp-route-id="@course.CoursesSchedulessId" class="btn btn-warning w-100" style="color: #095F90 !important;">الملفات</a>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                                else 
+                                {
+                                     <label class="mt-4 conect">لايوجد</label>
+                                }
+              
+              @*<label class="mt-4 conect">لايوجد</label>*@
+                        <div class="conect" style="margin-top: 30px;padding: 10px; border: 1px solid #ffc107; border-radius: 10px; width: 200px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M9.45323 19.7031H9.37511C8.71886 19.6718 8.14073 19.2031 7.96886 18.5468C7.76573 17.7656 8.17198 16.9687 8.93761 16.6875C9.10948 16.625 9.29698 16.5937 9.46886 16.5937C10.0626 16.5937 10.6095 16.9375 10.8595 17.4687C10.922 17.5937 11.0001 17.6093 11.047 17.6093H11.1095C13.7501 17.1718 15.7032 15.7343 16.922 13.3437C16.9376 13.3281 16.9376 13.2969 16.9532 13.2656L17.0001 13.1406L16.8595 13.1562L16.7657 13.1719C16.7032 13.1719 16.672 13.1875 16.6251 13.1875H16.5001C15.3439 13.1875 14.4064 12.25 14.4064 11.0937V8.93747C14.4064 7.78122 15.3439 6.84372 16.5001 6.84372H16.6251C16.7657 6.84372 16.8907 6.8906 17.0314 6.92185C17.0939 6.93747 17.172 6.9531 17.2345 6.96872L17.2814 6.98435L17.4064 7.03122L17.3751 6.8906C16.7189 4.1406 14.0314 1.3281 10.2032 1.23435H10.0001C6.09386 1.23435 3.32823 4.06248 2.60948 6.85935L2.57823 6.98435L2.70323 6.9531C2.75011 6.93747 2.79698 6.93747 2.84386 6.92185C2.95323 6.8906 3.04698 6.85935 3.15636 6.84372C3.26573 6.8281 3.39073 6.81247 3.50011 6.81247C4.48448 6.81247 5.39073 7.56247 5.54698 8.53122C5.56261 8.65622 5.57823 8.81248 5.57823 8.96873V11.0781C5.57823 12.0937 4.90636 12.9218 3.90636 13.1406C3.76573 13.1718 3.62511 13.1875 3.48448 13.1875C2.46886 13.1875 1.59386 12.4375 1.42198 11.4531C1.40636 11.3125 1.39073 11.2031 1.39073 11.0937V10.4687C1.39073 9.92185 1.37511 9.35935 1.39073 8.81248C1.45323 6.06247 2.59386 3.79685 4.75011 2.09373C5.82823 1.23435 7.09386 0.687475 8.50011 0.437475C9.18761 0.312475 9.90636 0.2656 10.5939 0.3281C10.7032 0.343725 10.8282 0.343725 10.9376 0.35935C12.1564 0.48435 13.297 0.85935 14.3126 1.46873C16.3595 2.67185 17.7032 4.4531 18.3282 6.73435C18.5157 7.40622 18.6095 8.12497 18.6095 8.87497V11.0781C18.6095 11.4062 18.5314 11.7187 18.3907 12.0468C18.3439 12.1406 18.3126 12.25 18.297 12.3593C18.2814 12.3906 18.2814 12.4375 18.2657 12.4687C17.3595 15.5156 14.8595 17.8125 11.7501 18.4531C11.5626 18.4843 11.3595 18.5312 11.1095 18.5625C10.9845 18.5781 10.9532 18.6562 10.922 18.7187C10.672 19.2969 10.1095 19.7031 9.45323 19.7031ZM16.5314 7.74997H16.4064C15.797 7.81247 15.3595 8.31247 15.3595 8.90622V11.0781C15.3595 11.1719 15.3751 11.2656 15.3907 11.3593C15.5157 11.8906 15.9845 12.2656 16.5157 12.2656C16.5626 12.2656 16.6095 12.2656 16.6564 12.25C17.2657 12.1719 17.7032 11.6875 17.7032 11.0937V8.92185C17.7032 8.8281 17.6876 8.73435 17.672 8.65623C17.5314 8.12497 17.0626 7.74997 16.5314 7.74997ZM3.48448 7.74997C2.82823 7.74997 2.32823 8.2656 2.32823 8.92185V11.0625C2.32823 11.1562 2.34386 11.25 2.35948 11.3281C2.48448 11.8594 2.95323 12.2344 3.48448 12.2344H3.60948C4.21886 12.1719 4.65636 11.6719 4.65636 11.0781V8.92185C4.64073 8.2656 4.14073 7.74997 3.48448 7.74997Z" fill="#F2B829" />
+                            </svg>
+                            <label>دورات اونلاين</label> <label>&nbsp (@ViewBag.OnlineCoursesCount)</label>
+                </div>
+                        @{
+                            Count = 0;
+                        }
+
+                        @if (ViewBag.OnlineCoursesCount != 0)
+                        {
+                            <table class="table mt-5">
+                                <thead>
+                                    <tr >
+                                        <th scope="col">م</th>
+                                        <th scope="col">الدورة</th>
+                                        <th scope="col">التاريخ</th>
+                                        <th scope="col">السعر</th>
+                                        <th scope="col" >الحالة</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var course in CoursenOline)
+                                    {
+                                        <tr>
+                                            @{
+                                                Count++;
+                                            }
+                                            <td>@Count</td>
+                                            <td>@course.CoursesScheduless.CoursesData.HeaderAr</td>
+                                            <td>@(
+                                                course.CoursesScheduless.StartDate != null ? course.CoursesScheduless.StartDate.Value.ToString("dd/MM/yyyy") : ""
+                                                )</td>
+                                            <td>
+                                                @{
+                                                    Valueby = Convert.ToDecimal((@course.CoursesScheduless.Cost + @course.Tax) - @course.Discount);
+                                                }
+                                                @Valueby
+                                                رس</td>
+                                            @if (course.StutusPaidup == false)
+                                            {
+                                                <td class="text-danger">
+                                                    لم يتم الدفع
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="text-success">
+                                                    تم الدفع
+                                                </td>
+                                            }
+                                            @if (course.StutusPaidup.Value == true)
+                                            {
+                                                <td><a href="@course.CoursesScheduless.LinkWhatsApp" class="conect">الانضمام الى الدورة</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><span class="text-danger">لايمكنك الانضمام</span></td>
+                                            }
+                                            <td>
+                                                @if (CoursenOline.Contains(course))
+                                                {
+                                                    <a asp-action="GetSession" asp-route-id="@course.CoursesScheduless.TokenNumber" class="btn btn-warning w-100" style="color: #095F90 !important;">المحاضرة</a>
+                                                }
+                                                else if (CourseMantadory.Contains(course))
+                                                {
+                                                    <a asp-action="offlineCourses" asp-route-id="@course.CoursesSchedulessId" class="btn btn-warning w-100" style="color: #095F90 !important;">الملفات</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        
+                        else
+                        {
+                        <label class="mt-4 conect">لايوجد</label>
+                        }
+                    </div>
+      </div>
+    </div>
+  </section>
+
+
+
+@*<h1>الصفحه الرئيسيه</h1>*@
+
+
+
+@*<div class="text-center">
+    <h1 class="display-4">مرحباً!</h1>
+    <p>مرحباً @ViewBag.Username!</p>
+    <p>البريد الإلكتروني: @ViewBag.Email</p>
+    <p>معرف الطالب: @ViewBag.StudentId</p>
+</div>
+<div class="container">
+<div class="row mt-4">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">الدورات الحضوريه</p>
+                            <h5 class="font-weight-bolder mb-0">
+                                @ViewBag.OfflineCoursesCount
+                            </h5>
+                            <a asp-action="offlineCourses" >عرض الدورات</a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">الدورات الاونلاين </p>
+                            <h5 class="font-weight-bolder mb-0">
+                                @ViewBag.OnlineCoursesCount
+                            </h5>
+                                <a asp-action="onlineCourses">عرض الدورات</a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">New Clients</p>
+                            <h5 class="font-weight-bolder mb-0">
+                                +3,462
+                                <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
+                            <h5 class="font-weight-bolder mb-0">
+                                $103,430
+                                <span class="text-success text-sm font-weight-bolder">+5%</span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                            <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+</div>

@@ -1,0 +1,109 @@
+﻿@using Microsoft.EntityFrameworkCore;
+@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@using WebApplicationAbad.Areas.AdminManageData.Data;
+@using WebApplicationAbad.Data;
+@inject ApplicationDbContext context
+@model IEnumerable<CoursesScheduless>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Coursesm Scheduless";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
+
+}
+
+<style>
+    .tab-title{
+        font-size:10px !important; 
+    }
+
+    .tab-title1 {
+        font-size: 12px !important;
+    }
+
+    .div-select{
+        padding:15px
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <div class="text-start">
+                <a class="btn btn-outline-primary" asp-action="GetCoursesSchedulessCreate">فتح دوره <i class="fa-solid fa-plus"></i> </a>
+            </div>
+            <h2 class="card-title">الدورات القائمه</h2>
+        </div>
+        <div class="div-select col-4">
+            <select class="form-select" id="searchSelect">
+                <option value="0">اختر طريقه البحث</option>
+                <option value="1">كل الدورات</option>
+                <option value="2">دورات تنتهي هذا الاسبوع</option>
+                <option value="3">دورات سوف تبدا قريبا</option>
+                <option value="4">دورات بدائت</option>Courses ended
+                <option value="5">دورات انتهت</option>
+            </select>
+        </div>
+
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="Search.....">
+        </div>
+        <form asp-action="GetCoursesSchedulessIndex" id="myTable" onsubmit="return AllBool()">
+            <table class="table table-striped" id="datatable">
+                <thead>
+                    <tr>
+                        <th>م</th>
+                        <th>المدرب</th>
+                        <th>الدوره</th>
+                        <th>التاريخ</th>
+                        <th>التوقيت</th>
+                        <th>التاريخ</th>
+                        <th>عدد الطلاب</th>
+                        <th>المنفذ</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody id="partialViewContainer">
+                    @await Html.PartialAsync("GetTanleView.cshtml", Model)
+               
+           
+        </form>
+        
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#searchSelect').change(function () {
+            var selectedValue = $(this).val();
+
+            $.ajax({
+                url: '/AdminCoursesData/CoursesScheduless/GetDateAction',
+                type: 'GET',
+                data: { type: selectedValue },
+                success: function (result) {
+                    $('#partialViewContainer').html(result); 
+                }
+            });
+        });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

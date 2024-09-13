@@ -1,0 +1,83 @@
+﻿@model WebApplicationAbad.Areas.CompanyData.Models.ContractDatum
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>ContractDatum</h4>
+<hr />
+@*<div class="row myrow">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label  class="control-label"> تاريخ العقد </label>
+                <input asp-for="ContractDate" class="form-control" />
+                <span asp-validation-for="ContractDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label"> عدد الطلاب</label>
+                <input asp-for="StudentCount" class="form-control" />
+                <span asp-validation-for="StudentCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tiltle" class="control-label"> العنوان</label>
+                <input asp-for="Tiltle" class="form-control" />
+                <span asp-validation-for="Tiltle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label"> الموضوع</label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label"> القيمه</label>
+                <input asp-for="ContractPrise" class="form-control" />
+                <span asp-validation-for="ContractPrise" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">المدفوع</label>
+                <input asp-for="ContractPaid" class="form-control" />
+                <span asp-validation-for="ContractPaid" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label"> المتبقي</label>
+                <input asp-for="ContractRest" class="form-control" />
+                <span asp-validation-for="ContractRest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">الدوره</label>
+                <input asp-for="CourseCode" class="form-control" />
+                <span asp-validation-for="CourseCode" class="text-danger"></span>
+            </div>
+      
+            <div class="form-group">
+                <label  class="control-label"> الحاله</label>
+                <input asp-for="StatusCode" class="form-control" />
+                <span asp-validation-for="StatusCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label"> ملاحظات</label>
+                <input asp-for="Nots" class="form-control" />
+                <span asp-validation-for="Nots" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label  class="control-label"> اسم الشركه</label>
+                <select asp-for="CompaniesDataId" class ="form-control" asp-items="ViewBag.CompaniesDataId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+<div>
+    <a asp-action="Index">الرجوع للخلف</a>
+</div>
+

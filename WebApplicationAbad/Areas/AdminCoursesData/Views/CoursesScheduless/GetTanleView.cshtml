@@ -1,0 +1,107 @@
+﻿@using WebApplicationAbad.Areas.AdminCoursesData.Models;
+@using WebApplicationAbad.Data;
+@inject ApplicationDbContext context
+@model IEnumerable<CoursesScheduless>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@foreach (var item in Model)
+{
+    <tr data-id="@item.Id">
+        <td>@item.Id
+            <br>
+            @if (item.IsHide)
+            {
+                <span class="tab-title badge bg-danger">Private</span>
+            }
+        </td>
+        <td>
+           @item.Trainer.NameAr
+        </td>
+        <td> <a asp-action="GetDaitlsCoursesSchduless" asp-route-IdCourses="@item.Id">@item.CoursesData.HeaderAr<br /></a></td>
+        <td>@item.TimeCoures</td>
+        <td>
+            <span class="tab-title1 badge bg-success">@item.StartTime</span><br>
+            <span class="tab-title1 badge bg-danger">@item.EndTime</span>
+        </td>
+        <td>
+            <span class="tab-title1 badge bg-success">@item.StartDate?.ToString("dd-MM-yyyy")</span><br>
+            <span class="tab-title1 badge bg-danger">@item.EndDate?.ToString("dd-MM-yyyy")</span>
+        </td>
+        <td class="text-center">
+            @{
+                var countallStudent = context.CoursesReserveds.Count(b => b.CoursesSchedulessId == item.Id);
+            }
+            <span class="tab-title1 badge bg-info"> @countallStudent</span>
+            @{
+                var countStudentT = context.CoursesReserveds.Count(b => b.CoursesSchedulessId == item.Id && b.StutusPaidup==true);
+            }
+            <span class="tab-title1 badge bg-success"> @countStudentT</span>
+            @{
+                var countStudentF = context.CoursesReserveds.Count(b => b.CoursesSchedulessId == item.Id && b.StutusPaidup == false);
+            }
+            <span class="tab-title1 badge bg-danger"> @countStudentF</span>
+        </td>
+        <td>@item.UserCode</td>
+        <td class="table-action">
+            <a class="btn btn-success" asp-action="GetCoursesSchedulessCreate" asp-route-id="@item.Id">
+                <i class="align-middle" data-feather="edit-2"></i>
+            </a>
+            <button type="submit" class="btn btn-danger" asp-route-id="@item.Id">
+                <i class="align-middle" data-feather="trash"></i>
+            </button>
+        </td>
+    </tr>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ </tbody>
+            </table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item" id="prev"><a class="page-link" href="#">للخلف</a></li>
+        <li class="page-item" id="next"><a class="page-link" href="#">التالي</a></li>
+    </ul>
+</nav>
+
+<script>
+    $(document).ready(function () {
+        var rowsPerPage = 10;
+        var totalRows = $("tbody tr").length;
+        var totalPages = Math.ceil(totalRows / rowsPerPage);
+        var currentPage = 1;
+
+        $("tbody tr").hide().slice(0, rowsPerPage).show();
+
+        for (var i = 1; i <= totalPages; i++) {
+            $(".pagination").append("<li class='page-item'><a class='page-link' href='#'>" + i + "</a></li>");
+        }
+
+        $(".pagination").on("click", "li.page-item", function () {
+            var pageNum = parseInt($(this).text());
+            currentPage = pageNum;
+            showPage(currentPage);
+            $(".pagination").find("li.page-item").removeClass("active");
+            $(this).addClass("active");
+        });
+
+        $("#next").click(function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                showPage(currentPage);
+                $(".pagination").find("li.page-item").eq(currentPage - 1).addClass("active").siblings().removeClass("active");
+            }
+        });
+
+        $("#prev").click(function () {
+            if (currentPage > 1) {
+                currentPage--;
+                showPage(currentPage);
+                $(".pagination").find("li.page-item").eq(currentPage - 1).addClass("active").siblings().removeClass("active");
+            }
+        });
+        function showPage(pageNum) {
+            var start = (pageNum - 1) * rowsPerPage;
+            var end = start + rowsPerPage;
+            $("tbody tr").hide().slice(start, end).show();
+        }
+    });
+</script>

@@ -1,0 +1,97 @@
+﻿@model WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesScheduless
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "offlineCourses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    a {
+        font-weight: bold !important;
+    }
+
+    .conect {
+        text-decoration: solid;
+        color: #095F90;
+    }
+
+    th, td {
+        color: #095F90 !important
+    }
+
+    .butn {
+        width: 100px;
+    }
+
+    tr {
+        border-bottom: 1px solid #ffc10773
+    }
+
+    .cards {
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px !important;
+        padding: 20px
+    }
+</style>
+</header>
+<section>
+    <div class="container py-5">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cards mb-4" style="padding: 20px; font-weight: bold;">
+                    <div class="card-body">
+                        <h3 class="text-warning"> الدورات الحضورية</h3>
+                        <p>يمكنك الان تنزيل  ملفات الدورة</p>
+                        <div class="conect d-flex flex-column justify-content-center align-items-center" style="padding: 10px;">  
+                     <table class="table mt-5">
+                        <thead>
+                         <tr>
+                          <th scope="col">الدورة</th>
+                          <th scope="col">تنزيل</th>
+                        </tr>
+                        </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Model.CoursesData.HeaderAr</td>
+                             <td>
+                                      @*<button class="btn btn-warning" onclick="downloadFile()">تنريل الملفات</button></td>*@
+                                     <a class="btn btn-warning" asp-controller="Home" asp-action="DownloadFile" style="color: #095F90 !important;" asp-route-Id="@Model.Id">تنريل الملفات</a>
+                                 </td>
+                                 
+                            @*<a href="~/admin/coursesdatafiles/1/1/سي شارب-2.rar"></a>*@
+                        </tr>
+                    </tbody>
+                  </table>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+</section>
+
+@*<script>
+    const fileUrl = '/admin/coursesdatafiles/@Model.CoursesData.CoursesTypeId/@Model.CoursesDataId/@Model.CoursesData.FilesData';
+    console.log(fileUrl)
+    function downloadFile() {
+        fetch(fileUrl)
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.blob();
+            })
+            .then(blob => {
+                const link = document.createElement('a');
+                const blobUrl = window.URL.createObjectURL(blob);
+
+                link.href = blobUrl;
+                link.download = '@Model.CoursesData.FilesData';
+
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                window.URL.revokeObjectURL(blobUrl);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>*@

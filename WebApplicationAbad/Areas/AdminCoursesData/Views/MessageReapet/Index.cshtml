@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WebApplicationAbad.Areas.AdminCoursesData.Models.MessageReapet>
+@{
+    ViewData["Title"] = "Coursesm Scheduless";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+
+}
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">بيانات الرئيسية</h2>
+        </div>
+        <div class="p-3 col-4">
+            <input type="text" id="searchInput" class="form-control" oninput="searchTable()" placeholder="بحث">
+        </div>
+        <form asp-action="DeleteArticle" onsubmit="return AllBool()">
+            <table id="myTable" class="table mt-2 table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            الاسم
+                        </th>
+                        <th>
+                            البريد الالكتروني
+                        </th>
+                        <th>
+                            الهاتف
+                        </th>
+                        <th>
+                            تاريخ الارسال
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                            <td>@item.DateCreate.ToString("dd-MM-yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>

@@ -1,0 +1,233 @@
+﻿@using WebApplicationAbad.Data;
+@model WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesReserved
+@inject ApplicationDbContext context
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var Company = context.CompaniesData.ToList();
+    SelectList listItems = new SelectList(Company, "Code", "EnglishName");
+    ViewBag.ListItmeDatas = listItems;
+}
+<style>
+    nav{
+        display:none
+    }
+
+    .navbar{
+        display:none
+    }
+    body{
+        font-size:18px
+    }
+
+    .form-control{
+        font-size:18px
+    }
+
+    .form-select {
+        font-size:18px 
+    }
+    h4{
+        font-size:26px
+    }
+    .btn{
+        font-size:20px
+    }
+</style>
+
+<div class="col-12 myrow">
+    <div class="card">
+        <div class="card-header">
+        <h4 class="text-center"> بيانات الحجز</h4>
+        <hr />
+
+        <div class="row" dir="rtl">
+                <input asp-for="@Model.Id" name="Id" id="resId" hidden>
+            <div class="mb-3 col-12">
+                <label class="control-label">اسم الطالب</label>
+                <input asp-for="@Model.Student.ArabicName"  class="form-control" placeholder="الاسم بالعربية" readonly="true" disabled />
+            </div>
+
+            <div class="mb-3 col-12 ">
+                <label class="control-label">اسم الدورة</label>
+                <input asp-for="@Model.CoursesScheduless.CoursesData.HeaderAr" class="form-control" disabled />
+            </div>
+
+                <div class="mb-3 col-12 ">
+                    <label class="control-label">اسم الدورة</label>
+                    <textarea id="nots" rows="4" asp-for="@Model.Nots" class="form-control" ></textarea>
+                </div>
+
+            <div class="mb-3 col-4 text-center">
+                <span class="control-label">حالة الدفع</span>
+                @if (@Model.StutusPaidup == true)
+                {
+                    <span class="tab-title1 badge bg-success">تم الدفع</span>
+                }
+                else
+                {
+                    <span class="tab-title1 badge bg-danger">لم يتم الدفع</span>
+                }
+            </div>
+
+            <div class="mb-3 col-4 text-center">
+                <span class="control-label">اسم الشركة</span>
+                @if (@Model.IsCompany == true)
+                {
+                    <span class="tab-title1 badge bg-dark">@Model.ContractDatum.CompaniesData.ArabicName</span>
+                }
+                else
+                {
+                    <span class="tab-title1 badge bg-danger">لايوجد</span>
+                }
+            </div>
+
+            <div class="mb-3 col-4 text-center">
+                <span class="control-label">التعميد</span>
+                @if (@Model.ContractDatum == null || @Model.ContractDatum.Tiltle == null)
+                {
+                    <span class="tab-title1 badge bg-danger">لايوجد</span>
+                }
+
+                else
+                {
+                    <span class="tab-title1 badge bg-dark">@Model.ContractDatum.Tiltle</span>
+
+                }
+            </div>
+
+            <div class="mt-1 text-center">
+                <h4>التعديل على بيانات الحجز</h4>
+            </div>
+            <hr>
+            <input asp-for="Id"  hidden>
+            <div style="display:flex">
+                        <div class="mb-3 col-12 d-flex" style="width:80px">
+                            <label class="form-check m-0">
+                                الشركه
+                                <input class="form-check-input" value="IsCompany" asp-for="IsCompany" name="IsCompanys" type="radio" id="fomt2" />
+                            </label>
+                        </div>
+
+                        <div class="mb-3 col-12 d-flex">
+                            <label class="form-check m-0">
+                                افرد
+                                <input class="form-check-input"  name="IsCompanys" type="radio" id="fomt3" />
+                            </label>
+                        </div>
+           </div>
+            <div class="Roal" id="CompanyID2" style="display:none">
+                <div class="mb-3 col-12 ">
+                    <label class="control-label">اسم الشركه</label>
+                    <select id="selectCompany2" class="form-select" asp-items="ViewBag.ListItmeDatas">
+                        <option value="">اختر الشركه</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 col-12">
+                    <label class="control-label">العقد</label>
+                    <select class="form-select" asp-for="ContractDatumId"  id="selectContract2">
+                        <option value="">اختر العقد</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <br />
+            <div class="text-center">
+                  <button class="btn btn-primary" id="updateResved">تعديل بيانات الحجز</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // تحقق مما إذا كانت الشركة محددة
+        if ($('#fomt2').is(':checked')) {
+            executeCompanyCode();
+        }
+
+        // إضافة استماع لتغيير الشركة
+        $('#selectCompany2').change(function () {
+            executeCompanyCode();
+        });
+    });
+
+    function executeCompanyCode() {
+        var selectedValue = $('#selectCompany2').val();
+        $.ajax({
+            url: '/AdminCoursesData/CoursesScheduless/GetCompanyData',
+            type: 'GET',
+            data: { CopanyId: selectedValue },
+            success: function (data) {
+                var coursesDataSelect = $('#selectContract2');
+                coursesDataSelect.empty();
+                coursesDataSelect.append($('<option>', {
+                    value: '',
+                    text: 'اختر العقد'
+                }));
+                $.each(data, function (index, item) {
+                    coursesDataSelect.append($('<option>', {
+                        value: item.value,
+                        text: item.text
+                    }));
+                });
+            }
+        });
+    }
+
+
+
+ </script>
+ <script>
+    $(document).ready(function () {
+        $('#updateResved').click(function (e) {
+            var IsCompany = $('#fomt2').is(':checked');
+            var Contract = $('#selectContract2').val();
+            var Nots = $('#nots').val();
+
+            var resId = $('#resId').val();
+            $.ajax({
+                url: '/AdminCoursesData/CoursesScheduless/UpdateStduentResved',
+                type: 'GET',
+                data: { IsCompany: IsCompany, Contract: Contract, ResveId: resId, Nots: Nots },
+                success: function (result) {
+                    if (result) {
+                        var newUrl = `/AdminCoursesData/CoursesScheduless/GetDaitlsCoursesSchduless?IdCourses=${@Model.CoursesSchedulessId}`;
+                        window.location.href = newUrl;
+                    } else {
+                        swal({
+                            title: "خطأ في البيانات",
+                            text: 'العقد مكتمل بعدد الطلاب',
+                            icon: "error"
+                        });
+                    }
+                },
+            });
+        });
+    });
+ </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var isCompanyRadios = document.getElementsByName('IsCompanys');
+
+        function toggleRoalDisplay() {
+            var companyDiv = document.getElementById('CompanyID2');
+            if (isCompanyRadios[0].checked) {
+                companyDiv.style.display = 'block';
+            } else {
+                companyDiv.style.display = 'none';
+            }
+        }
+
+        for (var i = 0; i < isCompanyRadios.length; i++) {
+            isCompanyRadios[i].addEventListener('change', toggleRoalDisplay);
+        }
+
+        toggleRoalDisplay();
+    });
+</script>

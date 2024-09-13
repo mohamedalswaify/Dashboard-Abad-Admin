@@ -1,0 +1,84 @@
+﻿@model WebApplicationAbad.Areas.AdminCoursesData.Models.ViewsNow
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Courses Views";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row myrow">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">العــــــــروض</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="GetViewsNowCreate" onsubmit="confirmFormAlert(this); return false" enctype="multipart/form-data">
+                    <div class="mb-3" hidden="false">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" placeholder="Arabic Name" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">عنوان العرض</label>
+                        <input asp-for="Head" class="form-control"  placeholder="عنوان العرض" required />
+                        <span asp-validation-for="Head" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Descraption" class="control-label"> الوصف</label>
+                        <textarea asp-for="Descraption" class="form-control" placeholder="الوصف" rows="4"></textarea>
+                        <span asp-validation-for="Descraption" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">عدد الدورات</label>
+                        <input asp-for="NumberOfCourses" class="form-control" type="number" placeholder="عدد الدورات" required />
+                        <span asp-validation-for="NumberOfCourses" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="control-label">نسبة الخصم </label>
+                        <input asp-for="PreDiscount" class="form-control" type="number" placeholder="نسبة الخصم" required />
+                        <span asp-validation-for="PreDiscount" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <input asp-for="UserCode" type="text" value="111" hidden="false" class="form-control" />
+                    </div>
+                    <div class="mb-3" hidden="false">
+                        <label asp-for="CreatedDate" class="control-label"></label>
+                        <input asp-for="CreatedDate" type="text" value="@DateTime.Now" class="form-control" placeholder="Created Date" />
+                        <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="control-label">صورة العرض</label>
+                        @if (ViewBag.BoolValue != null && !ViewBag.BoolValue)
+                        {
+                            <input type="file" asp-for="FormFiles" class="form-control" accept="image/png,image/jpeg" />
+                        }
+                        else
+                        {
+                            <input type="file" asp-for="FormFiles" class="form-control" accept="image/png,image/jpeg" required />
+                        }
+
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+
+                    @if (ViewBag.BoolValue != null && !ViewBag.BoolValue)
+                    {
+                        <div class="mb-3">
+                            <input asp-for="LastUpdateUserCode" type="text" value="111" hidden="false" class="form-control" />
+                        </div>
+                        <div class="mb-3" hidden="false">
+                            <label asp-for="LastUpdateDate" class="control-label"></label>
+                            <input asp-for="LastUpdateDate" type="text" value="@DateTime.Now" class="form-control" placeholder="Created Date" />
+                            <span asp-validation-for="LastUpdateDate" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input asp-for="LastUpdateUserCode" hidden="false" class="form-control" />
+                        </div>
+                    }
+                    <button type="submit" class="btn btn-primary">@ViewBag.coursesStatus</button>
+                    <a asp-action="GetViewsNowIndex" class="btn btn-info">االرجوع للخلف</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

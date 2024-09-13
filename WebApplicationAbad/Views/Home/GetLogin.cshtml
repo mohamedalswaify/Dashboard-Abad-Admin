@@ -1,0 +1,164 @@
+﻿@using  WebApplicationAbad.Areas.AdminManageData.Data;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Student
+
+@{
+    ViewData["Title"] = "GetLogin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ </header>
+<!-- login -->
+<div class="login-background container-fulid">
+
+    <partial name="_Notfactions" />
+
+    <div class="login">
+        <section>
+            <div class="container h-100">
+                <div class="row  h-100">
+                    <div class="col col-xl-10">
+                        <div class="card card-login">
+                            <div class="row g-0">
+
+                                <div class="col-md-6 col-lg-7 w-100 ">
+                                    <div class="card-body p-4 p-lg-5 text-black">
+
+                                        <form role="form" asp-action="Login" method="post">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                            <div class="d-flex  mb-3 pb-1 w-100">
+                                                <span class="fs-3 fw-bold mb-0 text-center w-100" style="color: #095F90"> تسجيل الدخول</span>
+                                            </div>
+
+
+
+                                            <div class="form-outline mb-4">
+                                                <input type="email" asp-for="Email" class="form-control form-control-lg " placeholder="البريد الالكتروني" required
+                                                       style="font-size: 14px; padding:16px;" value="@ViewBag.RememberedEmail" />
+                                            </div>
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                                            <div class=" form-outline mb-4">
+                                                <input type="password" asp-for="Password" class="form-control  form-control-lg" placeholder="كلمة المرور" required
+                                                       style="font-size: 14px; padding:16px" value="@ViewBag.RememberedPassword" />
+                                            </div>
+                                            <span asp-validation-for="Password" class="text-danger"></span>
+                                            <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="" id="remmber" value="true">
+                                                    <label for="remmber" class="fw-bold remmb" style="color:rgba(9, 95, 144, 0.70);">
+                                                        أبق تسجيل
+                                                        دخولي
+                                                    </label>
+
+                                                </div>
+                                                <a class="link-forget fw-bold mb-3" href="new-password.html"
+                                                   style="color:rgba(9, 95, 144, 0.70);" data-bs-toggle="modal"
+                                                   data-bs-target="#staticBackdrop">
+                                                    هل نسيت كلمة
+                                                    المرور ؟
+                                                </a>
+                                              
+
+                                                <div class="pt-1 w-100 ">
+                                                    <button class="submit-login btn btn-primary btn-lg btn-block w-100" type="submit">
+                                                        تسجيل
+                                                        الدخول
+                                                    </button>
+                                                </div>
+                                               </form>
+
+
+                                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                                                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+
+                                                            <div class="modal-body">
+
+                                                                <form >
+                                                                    <div class="d-flex   mb-3 pb-1 w-100">
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        <span class=" fw-bold mb-0 text-center w-100" style="color:#F2B829; font-size:15px; padding:0px 20px; "> إعادة تعيين كلمة المرور </span>
+                                                                    </div>
+
+
+
+                                                                    <div class="form-outline mb-4">
+                                                                        <label for="forget-mail" class="mb-2">البريد الإلكتروني</label>
+
+                                                                        <input type="email" id="mail" class="form-control form-control-lg "
+                                                                         asp-for="Email" name="Email"  placeholder="الرجاء إدخال البريد الإلكتروني الخاص بك " style="font-size: 14px; padding:16px;" />
+                                                                        <span id="comp" asp-validation-for="Email" style="display:none" class="text-danger">البريد الالكتروني غير صالح</span>
+
+                                                                    </div>
+                                                                    <div class="pt-1 ">
+                                                                <button id="subbtn" class="btn btn-primary btn-lg btn-block w-100" type="button">
+                                                                            تأكيد البريد الالكتروني
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="social-message">
+                                                <div class="line"></div>
+                                                <p class="message">او </p>
+                                                <div class="line"></div>
+                                            </div>
+
+                                            <div class="pt-1 ">
+                                                <a  asp-controller="Home" asp-action="Getsign"
+                                                   class="create-account btn btn-outline-warning btn-lg btn-block w-100" >
+                                                    انشاء حساب
+                                                </a>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- تضمين مكتبة jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- تضمين مكتبة Swal -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- الكود الجافا سكريبت -->
+<script>
+    $(document).ready(function () {
+        $('#subbtn').click(function (e) {
+            e.preventDefault();
+            var Mail = $('#mail').val();
+
+            $.ajax({
+                url: '/Home/CheckEmailStudent',
+                type: 'GET',
+                data: { Mail: Mail },
+                success: function (result) {
+                    if (result) {
+                        Swal.fire({
+                            title: `سيتم ارسال رابط اعادة تعيين كلمة المرور على البريد الكتروني ${Mail}`,
+                            confirmButtonColor: '#095F90',
+                            confirmButtonText: 'فهمت',
+                            allowOutsideClick: false 
+                        }).then((result) => {
+                            window.location.href = '/Home/GetLogin';
+
+                        });
+                    } else {
+                        $('#comp').css('display', 'block');
+                    }
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WebApplicationAbad.Areas.AdminCoursesData.Models.CoursesReserved>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutStudentControl.cshtml";
+    int count = 0;
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="row">
+    <div class="col-12">
+       
+        <div class="card mb-4">
+            <div  class="card-header pb-0">
+                <h6>Courses OffLine</h6>
+            </div >
+            <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0">
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">m</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder ">Courses Name</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Dates</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Cost</th>
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Status</th>
+                              
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                    <span class="badge badge-sm bg-gradient-success">WhatsApp</span>
+                                </th>
+                               
+                                
+                                <th class="text-secondary opacity-7"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             @foreach (var courseReserved in Model)
+        {
+                            <tr>
+                                <td>
+                                    <p class="text-xs font-weight-bold mb-0"> @{count+=1;}
+                    @count</p>
+                                    
+                                </td>
+                               
+                                   <td>
+                                        <p class="text-xs font-weight-bold mb-0">@courseReserved.CoursesScheduless.CoursesData.HeaderEn</p>
+                                        <p class="text-xs text-secondary mb-0"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7ada8afa987a4b5a2a6b3aeb1a2eab3aeaae9a4a8aa">[email&#160;protected]</a></p>
+                                </td>
+                                <td>
+                                    <p class="text-xs font-weight-bold mb-0">@courseReserved.CoursesScheduless.StartDate</p>
+                                    <p class="text-xs text-secondary mb-0">@courseReserved.CoursesScheduless.EndDate</p>
+                                </td>
+                                <td>
+                                    <p class="text-xs font-weight-bold mb-0">@courseReserved.CoursesScheduless.Cost</p>
+                                    @if (courseReserved.StutusPaidup.Value==true)
+                                        {
+                                            <p class="text-xs text-secondary mb-0"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="">عرض الفاتورة</a></p>
+                                        }
+                                </td>
+                                <td>
+                                        <p class="text-xs font-weight-bold mb-0">@(courseReserved.StutusPaidup.HasValue && courseReserved.StutusPaidup.Value ? "تم الدفع" : "لم يتم الدفع")</p>
+                                        @if (courseReserved.StutusPaidup.Value==false)
+                                        {
+                                            <p class="text-xs text-secondary mb-0"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="">رابط الدفع</a></p>
+                                        }
+                                    </td>
+                                    <td >
+                                        @if (courseReserved.StutusPaidup.Value == true)
+                                        {
+                                            <span class="badge badge-sm bg-gradient-success"><a href="@courseReserved.CoursesScheduless.LinkWhatsApp" class="__cf_email__" data-cfemail="">الانضمام الي الدوره</a></span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-sm bg-gradient-danger">لايمكنك الانضمام</span>
+                                        }
+                                    </td>
+                                <td >
+                                        <a asp-area="StudentCourses" asp-controller="CoursesOffLine" asp-action="GetDetailsCoursesOffline" asp-route-id="@courseReserved.Id" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            <span class="badge badge-sm bg-gradient-success">تفاصيل</span>
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

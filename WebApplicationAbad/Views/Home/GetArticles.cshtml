@@ -1,0 +1,243 @@
+﻿@* @using System.Globalization;
+@using WebApplicationAbad.Data;
+@inject ApplicationDbContext context;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<WebApplicationAbad.Areas.AdminCoursesData.Models.Article>
+
+@{
+    ViewData["Title"] = "GetArticles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Type=context.CoursesTypes.Where(b=>!b.IsDelete && !b.IsHide).ToList();
+    var artcleCount = context.Article.Where(c => !c.IsDelete && !c.IsHide);
+
+}
+<style>
+    .imge{
+        width: 100%;
+        height: 200px;
+        max-width: 100%;
+        display: block;
+        margin: 0 auto;
+    }
+</style>
+
+<div class="heading-articles">
+      <h2>المقالات</h2>
+      <p>هذا النص هو مثال لنص يمكن أن يستبدل في نفـس المســـاحة، لقد تم توليد هذا ا...</p>
+    </div>
+
+
+    <!-- title -->
+    <div class="title-page">
+      <div>
+        الصفحة الرئيسية
+        >
+        <span>المقالات</span>
+
+      </div>
+    </div>
+
+  </header>
+
+  <!-- article -->
+  <div class="article">
+    <div class="right-article">
+      <div class="tab-content" style="width:100%">
+
+
+
+            @for (int i = 0; i < Model.Count(); i += 6)
+            {
+                <div class="article-content page">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        @for (int j = i; j < i + 6 && j < Model.Count(); j++)
+                        {
+                            <div class="col">
+                               <div class="card shadow-sm" style="  border-radius:24px; overflow:hidden;">
+                                    <img class="imge" src="~/Admin/ImageArticle/@Model.ElementAt(j).Iamge" alt="">
+
+                                <div class="card-body">
+                                    <div class="badge-art">
+                                            @{
+                                                string arabicMonthName = CultureInfo.GetCultureInfo("ar").DateTimeFormat.GetMonthName(Model.ElementAt(j).PublishDate.Month);
+                                            }
+                                            @arabicMonthName
+                                        <br>
+                                         <span>@Model.ElementAt(j).PublishDate.Day</span>
+                                    </div>
+
+                                        <h3 class="card-text h ">@Model.ElementAt(j).TitleHeader</h3>
+                                    <p class="card-text p">
+                                            @{
+                                                var maxLength = 172;
+                                                var truncatedText = Model.ElementAt(j).ContetntTitle.Length > maxLength
+                                                ? Model.ElementAt(j).ContetntTitle.Substring(0, maxLength) + "..."
+                                                : Model.ElementAt(j).ContetntTitle;
+                                            }
+                                            @truncatedText
+                                    </p>
+                                    <div class="d-flex justify-content-end align-items-center">
+
+                                        <small class="read text-body-secondary">
+                                                <a asp-action="GetReadArticle" asp-route-Id="@Model.ElementAt(j).Id">
+
+                                                اقرأ المزيد
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
+                                                    <path d="M7.42151 10.8473L4.49017 7.91593L7.42151 4.9846" stroke="#F2B829" stroke-width="2"
+                                                          stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M11.5264 10.8473L8.59503 7.91593L11.5264 4.9846" stroke="#F2B829" stroke-width="2"
+                                                          stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </a>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        }
+                    </div>
+                </div>
+            }
+
+                
+            
+
+    </div>
+      <ul class="pagination">
+        <li class="page-item page-link prev" id="prevPage">السابق</li>
+            @{
+                var itemsPerSet = 6; 
+                int count = 0;
+                bool isFirst = true;
+            }
+
+            @for (int i = 0; i < Model.Count(); i += itemsPerSet)
+            {
+                count++;
+                if (isFirst)
+                {
+                    <li class="page-item page-link page-number active">@count</li>
+                    isFirst = false;
+                }
+                else
+                {
+                    <li class="page-item page-link page-number">@count</li>
+                }
+                    @for (int j = i; j < i + itemsPerSet && j < Model.Count(); j++)
+                    {
+                        
+                    }
+               
+            }
+        
+
+        <li class="page-item page-link next" id="nextPage">التالي</li>
+      </ul>
+    </div>
+
+    <div class="left-article">
+      <div class="left-article-content">
+        <div class="search-items">
+                <input type="text" name="" id="searchInput" placeholder="بحث">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <g clip-path="url(#clip0_734_7521)">
+              <path
+                d="M-2.54588 17.4438L2.84313 12.0465C1.78072 10.7713 1.14174 9.14174 1.14174 7.36191C1.14174 3.30143 4.47138 -0.00012207 8.56702 -0.00012207C12.6627 -0.00012207 16 3.30528 16 7.36576C16 11.4262 12.6704 14.7278 8.57472 14.7278C6.83484 14.7278 5.23354 14.1307 3.96327 13.1329L-1.44498 18.5456C-1.76062 18.8615 -2.23024 18.8615 -2.54588 18.5456C-2.86152 18.2297 -2.86152 17.7597 -2.54588 17.4438ZM14.4218 7.36576C14.4218 4.17593 11.7966 1.58323 8.57472 1.58323C5.35286 1.58323 2.72765 4.17593 2.72765 7.36576C2.72765 10.5556 5.35286 13.1483 8.57472 13.1483C11.7966 13.1483 14.4218 10.5517 14.4218 7.36576Z"
+                fill="#102447" />
+            </g>
+            <defs>
+              <clipPath id="clip0_734_7521">
+                <rect width="16" height="16" fill="white" transform="matrix(-1 0 0 1 16 0)" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        <span>التصنيفات</span>
+
+            <ul id="typeList">
+                @foreach (var item in Type)
+                {
+                    <li><a asp-action="GetArticleType" asp-route-Id="@item.Code">@item.ArabicName (@item.EnglishName)</a></li>
+                }
+        </ul>
+
+      </div>
+
+
+    </div>
+
+    <div class="media-article-content">
+
+      <div class="box-svg">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="28" viewBox="0 0 22 28" fill="none">
+          <path
+            d="M3.98662 0.677429L1.94531 2.75555H20.3516L18.3102 0.677429H3.98544H3.98662ZM21.3538 10.9196H0.90625V3.7578H21.3538V10.9196ZM15.2311 8.87949V6.83818H7.067V8.87949H8.06925V7.84043H14.192V8.87949H15.2311ZM21.3538 19.1217H0.90625V11.9599H21.3538V19.1217ZM15.2311 17.0804V15.0022H7.067V17.0804H8.06925V16.0413H14.192V17.0804H15.2311ZM21.3538 27.2857H0.90625V20.1607H21.3538V27.2857ZM15.2311 25.2444V23.2031H7.067V25.2444H8.06925V24.2054H14.192V25.2444H15.2311Z"
+            fill="white" />
+        </svg>
+      </div>
+
+
+      <div class="list-article-content">
+        <svg class="remove1 mb-2" xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42"
+          fill="none">
+          <path d="M27 15L15 27" stroke="black" stroke-width="1" stroke-linecap="round" />
+          <path d="M27 27L15 15" stroke="black" stroke-width="1" stroke-linecap="round" />
+        </svg>
+
+
+        <div class="search-items">
+          <input type="text" name="" id="" placeholder="بحث">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <g clip-path="url(#clip0_734_7521)">
+              <path
+                d="M-2.54588 17.4438L2.84313 12.0465C1.78072 10.7713 1.14174 9.14174 1.14174 7.36191C1.14174 3.30143 4.47138 -0.00012207 8.56702 -0.00012207C12.6627 -0.00012207 16 3.30528 16 7.36576C16 11.4262 12.6704 14.7278 8.57472 14.7278C6.83484 14.7278 5.23354 14.1307 3.96327 13.1329L-1.44498 18.5456C-1.76062 18.8615 -2.23024 18.8615 -2.54588 18.5456C-2.86152 18.2297 -2.86152 17.7597 -2.54588 17.4438ZM14.4218 7.36576C14.4218 4.17593 11.7966 1.58323 8.57472 1.58323C5.35286 1.58323 2.72765 4.17593 2.72765 7.36576C2.72765 10.5556 5.35286 13.1483 8.57472 13.1483C11.7966 13.1483 14.4218 10.5517 14.4218 7.36576Z"
+                fill="#102447" />
+            </g>
+            <defs>
+              <clipPath id="clip0_734_7521">
+                <rect width="16" height="16" fill="white" transform="matrix(-1 0 0 1 16 0)" />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        <span>التصنيفات</span>
+            <ul id="typeList">
+        @foreach (var item in Type)
+            {
+                <li><a href="">@item.ArabicName (@item.EnglishName)</a></li>
+            }
+           </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+@section Scripts{
+
+    <script src="~/customer/content/js/main/article.js"></script>
+
+}
+
+ <script>
+    function search() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById('typeList');
+        li = ul.getElementsByTagName('li');
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName('a')[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = '';
+            } else {
+                li[i].style.display = 'none';
+            }
+        }
+    }
+    document.getElementById('searchInput').addEventListener('input', search);
+ </script> *@
